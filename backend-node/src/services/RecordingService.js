@@ -154,13 +154,14 @@ class RecordingService {
   /**
    * Send recording to ai-python for transcription
    * @param {Object} options - Transcription options
-   * @param {string} options.recordingPath - Path to recording file
-   * @param {string} options.callSid - Call SID for tracking
-   * @param {string} options.phoneNumber - Customer phone number
+   * @param {string} options.recordingPath  - Path to recording file
+   * @param {string} options.callSid        - Call SID for tracking
+   * @param {string} options.phoneNumber    - Customer phone number
+   * @param {string} [options.customerName] - Customer name (optional)
    * @returns {Promise<Object>} Transcription response
    */
   async sendForTranscription(options) {
-    const { recordingPath, callSid, phoneNumber } = options;
+    const { recordingPath, callSid, phoneNumber, customerName } = options;
 
     if (!recordingPath || !callSid) {
       throw new Error('Recording path and call SID are required');
@@ -176,12 +177,14 @@ class RecordingService {
       // Validate recording exists
       await fs.stat(recordingPath);
 
+      // Endpoint: POST /api/call/transcribe (Exotel flow v2)
       const response = await axios.post(
-        `${this.aiEngineUrl}/api/transcribe`,
+        `${this.aiEngineUrl}/api/call/transcribe`,
         {
           recording_path: recordingPath,
-          call_sid: callSid,
-          phone_number: phoneNumber,
+          call_sid:       callSid,
+          phone_number:   phoneNumber,
+          customer_name:  customerName || null,
         },
         {
           timeout: 120000, // 2 minutes for transcription
@@ -251,8 +254,9 @@ class RecordingService {
       // Send for transcription
       const transcriptionResult = await this.sendForTranscription({
         recordingPath: recording.filePath,
-        callSid: CallSid,
-        phoneNumber: callLog.phoneNumber,
+        callSid:       CallSid,
+        phoneNumber:   callLog.phoneNumber,
+        customerName:  callLog.customerName || null,
       });
 
       // Update call log with transcription

@@ -1,0 +1,451 @@
+
+================================================================================
+  AI CALLING AUTOMATION — HOW TO RUN THIS PROJECT
+  Exotel Outbound Voice Calling + Faster-Whisper Transcription
+================================================================================
+
+PROJECT ROOT:
+  /AI Calling - Excel Lead/
+
+FOLDER STRUCTURE:
+  audio/              WAV files served to Exotel for playback
+  backend-node/       Node.js Express server (call orchestration)
+  ai-python/          Python FastAPI server (Whisper transcription)
+  leads/              Excel file with customer leads
+  recordings/         Call recordings downloaded from Exotel
+  logs/               Log files from both services
+
+SYSTEM REQUIREMENTS:
+  - Node.js 18+
+  - Python 3.10+
+  - MongoDB running locally on port 27017
+  - ngrok installed and authenticated
+  - ffmpeg installed (for WAV conversion)
+  - Internet connection (for Exotel API calls)
+
+================================================================================
+  STEP 1 — PREPARE YOUR .env FILES (ONE TIME ONLY)
+================================================================================
+
+--- backend-node/.env ---
+
+  Copy the example:
+    cd backend-node
+    cp .env.example .env
+
+  Then open backend-node/.env and set:
+
+    NODE_ENV=development
+    PORT=3000
+
+    # IMPORTANT: connection.js reads MONGO_URI (not MONGODB_URI)
+    MONGO_URI=mongodb://localhost:27017/ai_calling
+
+    EXOTEL_SID=your_exotel_sid_here
+    EXOTEL_API_KEY=f126470652bca076c7728d552d94e15bb532b196fda11f2b
+    EXOTEL_API_TOKEN=136478c48bf752ed451b6ab34671ea5b0e6dfc2bb8ee5ccb
+    EXOTEL_CALLER_ID=09513886363
+    EXOTEL_BASE_URL=https://api.exotel.com/v1
+
+    # Leave as localhost for now — ngrok URL is auto-detected at startup
+    BASE_URL=http://localhost:3000
+    ALLOW_LOCAL_BASE_URL=true
+
+    AUDIO_DIR=../audio
+    AUDIO_FILE_NAME=greeting_telephony.wav
+
+    LEADS_FILE_PATH=./leads/leads.xlsx
+    CALL_DELAY_MS=3000
+    MAX_CALLS_PER_MINUTE=10
+
+    RECORDINGS_DIR=./recordings
+    AI_ENGINE_URL=http://localhost:8000
+
+--- ai-python/.env ---
+
+  Copy the example:
+    cd ai-python
+    cp .env.example .env
+
+  Then open ai-python/.env and set:
+
+    HOST=0.0.0.0
+    PORT=8000
+
+    MONGO_URI=mongodb://localhost:27017/ai_calling
+    MONGO_DB_NAME=ai_calling
+    MONGO_COLLECTION_CALLS=call_records
+
+    LEADS_FILE_PATH=../leads/leads.xlsx
+    AUDIO_DIR=../audio
+    RECORDINGS_DIR=../recordings
+
+    WHISPER_MODEL=base
+    WHISPER_DEVICE=cpu
+    WHISPER_COMPUTE_TYPE=int8
+    WHISPER_LANGUAGE=hi
+    WHISPER_VAD_FILTER=true
+
+================================================================================
+  STEP 2 — INSTALL DEPENDENCIES (ONE TIME ONLY)
+================================================================================
+
+--- backend-node ---
+
+  cd backend-node
+  npm install
+
+  Verify:
+    node --version      # must be v18+
+    ls node_modules     # should exist after install
+
+--- ai-python ---
+
+  cd ai-python
+  python3 -m venv venv
+  source venv/bin/activate
+  pip install -r requirements.txt
+
+  NOTE: First run downloads Faster-Whisper model weights (~150MB for base).
+  This is automatic — just be patient on the first startup.
+
+  Verify:
+    python3 --version   # must be 3.10+
+
+================================================================================
+  STEP 3 — PREPARE AUDIO FILE (ONE TIME ONLY)
+================================================================================
+
+  The telephony WAV already exists at:
+    audio/greeting_telephony.wav   (8000 Hz, mono, PCM 16-bit)
+
+  If you replace greeting.wav with a new recording, regenerate:
+    cd backend-node
+    npm run optimize-audio
+
+  This runs audio_optimizer.js which uses ffmpeg to convert
+  greeting.wav → greeting_telephony.wav with correct telephony specs.
+
+  Verify the file exists:
+    ls audio/greeting_telephony.wav
+
+================================================================================
+  STEP 4 — PREPARE LEADS EXCEL FILE
+================================================================================
+
+  File location:  leads/leads.xlsx
+  File already exists in the project.
+
+  Column format (sheet 1):
+    Column A: Name           (e.g. Rajesh Sharma)
+    Column B: Mobile Number  (e.g. 9876543210 or +919876543210)
+
+  The system accepts:
+    10-digit:     9876543210     → auto-converts to +919876543210
+    With 91:      919876543210   → auto-converts to +919876543210
+    E.164:        +919876543210  → used as-is
+
+  To generate/edit the Excel file:
+    Open leads/Excel_Gen.ipynb in Jupyter and run all cells,
+    OR edit leads/leads.xlsx directly in LibreOffice / Excel.
+
+================================================================================
+  STEP 5 — RUNTIME STARTUP (EVERY RUN)
+================================================================================
+
+  Open FOUR separate terminal windows/tabs.
+
+  ────────────────────────────────────────────────────────────────────
+  TERMINAL 1 — MongoDB
+  ────────────────────────────────────────────────────────────────────
+
+    sudo systemctl start mongod
+
+    Verify it is running:
+      mongosh --eval "db.adminCommand('ping')"
+      # Expected: { ok: 1 }
+
+    If mongosh is not installed:
+      mongosh mongodb://localhost:27017 --eval "db.adminCommand('ping')"
+
+  ────────────────────────────────────────────────────────────────────
+  TERMINAL 2 — ngrok (HTTPS tunnel for Exotel webhooks)
+  ────────────────────────────────────────────────────────────────────
+
+    ngrok http 3000
+
+    After it starts you will see output like:
+      Forwarding   https://a1b2c3d4.ngrok.io -> http://localhost:3000
+
+    IMPORTANT:
+      Copy that https://xxxxx.ngrok.io URL.
+      The backend-node startup diagnostics AUTO-DETECT the ngrok URL
+      and set BASE_URL automatically, so you do NOT need to manually
+      update .env on every run.
+
+    If auto-detection fails, update backend-node/.env manually:
+      BASE_URL=https://a1b2c3d4.ngrok.io
+
+  ────────────────────────────────────────────────────────────────────
+  TERMINAL 3 — ai-python (Faster-Whisper transcription server)
+  ────────────────────────────────────────────────────────────────────
+
+    cd ai-python
+    source venv/bin/activate
+    python main.py server
+
+    Expected startup output:
+      INFO: AI ENGINE (Exotel flow) — STARTING
+      INFO: Mode: transcription-only (ADB disabled)
+      INFO: MongoDB connected and indexes ensured
+      INFO: Whisper model pre-warmed successfully
+      INFO: AI Engine ready — listening for transcription requests
+      INFO: Uvicorn running on http://0.0.0.0:8000
+
+    Verify it is running:
+      curl http://localhost:8000/health
+      # Expected: {"status":"ok","service":"ai-calling-engine",...}
+
+  ────────────────────────────────────────────────────────────────────
+  TERMINAL 4 — backend-node (Express server + Exotel integration)
+  ────────────────────────────────────────────────────────────────────
+
+    cd backend-node
+    npm run dev       # (uses nodemon, auto-restarts on file changes)
+    # OR for production:
+    npm start
+
+    Expected startup output:
+      Backend server running on http://localhost:3000
+      Environment: development
+      Audio serving: full-buffer 200 (no Accept-Ranges, no 206)
+      Public base URL: https://xxxxx.ngrok.io   ← ngrok auto-detected
+      MongoDB connected: localhost
+      Startup diagnostics passed
+
+    Verify it is running:
+      curl http://localhost:3000/health
+      # Expected: {"status":"ok","service":"ai-calling-backend",...}
+
+================================================================================
+  STEP 6 — TRIGGER THE CAMPAIGN
+================================================================================
+
+  In any terminal (or browser/Postman):
+
+  1. Import leads from Excel into MongoDB:
+       curl -X POST http://localhost:3000/api/leads/import
+
+     Expected response:
+       {"success":true,"message":"Import complete: N inserted, 0 skipped, 0 invalid"}
+
+  2. Start the calling campaign:
+       curl -X POST http://localhost:3000/api/call/start \
+            -H "Content-Type: application/json" \
+            -d '{"campaignName":"My Campaign"}'
+
+     Expected response:
+       {"success":true,"message":"Campaign started successfully","data":{...}}
+
+  3. Monitor progress:
+       curl http://localhost:3000/api/call/status
+
+     Expected response:
+       {
+         "isRunning": true,
+         "totalLeads": 10,
+         "processedLeads": 3,
+         "successfulCalls": 3,
+         "failedCalls": 0,
+         "progressPercent": 30,
+         "mode": "exotel"
+       }
+
+  4. Stop the campaign at any time:
+       curl -X POST http://localhost:3000/api/call/stop
+
+================================================================================
+  STEP 7 — WHAT HAPPENS AUTOMATICALLY (FULL FLOW)
+================================================================================
+
+  1. backend-node reads leads.xlsx → upserts leads into MongoDB
+  2. CampaignService loops through pending leads
+  3. For each lead → ExotelService.initiateCall() → Exotel API
+  4. Exotel places outbound call → customer phone rings
+  5. Customer answers
+  6. Exotel fetches GET  https://ngrok.../voice-flow?campaignId=...&leadId=...
+  7. voiceFlowRoutes returns XML:
+       <Response>
+         <Play>https://ngrok.../audio/greeting_telephony.wav</Play>
+         <Record maxLength="30" timeout="5"
+                 recordingStatusCallback="https://ngrok.../webhook/recording"/>
+         <Hangup/>
+       </Response>
+  8. Exotel fetches GET  https://ngrok.../audio/greeting_telephony.wav
+     → Returns full HTTP 200 buffer (no 206, no partial content)
+  9. Customer HEARS greeting audio
+ 10. Customer speaks → Exotel records
+ 11. Exotel POSTs to https://ngrok.../webhook/recording
+ 12. RecordingService downloads recording → saves to recordings/
+ 13. RecordingService POSTs to http://localhost:8000/api/call/transcribe
+ 14. Faster-Whisper transcribes → YES/NO intent detected
+ 15. MongoDB updated with: transcription, intent, recording path
+ 16. Result returned to backend-node
+
+================================================================================
+  DIAGNOSTIC ENDPOINTS (USE THESE TO VERIFY SETUP)
+================================================================================
+
+  Audio file check (is greeting_telephony.wav valid?):
+    curl https://xxxxx.ngrok.io/debug/audio-report
+
+    Expected:
+      {
+        "file_exists": true,
+        "wav_valid": true,
+        "telephony_compatible": true,
+        "exotel_safe": true,
+        "range_disabled": true,
+        "partial_content_206": false
+      }
+
+  Audio download check (must return 200, never 206):
+    curl -I https://xxxxx.ngrok.io/audio/greeting_telephony.wav
+
+    Expected headers:
+      HTTP/2 200
+      content-type: audio/wav
+      content-length: <number>
+      x-exotel-compat: full-buffer-200
+      (NO accept-ranges header)
+
+  Voice flow XML check:
+    curl https://xxxxx.ngrok.io/voice-flow?campaignId=test&leadId=test
+
+    Expected:
+      <?xml version="1.0" encoding="UTF-8"?>
+      <Response>
+        <Play>https://xxxxx.ngrok.io/audio/greeting_telephony.wav</Play>
+        ...
+
+  Transcription engine check:
+    curl http://localhost:8000/api/call/status
+
+    Expected:
+      {"status":"ready","engine":"faster-whisper","adb_disabled":true,...}
+
+  Manual transcription test:
+    curl -X POST http://localhost:8000/api/call/transcribe \
+         -H "Content-Type: application/json" \
+         -d '{"recording_path":"/abs/path/to/recordings/test.wav","call_sid":"test123"}'
+
+================================================================================
+  VIEW RESULTS IN MONGODB
+================================================================================
+
+  Open MongoDB shell:
+    mongosh mongodb://localhost:27017/ai_calling
+
+  Useful queries:
+    db.call_logs.find().sort({createdAt:-1}).limit(5).pretty()
+    db.call_logs.countDocuments({intent:"YES"})
+    db.call_logs.countDocuments({intent:"NO"})
+    db.call_logs.countDocuments({status:"failed"})
+    db.leads.countDocuments({status:"pending"})
+    db.leads.countDocuments({status:"calling"})
+    db.leads.countDocuments({status:"completed"})
+
+================================================================================
+  LOG FILES
+================================================================================
+
+  Node.js logs:
+    logs/combined.log     all levels
+    logs/error.log        errors only
+
+  Watch live:
+    tail -f logs/combined.log
+    tail -f logs/error.log
+
+================================================================================
+  TROUBLESHOOTING
+================================================================================
+
+  Problem: backend-node crashes with "MONGO_URI is not defined"
+  Fix:     Add to backend-node/.env:
+             MONGO_URI=mongodb://localhost:27017/ai_calling
+           NOTE: The code reads MONGO_URI, not MONGODB_URI.
+
+  Problem: ngrok URL not auto-detected, BASE_URL still localhost
+  Fix:     After starting ngrok, manually set in backend-node/.env:
+             BASE_URL=https://yoururl.ngrok.io
+           Then restart backend-node.
+
+  Problem: Exotel returns 401 Unauthorized
+  Fix:     Verify EXOTEL_SID, EXOTEL_API_KEY, EXOTEL_API_TOKEN in .env.
+           Check RUN.txt for the correct credentials.
+
+  Problem: Customer gets call but hears nothing (silent)
+  Fix:     Check ngrok logs for the audio request:
+             curl http://localhost:4040/api/requests/http
+           Must show GET /audio/greeting_telephony.wav → 200 (not 206).
+           Run: curl https://yoururl.ngrok.io/debug/audio-report
+           to verify file is valid and range is disabled.
+
+  Problem: Webhook not received (recording never processed)
+  Fix:     Exotel must reach the ngrok URL.
+           Test manually:
+             curl -X POST https://yoururl.ngrok.io/webhook/recording \
+                  -H "Content-Type: application/x-www-form-urlencoded" \
+                  -d "CallSid=test&RecordingSid=test&RecordingUrl=http://test.wav"
+           Expected: {"success":true,"message":"Webhook received..."}
+
+  Problem: Whisper model not found / slow first start
+  Fix:     First run downloads the model automatically.
+           Use WHISPER_MODEL=tiny in ai-python/.env for faster testing.
+           Models are cached in ~/.cache/huggingface/
+
+  Problem: Port 3000 already in use
+  Fix:     lsof -i :3000
+           kill -9 <PID>
+
+  Problem: Port 8000 already in use
+  Fix:     lsof -i :8000
+           kill -9 <PID>
+
+================================================================================
+  QUICK REFERENCE — COMMANDS SUMMARY
+================================================================================
+
+  # One-time setup
+  cd backend-node && npm install
+  cd ai-python && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+  npm run optimize-audio   (from backend-node/, if you have new audio files)
+
+  # Every run — open 4 terminals
+  [T1] sudo systemctl start mongod
+  [T2] ngrok http 3000
+  [T3] cd ai-python && source venv/bin/activate && python main.py server
+  [T4] cd backend-node && npm run dev
+
+  # Trigger campaign
+  curl -X POST http://localhost:3000/api/leads/import
+  curl -X POST http://localhost:3000/api/call/start -H "Content-Type: application/json" -d '{"campaignName":"Campaign 1"}'
+
+  # Monitor
+  curl http://localhost:3000/api/call/status
+  curl http://localhost:8000/health
+
+  # Stop
+  curl -X POST http://localhost:3000/api/call/stop
+
+================================================================================
+  API PORTS SUMMARY
+================================================================================
+
+  backend-node    http://localhost:3000   (also exposed via ngrok HTTPS)
+  ai-python       http://localhost:8000   (local only)
+  MongoDB         mongodb://localhost:27017
+  ngrok dashboard http://localhost:4040   (view all requests)
+
+================================================================================
