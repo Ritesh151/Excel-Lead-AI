@@ -1,0 +1,12 @@
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-04 16:47:21.168"}
+{"level":"info","message":"[MongoDB] Created collection: transcriptions","timestamp":"2026-06-04 16:47:21.307"}
+{"level":"info","message":"[MongoDB] Created collection: websocket_events","timestamp":"2026-06-04 16:47:21.318"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-04 16:47:37.671"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-04 16:47:46.007"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-04 16:47:58.468"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-04 16:48:07.079"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-04 16:48:48.494"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-04 16:48:58.050"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-04 16:49:05.757"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-04 16:52:51.709"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-04 16:56:16.188"}

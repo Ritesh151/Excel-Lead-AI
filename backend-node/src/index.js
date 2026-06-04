@@ -14,10 +14,10 @@
  * Android upload (proxy to ai-python):
  *   POST /api/calls/recording        → receive WAV from Android, forward to ai-python
  *
- * Exotel (legacy, still works):
+ * Voice flow & audio:
  *   /audio/:fileName                 → full-buffer WAV (no 206)
- *   /voice-flow                      → ExoML XML
- *   /webhook/recording               → Exotel recording webhook
+ *   /voice-flow                      → voice XML (Play + Record)
+ *   /webhook/recording               → recording webhook
  *
  * WebSocket (ws://localhost:3000/):
  *   Emits real-time events to Android app + dashboard
@@ -25,7 +25,8 @@
 
 'use strict';
 
-require('dotenv').config();
+// config.js loads dotenv and validates all env vars — must be first import
+const config = require('./config');
 
 const http    = require('http');
 const express = require('express');
@@ -47,12 +48,13 @@ const aiPython = require('./services/AiPythonClient');
 const leadsRoutes        = require('./api/routes/leadsRoutes');
 const callRoutes         = require('./api/routes/callRoutes');
 const adbRoutes          = require('./api/routes/adbRoutes');
+const debugRoutes        = require('./api/routes/debugRoutes');
 const voiceFlowRoutes    = require('./routes/voiceFlowRoutes');
 const audioRoutes        = require('./routes/audioRoutes');
 const testAudioRoutes    = require('./routes/testAudioRoutes');
 const webhookRoutes      = require('./routes/webhookRoutes');
-const exotelTestRoutes   = require('./routes/exotelTestRoutes');
 const testCallRoutes     = require('./routes/testCallRoutes');
+const audioDebugRoutes   = require('./routes/exotelTestRoutes');
 const startupDiagnostics = require('./startup/diagnostics');
 
 // ─── App ──────────────────────────────────────────────────────────────────────
@@ -79,7 +81,7 @@ const androidUpload = multer({ storage: androidUploadStorage, limits: { fileSize
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use(morgan('combined', { stream: { write: (msg) => logger.info(msg.trim()) } }));
+app.use(morgan('combined', { stream: logger.morganStream }));
 app.use(authMiddleware);
 
 // Request diagnostics for key paths
@@ -230,11 +232,12 @@ app.post('/api/events/emit', express.json(), (req, res) => {
 app.use('/api/leads',  leadsRoutes);
 app.use('/api/call',   callRoutes);
 app.use('/api/adb',    adbRoutes);
+app.use('/api/debug',  debugRoutes);
 app.use('/audio',      audioRoutes);
 app.use('/voice-flow', voiceFlowRoutes);
 app.use('/webhook',    webhookRoutes);
 app.use('/',           testCallRoutes);
-app.use('/',           exotelTestRoutes);
+app.use('/',           audioDebugRoutes);
 app.use('/',           testAudioRoutes);
 
 // ─── 404 ─────────────────────────────────────────────────────────────────────
@@ -279,7 +282,6 @@ async function bootstrap() {
     );
 
     _validateDependencies().catch(() => {});
-    _validateExotelAccount().catch(() => {});
 
     const shutdown = async (signal) => {
       logger.info(`${signal} — shutting down`);
@@ -306,22 +308,6 @@ async function _validateDependencies() {
     logger.warn('[Startup] ⚠ ai-python not reachable — ADB calls will fail until started:', err.message);
   }
   logger.info(`[Startup] WebSocket ready — path / (${wsServer.clientCount} clients)`);
-}
-
-async function _validateExotelAccount() {
-  try {
-    const ExotelService = require('./services/ExotelService');
-    const result = await ExotelService.validateAccount();
-    if (result.valid) {
-      logger.info('[Startup] ✓ Exotel account validated');
-    } else if (result.httpStatus === 403 && !result.kyc) {
-      logger.warn('[Startup] ⚠ Exotel KYC incomplete — Exotel calls will fail (ADB mode unaffected)');
-    } else {
-      logger.warn('[Startup] ⚠ Exotel status unknown', result);
-    }
-  } catch (err) {
-    logger.warn('[Startup] Exotel check skipped:', err.message);
-  }
 }
 
 bootstrap();

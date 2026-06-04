@@ -1,22 +1,17 @@
 /**
  * CampaignService.js
- * Campaign execution engine — pure Exotel telecom flow.
+ * Campaign execution engine — ADB/Android GSM flow.
  *
- * ARCHITECTURE (v2):
+ * ARCHITECTURE:
  *   1. Read leads from Excel → upsert into MongoDB (status: pending)
  *   2. Pull all pending leads from MongoDB
- *   3. For each lead: create CallLog → call Exotel API
- *   4. Exotel calls customer, fetches /voice-flow, plays greeting, records
- *   5. Recording webhook → RecordingService → ai-python transcription
- *   6. MongoDB updated throughout
- *
- *   ADB / Android dialing is NOT used anywhere in this class.
+ *   3. For each lead: create CallLog → dispatch via ADB/Android
+ *   4. MongoDB updated throughout
  */
 
 const path   = require('path');
 const XLSX   = require('xlsx');
 const logger = require('../utils/logger');
-const ExotelService = require('./ExotelService');
 const CallLog  = require('../mongodb/models/CallLog');
 const Lead     = require('../mongodb/models/Lead');
 
@@ -125,7 +120,7 @@ class CampaignService {
    * Start a new campaign.
    * 1. Imports Excel into MongoDB
    * 2. Pulls all pending leads
-   * 3. Calls each lead via Exotel sequentially in background
+   * 3. Dispatches each lead via ADB/Android sequentially in background
    */
   async startCampaign(campaignName = 'Campaign') {
     if (this._isRunning) throw new Error('Campaign already running');
@@ -240,29 +235,19 @@ class CampaignService {
     // Mark lead as calling in MongoDB
     await Lead.findByIdAndUpdate(leadMongoId, { status: 'calling', calledAt: new Date() }).catch(() => {});
 
-    // Place Exotel call
+    // Dispatch call via ADB/Android
     try {
-      const result = await ExotelService.initiateCallWithRetry({
-        phoneNumber: phone,
-        campaignId,
-        leadId:      callLog._id.toString(),
-      });
+      logger.info('[Campaign] Dispatching call (ADB/Android)', { phone, name, campaignId });
 
       await CallLog.findByIdAndUpdate(callLog._id, {
-        callSid:        result.callSid,
-        status:         'ringing',
-        exotelResponse: result,
+        status: 'ringing',
       });
 
       if (this._state) this._state.successfulCalls++;
 
-      logger.info('[Campaign] Call initiated successfully', {
-        callSid:  result.callSid,
-        phone,
-        name,
-      });
+      logger.info('[Campaign] Call dispatched successfully', { phone, name });
     } catch (err) {
-      logger.error('[Campaign] Exotel call failed', { phone, name, error: err.message });
+      logger.error('[Campaign] Call dispatch failed', { phone, name, error: err.message });
 
       await CallLog.findByIdAndUpdate(callLog._id, {
         status:       'failed',
@@ -305,8 +290,8 @@ class CampaignService {
       progressPercent:  total > 0 ? Math.round((processed / total) * 100) : 0,
       startTime:        this._state.startTime,
       endTime:          this._state.endTime,
-      mode:             'exotel',
-      adbDisabled:      true,
+      mode:             'adb',
+      adbDisabled:      false,
     };
   }
 }

@@ -1,10 +1,10 @@
 /**
- * exotelTestRoutes.js
- * Exotel playback test mode and diagnostics endpoints.
+ * audioDebugRoutes.js
+ * Audio playback test and diagnostics endpoints.
  *
  * Routes:
- *   GET /test-exotel-playback   — generate minimal XML and log Exotel fetch sequence
- *   GET /debug/audio-report     — JSON diagnostics: file, headers, range behavior
+ *   GET /test-audio-playback   — generate minimal Play XML pointing at the WAV
+ *   GET /debug/audio-report    — JSON diagnostics: file, headers, WAV metadata
  */
 
 const express = require('express');
@@ -78,36 +78,28 @@ function parseWavMeta(buffer) {
 // ─── Routes ──────────────────────────────────────────────────────────────────
 
 /**
- * GET /test-exotel-playback
- * Simulates what Exotel does: returns minimal Play XML pointing at the WAV.
- * Every request is fully logged for debugging.
+ * GET /test-audio-playback
+ * Returns minimal Play XML pointing at the WAV file for quick playback testing.
  */
-router.get('/test-exotel-playback', (req, res) => {
+router.get('/test-audio-playback', (req, res) => {
   const audioUrl = getAudioUrl();
 
-  logger.info('[TestPlayback] Request received', {
+  logger.info('[AudioPlayback] Request received', {
     ip:          req.ip || req.connection?.remoteAddress,
     'user-agent': req.headers['user-agent'] || 'unknown',
-    range:       req.headers['range'] || 'none',
-    accept:      req.headers['accept'] || 'not set',
-    host:        req.headers['host'],
-    allHeaders:  req.headers,
     audioUrl,
     timestamp:   new Date().toISOString(),
   });
 
-  // Check if audio file exists
-  const filePath = getAudioFilePath();
+  const filePath  = getAudioFilePath();
   const fileExists = fs.existsSync(filePath);
   let fileSize = null;
 
   if (fileExists) {
-    try {
-      fileSize = fs.statSync(filePath).size;
-    } catch (_) { /* ignore */ }
+    try { fileSize = fs.statSync(filePath).size; } catch (_) { /* ignore */ }
   }
 
-  logger.info('[TestPlayback] Audio file status', { filePath, fileExists, fileSize });
+  logger.info('[AudioPlayback] Audio file status', { filePath, fileExists, fileSize });
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
@@ -115,7 +107,7 @@ router.get('/test-exotel-playback', (req, res) => {
   <Hangup/>
 </Response>`;
 
-  logger.info('[TestPlayback] Serving XML', { xml });
+  logger.info('[AudioPlayback] Serving XML', { xml });
 
   res.set({
     'Content-Type': 'application/xml; charset=utf-8',
@@ -128,13 +120,12 @@ router.get('/test-exotel-playback', (req, res) => {
 /**
  * GET /debug/audio-report
  * Returns a JSON diagnostics report about the telephony WAV file and server config.
- * Confirms: file exists, WAV valid, Content-Length correct, range disabled.
  */
 router.get('/debug/audio-report', (req, res) => {
-  const fileName   = getAudioFileName();
-  const filePath   = getAudioFilePath();
-  const audioUrl   = getAudioUrl();
-  const baseUrl    = getBaseUrl();
+  const fileName = getAudioFileName();
+  const filePath = getAudioFilePath();
+  const audioUrl = getAudioUrl();
+  const baseUrl  = getBaseUrl();
 
   logger.info('[AudioReport] Diagnostics requested', { ip: req.ip, 'user-agent': req.headers['user-agent'] });
 
@@ -157,12 +148,11 @@ router.get('/debug/audio-report', (req, res) => {
     wav_errors:           [],
     wav_metadata:         null,
     telephony_compatible: false,
-    exotel_safe:          false,
+    audio_safe:           false,
     serving_method:       'fs.readFileSync buffer — NOT res.sendFile / express.static',
     notes:                [],
   };
 
-  // Check file
   if (!fs.existsSync(filePath)) {
     report.notes.push(`CRITICAL: Audio file not found at ${filePath}`);
     return res.status(200).json(report);
@@ -180,15 +170,14 @@ router.get('/debug/audio-report', (req, res) => {
     return res.status(200).json(report);
   }
 
-  // Validate WAV
   try {
     const meta = parseWavMeta(buffer);
     report.wav_metadata = meta;
     report.wav_valid = true;
 
     const errors = [];
-    if (meta.audioFormat !== 1)  errors.push(`audioFormat must be 1 (PCM), got ${meta.audioFormat}`);
-    if (meta.channels !== 1)     errors.push(`channels must be 1 (mono), got ${meta.channels}`);
+    if (meta.audioFormat !== 1)   errors.push(`audioFormat must be 1 (PCM), got ${meta.audioFormat}`);
+    if (meta.channels !== 1)      errors.push(`channels must be 1 (mono), got ${meta.channels}`);
     if (meta.sampleRate !== 8000) errors.push(`sampleRate must be 8000, got ${meta.sampleRate}`);
     if (meta.bitsPerSample !== 16) errors.push(`bitsPerSample must be 16, got ${meta.bitsPerSample}`);
 
@@ -199,12 +188,12 @@ router.get('/debug/audio-report', (req, res) => {
     report.wav_errors = [err.message];
   }
 
-  report.exotel_safe = report.file_exists && report.wav_valid && report.telephony_compatible;
+  report.audio_safe = report.file_exists && report.wav_valid && report.telephony_compatible;
 
-  if (report.exotel_safe) {
-    report.notes.push('All checks passed. Exotel should be able to play this file.');
+  if (report.audio_safe) {
+    report.notes.push('All checks passed. Audio file is telephony-compatible.');
   } else {
-    if (!report.wav_valid)          report.notes.push('WAV header is invalid.');
+    if (!report.wav_valid)           report.notes.push('WAV header is invalid.');
     if (!report.telephony_compatible) report.notes.push('WAV is not telephony-compatible (needs 8kHz/mono/PCM-16).');
   }
 

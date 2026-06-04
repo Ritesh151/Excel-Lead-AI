@@ -31,11 +31,6 @@ android {
         buildConfig = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
-    }
-    // Note: with Kotlin 2.x, compose compiler is bundled via the plugin above
-
     packagingOptions {
         resources {
             excludes += setOf(
@@ -49,6 +44,7 @@ android {
             )
         }
     }
+    
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

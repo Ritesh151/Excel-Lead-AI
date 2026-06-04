@@ -1,19 +1,15 @@
 /**
  * voiceFlowRoutes.js
- * Exotel voice XML endpoint and call-status webhook.
- *
- * CRITICAL: Exotel requires Content-Type: text/xml (NOT application/xml).
- * If wrong Content-Type is returned, Exotel ignores the XML and plays nothing.
+ * Voice XML endpoint and call-status webhook.
  *
  * Endpoints:
- *   GET  /voice-flow               — Exotel fetches this when customer answers
- *   POST /voice-flow/call-status   — Exotel posts call lifecycle events
+ *   GET  /voice-flow               — fetched when customer answers
+ *   POST /voice-flow/call-status   — call lifecycle status events
  */
 
 const express  = require('express');
 const logger   = require('../utils/logger');
 const CallLog  = require('../mongodb/models/CallLog');
-const ExotelService = require('../services/ExotelService');
 
 const router = express.Router();
 
@@ -32,31 +28,38 @@ function getRecordingWebhookUrl() {
   return `${getBaseUrl()}/webhook/recording`;
 }
 
+/**
+ * Generate a minimal voice XML response.
+ */
+function generateVoiceXML({ audioUrl, recordingWebhookUrl }) {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Play>${audioUrl}</Play>
+  <Record action="${recordingWebhookUrl}" maxLength="120" playBeep="false"/>
+  <Hangup/>
+</Response>`;
+}
+
 // ─── GET /voice-flow ──────────────────────────────────────────────────────────
 
 /**
- * Exotel calls this URL when the customer answers.
- * Must return valid ExoML (Exotel XML) with Content-Type: text/xml.
+ * Called when the customer answers — returns voice XML to play the greeting.
  */
 router.get('/', async (req, res) => {
   const { campaignId, leadId } = req.query;
   const audioUrl      = getAudioUrl();
   const webhookUrl    = getRecordingWebhookUrl();
 
-  // ── Full request diagnostics ────────────────────────────────────────────────
-  logger.info('[VoiceFlow] ✓ VOICE FLOW HIT — Exotel fetched XML', {
+  logger.info('[VoiceFlow] Voice flow hit', {
     campaignId,
     leadId,
     audioUrl,
     webhookUrl,
-    ip:          req.ip || req.connection?.remoteAddress,
-    userAgent:   req.headers['user-agent'] || 'unknown',
-    host:        req.headers['host'],
-    allHeaders:  req.headers,
-    timestamp:   new Date().toISOString(),
+    ip:        req.ip || req.connection?.remoteAddress,
+    userAgent: req.headers['user-agent'] || 'unknown',
+    timestamp: new Date().toISOString(),
   });
 
-  // ── Update CallLog status ───────────────────────────────────────────────────
   if (leadId && leadId !== 'test') {
     CallLog.findByIdAndUpdate(leadId, {
       status:     'answered',
@@ -66,12 +69,10 @@ router.get('/', async (req, res) => {
     );
   }
 
-  // ── Generate ExoML ──────────────────────────────────────────────────────────
-  const xml = ExotelService.generateVoiceXML({ audioUrl, recordingWebhookUrl: webhookUrl });
+  const xml = generateVoiceXML({ audioUrl, recordingWebhookUrl: webhookUrl });
 
   logger.info('[VoiceFlow] Serving XML', { xml });
 
-  // CRITICAL: Content-Type MUST be text/xml — Exotel rejects application/xml
   res.set({
     'Content-Type':  'text/xml; charset=utf-8',
     'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -85,7 +86,7 @@ router.get('/', async (req, res) => {
 // ─── POST /voice-flow/call-status ─────────────────────────────────────────────
 
 /**
- * Exotel posts call lifecycle events here.
+ * Receives call lifecycle events.
  * Status values: ringing | in-progress | completed | failed | busy | no-answer
  */
 router.post('/call-status', async (req, res) => {

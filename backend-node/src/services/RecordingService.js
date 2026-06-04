@@ -2,7 +2,7 @@
  * RecordingService.js
  * Recording download, storage, and transcription pipeline
  * Responsibilities:
- *   - Download recordings from Exotel
+ *   - Download recordings from a URL (Android/ADB source)
  *   - Validate and store recordings
  *   - Trigger transcription requests
  *   - Handle webhook responses
@@ -11,10 +11,10 @@
 
 const fs = require('fs').promises;
 const path = require('path');
+const axios = require('axios');
 const logger = require('../utils/logger');
 const aiPython = require('./AiPythonClient');
 const CallLog = require('../mongodb/models/CallLog');
-const ExotelService = require('./ExotelService');
 
 class RecordingService {
   constructor() {
@@ -42,20 +42,21 @@ class RecordingService {
   }
 
   /**
-   * Download recording from Exotel
-   * @param {string} callSid - Exotel call SID
-   * @param {string} recordingSid - Recording SID
+   * Download recording from a URL (e.g. provided by Android/ADB webhook).
+   * @param {string} callSid - Call SID for naming
+   * @param {string} recordingUrl - Direct URL to the recording file
    * @returns {Promise<Object>} Recording file info
    */
-  async downloadRecording(callSid, recordingSid) {
-    if (!callSid || !recordingSid) {
-      throw new Error('Call SID and Recording SID are required');
+  async downloadRecording(callSid, recordingUrl) {
+    if (!callSid || !recordingUrl) {
+      throw new Error('Call SID and Recording URL are required');
     }
 
     try {
-      logger.info('Downloading recording', { callSid, recordingSid });
+      logger.info('Downloading recording', { callSid, recordingUrl });
 
-      const buffer = await ExotelService.downloadRecording(recordingSid);
+      const response = await axios.get(recordingUrl, { responseType: 'arraybuffer', timeout: 30000 });
+      const buffer = Buffer.from(response.data);
       const filename = `${callSid}_${Date.now()}.wav`;
       const filePath = path.join(this.recordingsDir, filename);
 
@@ -72,12 +73,12 @@ class RecordingService {
         filename,
         filePath,
         size: stats.size,
-        recordingSid,
+        recordingUrl,
       };
     } catch (error) {
       logger.error('Failed to download recording', {
         callSid,
-        recordingSid,
+        recordingUrl,
         error: error.message,
       });
       throw error;
@@ -87,13 +88,13 @@ class RecordingService {
   /**
    * Download recording with retry logic
    * @param {string} callSid - Call SID
-   * @param {string} recordingSid - Recording SID
+   * @param {string} recordingUrl - URL to recording
    * @param {number} attempt - Current attempt
    * @returns {Promise<Object>} Recording info
    */
-  async downloadRecordingWithRetry(callSid, recordingSid, attempt = 1) {
+  async downloadRecordingWithRetry(callSid, recordingUrl, attempt = 1) {
     try {
-      return await this.downloadRecording(callSid, recordingSid);
+      return await this.downloadRecording(callSid, recordingUrl);
     } catch (error) {
       if (attempt < this.maxRetries) {
         logger.warn('Recording download failed, retrying', {
@@ -102,7 +103,7 @@ class RecordingService {
         });
 
         await new Promise((resolve) => setTimeout(resolve, this.retryDelay));
-        return this.downloadRecordingWithRetry(callSid, recordingSid, attempt + 1);
+        return this.downloadRecordingWithRetry(callSid, recordingUrl, attempt + 1);
       }
 
       throw error;
@@ -207,7 +208,7 @@ class RecordingService {
   }
 
   /**
-   * Process recording webhook from Exotel
+   * Process recording webhook
    * @param {Object} webhookData - Webhook payload
    * @returns {Promise<Object>} Processing result
    */
@@ -229,8 +230,8 @@ class RecordingService {
         throw new Error('Call log not found');
       }
 
-      // Download recording
-      const recording = await this.downloadRecordingWithRetry(CallSid, RecordingSid);
+      // Download recording using the provided URL
+      const recording = await this.downloadRecordingWithRetry(CallSid, RecordingUrl);
 
       // Validate recording
       await this.validateRecording(recording.filePath);

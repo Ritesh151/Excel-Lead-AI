@@ -5,8 +5,11 @@ FastAPI router — ADB+Android+Kotlin GSM call execution AND transcription.
 Endpoints:
   POST /api/call/execute     — ADB dial + wait for Android automation + return intent
   POST /api/call/transcribe  — Transcribe a recording by file path
-  POST /api/calls/recording  — Android app uploads WAV directly (multipart)
   GET  /api/call/status      — Engine readiness + ADB device status
+  GET  /api/debug/device     — ADB device diagnostics
+  GET  /api/debug/campaign   — Campaign/queue state
+  GET  /api/debug/adb        — Raw ADB state dump
+  GET  /api/debug/queue      — Queue processing state
 """
 
 from __future__ import annotations
@@ -25,7 +28,7 @@ from transcription.transcription_service import TranscriptionService
 from db.models import CallRecord, CallStatus
 from db.call_repository import CallRepository
 
-router = APIRouter(prefix="/api/call", tags=["Call"])
+router = APIRouter(tags=["Call"])
 
 # ─── Shared service singleton ──────────────────────────────────────────────────
 
@@ -47,12 +50,13 @@ def _get_transcription_service() -> TranscriptionService:
 class ExecuteCallRequest(BaseModel):
     """
     POST /api/call/execute
-    Called by backend-node AdbCampaignService to trigger a single ADB call.
-    ai-python dials via ADB and waits for the Android Kotlin app to complete
-    the automation (audio routing + recording + upload).
+    Called by backend-node AdbCampaignService.
+    Fields accepted: name, phone, lead_id (optional), campaign_id (optional).
     """
     name: str
     phone: str
+    lead_id: Optional[str] = None
+    campaign_id: Optional[str] = None
 
 
 class ExecuteCallResponse(BaseModel):
@@ -68,11 +72,6 @@ class ExecuteCallResponse(BaseModel):
 
 
 class TranscribeRequest(BaseModel):
-    """
-    POST /api/call/transcribe
-    Called by backend-node RecordingService after downloading an Exotel recording,
-    OR called when backend-node forwards a recording from the Android app.
-    """
     recording_path: str
     call_sid: Optional[str] = None
     phone_number: Optional[str] = None
@@ -94,7 +93,7 @@ class TranscribeResponse(BaseModel):
 # ─── POST /api/call/execute ────────────────────────────────────────────────────
 
 @router.post(
-    "/execute",
+    "/api/call/execute",
     response_model=ExecuteCallResponse,
     summary="ADB dial + wait for Android automation + return intent",
 )
@@ -105,22 +104,22 @@ async def execute_call(request: ExecuteCallRequest):
     Flow:
       1. ADB dials the customer via Samsung SIM
       2. Android Kotlin app (CallAutomationService) detects CONNECTED
-      3. Android plays greeting.wav via PcmStreamingEngine (5 strategies)
+      3. Android plays greeting.wav via PcmStreamingEngine
       4. Android records 18s customer response
-      5. Android uploads WAV to POST /api/calls/recording (this server)
-      6. Whisper transcribes → intent detected → MongoDB saved
-      7. This endpoint polls for completion and returns the result
+      5. Android uploads WAV → Whisper → intent saved to MongoDB
+      6. This endpoint returns the result
 
     Used by: AdbCampaignService.js (backend-node)
     """
-    logger.info(f"[Execute] Request: name={request.name} phone={request.phone}")
+    logger.info(f"[Execute] Request: name={request.name} phone={request.phone} "
+                f"lead_id={request.lead_id} campaign_id={request.campaign_id}")
     t0 = time.monotonic()
 
     try:
         from workers.call_worker import execute_call as worker_execute_call
         result = worker_execute_call(name=request.name, phone=request.phone)
     except Exception as exc:
-        logger.error(f"[Execute] Worker exception: {exc}")
+        logger.error(f"[Execute] Worker exception: {exc}", exc_info=True)
         return ExecuteCallResponse(
             success=False,
             name=request.name,
@@ -132,7 +131,6 @@ async def execute_call(request: ExecuteCallRequest):
 
     duration = round(time.monotonic() - t0, 2)
 
-    # Map stage enum to string safely
     stage_val = result.stage.value if hasattr(result.stage, "value") else str(result.stage)
     intent_val = result.intent.value if hasattr(result.intent, "value") else str(result.intent)
 
@@ -141,6 +139,16 @@ async def execute_call(request: ExecuteCallRequest):
         f"success={result.success} intent={intent_val} "
         f"stage={stage_val} duration={duration}s"
     )
+
+    # Notify backend-node of call completion
+    try:
+        from integration.backend_events import emit_call_completed, emit_call_failed
+        if result.success:
+            emit_call_completed(request.phone, intent_val, result.transcription or "", None)
+        else:
+            emit_call_failed(request.phone, result.error_message or "Call failed")
+    except Exception as e:
+        logger.debug(f"[Execute] Backend event notify skipped: {e}")
 
     return ExecuteCallResponse(
         success=result.success,
@@ -155,66 +163,10 @@ async def execute_call(request: ExecuteCallRequest):
     )
 
 
-# ─── POST /api/calls/recording ─────────────────────────────────────────────────
-
-@router.post(
-    "/recording",
-    response_model=TranscribeResponse,
-    tags=["Recording"],
-    summary="Android app uploads recording WAV directly",
-)
-async def receive_android_recording(
-    file: UploadFile = File(...),
-    callType: str = Form(default="outgoing"),
-    remoteNumber: str = Form(default="unknown"),
-    timestamp: str = Form(default=""),
-):
-    """
-    Receives a WAV recording uploaded directly by the Android Kotlin app
-    (ApiClient.kt → POST /api/calls/recording).
-
-    Saves the file to recordings/, runs Whisper transcription, detects intent,
-    saves to MongoDB, and returns the result to the Android app.
-
-    NOTE: The route is registered WITHOUT the /api/call prefix to match
-    the Android app's existing endpoint: /api/calls/recording
-    This router adds /api/call prefix so we use a separate router registration.
-    """
-    logger.info(
-        f"[AndroidUpload] Received: filename={file.filename} "
-        f"number={remoteNumber} callType={callType} ts={timestamp}"
-    )
-    t0 = time.monotonic()
-
-    # Save uploaded file
-    recordings_dir = Path(settings.recordings_dir).resolve()
-    recordings_dir.mkdir(parents=True, exist_ok=True)
-
-    safe_name = f"android_{remoteNumber.replace('+', '')}_{timestamp or int(time.time())}.wav"
-    save_path = recordings_dir / safe_name
-
-    try:
-        content = await file.read()
-        save_path.write_bytes(content)
-        logger.info(f"[AndroidUpload] Saved {len(content)} bytes → {save_path}")
-    except Exception as exc:
-        logger.error(f"[AndroidUpload] Save failed: {exc}")
-        raise HTTPException(status_code=500, detail=f"Failed to save recording: {exc}")
-
-    # Transcribe
-    return await _transcribe_and_save(
-        recording_path=save_path,
-        phone_number=remoteNumber if remoteNumber != "unknown" else None,
-        customer_name=None,
-        call_sid=None,
-        t0=t0,
-    )
-
-
 # ─── POST /api/call/transcribe ────────────────────────────────────────────────
 
 @router.post(
-    "/transcribe",
+    "/api/call/transcribe",
     response_model=TranscribeResponse,
     summary="Transcribe a recording by file path",
 )
@@ -222,10 +174,6 @@ async def transcribe_recording(request: TranscribeRequest):
     """
     Accept a recording file path, transcribe with Faster-Whisper,
     detect YES/NO intent, save to MongoDB, return result.
-
-    Called by:
-    - backend-node RecordingService.sendForTranscription (Exotel flow)
-    - backend-node AdbCampaignService after Android upload
     """
     logger.info(
         f"[Transcribe] Path={request.recording_path} "
@@ -251,12 +199,8 @@ async def transcribe_recording(request: TranscribeRequest):
 
 # ─── GET /api/call/status ─────────────────────────────────────────────────────
 
-@router.get("/status", summary="Engine readiness + ADB device status")
+@router.get("/api/call/status", summary="Engine readiness + ADB device status")
 async def get_status():
-    """
-    Health check for the transcription engine and ADB device.
-    Returns Whisper model status and ADB device info.
-    """
     result: dict = {
         "status": "ready",
         "engine": "faster-whisper",
@@ -266,19 +210,14 @@ async def get_status():
         "mongodb": False,
     }
 
-    # Whisper status
     try:
         svc = _get_transcription_service()
         model_name = getattr(svc.engine, "_model_name", "unknown")
-        result["whisper"] = {
-            "model": model_name,
-            "ready": svc.engine.is_ready,
-        }
+        result["whisper"] = {"model": model_name, "ready": svc.engine.is_ready}
     except Exception as exc:
         result["whisper"] = {"error": str(exc), "ready": False}
         result["status"] = "initializing"
 
-    # ADB device status
     try:
         from adb.device_checker import get_connected_devices
         from adb.models import DeviceState
@@ -292,12 +231,140 @@ async def get_status():
     except Exception as exc:
         result["adb"] = {"error": str(exc)}
 
-    # MongoDB ping
     try:
         from db.utils import ping
         result["mongodb"] = ping()
     except Exception:
         result["mongodb"] = False
+
+    return result
+
+
+# ─── GET /api/debug/device ────────────────────────────────────────────────────
+
+@router.get("/api/debug/device", summary="Full ADB device diagnostics")
+async def debug_device():
+    """Return complete device health: online/offline, model, Android version, call state."""
+    result: dict = {
+        "timestamp": time.time(),
+        "adb_binary": None,
+        "devices": [],
+        "selected_device": None,
+        "call_state": None,
+        "screen_on": None,
+        "error": None,
+    }
+
+    import shutil
+    result["adb_binary"] = shutil.which("adb")
+
+    try:
+        from adb.device_checker import get_connected_devices, enrich_device_info
+        from adb.models import DeviceState
+        devices = get_connected_devices()
+        result["devices"] = [
+            {"serial": d.serial, "state": d.state.value, "model": d.model or ""}
+            for d in devices
+        ]
+        online = [d for d in devices if d.state == DeviceState.ONLINE]
+        if online:
+            dev = enrich_device_info(online[0])
+            result["selected_device"] = {
+                "serial": dev.serial,
+                "model": dev.model,
+                "android_version": dev.android_version,
+            }
+            try:
+                from adb.adb_manager import AdbManager
+                mgr = AdbManager(serial=dev.serial)
+                result["call_state"] = mgr.get_call_state_int()
+                result["screen_on"] = mgr.is_screen_on()
+            except Exception as e:
+                result["call_state"] = f"error: {e}"
+    except Exception as exc:
+        result["error"] = str(exc)
+
+    return result
+
+
+# ─── GET /api/debug/adb ───────────────────────────────────────────────────────
+
+@router.get("/api/debug/adb", summary="Raw ADB state and telephony dump")
+async def debug_adb():
+    """Return raw telephony.registry dump and device state."""
+    result: dict = {
+        "timestamp": time.time(),
+        "device_serial": settings.adb_device_serial or "auto",
+        "call_state_int": None,
+        "telephony_raw_snippet": None,
+        "error": None,
+    }
+    try:
+        from adb.adb_manager import AdbManager
+        serial = settings.adb_device_serial or None
+        mgr = AdbManager(serial=serial)
+        raw = mgr.get_telephony_state_raw()
+        result["call_state_int"] = mgr.get_call_state_int()
+        # Return only first 500 chars to keep response small
+        result["telephony_raw_snippet"] = raw[:500] if raw else ""
+    except Exception as exc:
+        result["error"] = str(exc)
+
+    return result
+
+
+# ─── GET /api/debug/campaign ──────────────────────────────────────────────────
+
+@router.get("/api/debug/campaign", summary="Campaign/orchestrator state")
+async def debug_campaign():
+    """Return current orchestrator state — active leads, retries, current phone."""
+    from workers.call_worker import _orchestrator
+    if _orchestrator is None:
+        return {
+            "timestamp": time.time(),
+            "initialized": False,
+            "message": "Orchestrator not yet initialized (no calls have been made)",
+        }
+    return {
+        "timestamp": time.time(),
+        "initialized": True,
+        "should_stop": _orchestrator._should_stop,
+        "results_count": len(_orchestrator._results),
+        "leads_loaded": len(_orchestrator._leads),
+        "device_serial": _orchestrator._device.serial if _orchestrator._device else None,
+        "device_model": _orchestrator._device.model if _orchestrator._device else None,
+    }
+
+
+# ─── GET /api/debug/queue ─────────────────────────────────────────────────────
+
+@router.get("/api/debug/queue", summary="Queue processing diagnostics")
+async def debug_queue():
+    """Check MongoDB queue state: pending/calling/completed counts."""
+    result: dict = {
+        "timestamp": time.time(),
+        "mongodb_connected": False,
+        "pending": 0,
+        "calling": 0,
+        "completed": 0,
+        "failed": 0,
+        "error": None,
+    }
+    try:
+        from db.mongodb_client import get_client
+        from db.utils import ping
+        result["mongodb_connected"] = ping()
+        if result["mongodb_connected"]:
+            # Try to query lead counts if leads collection is accessible
+            client = get_client()
+            db = client._client[settings.mongo_db_name]
+            for status in ("pending", "calling", "completed", "failed"):
+                try:
+                    result[status] = db["leads"].count_documents({"status": status})
+                except Exception:
+                    result[status] = -1
+    except Exception as exc:
+        result["error"] = str(exc)
 
     return result
 
@@ -313,7 +380,6 @@ async def _transcribe_and_save(
 ) -> TranscribeResponse:
     """Shared logic: Whisper + intent + MongoDB save."""
 
-    # Transcribe
     try:
         svc = _get_transcription_service()
     except Exception as exc:
@@ -331,7 +397,7 @@ async def _transcribe_and_save(
 
     logger.info(
         f"[Transcribe] intent={intent_str} "
-        f'text="{result.transcription[:80]}" '
+        f'text="{(result.transcription or "")[:80]}" '
         f"conf={result.confidence:.2f} "
         f"time={elapsed_ms:.0f}ms"
     )

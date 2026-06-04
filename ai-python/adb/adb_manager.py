@@ -203,8 +203,8 @@ class AdbManager:
         Place an outgoing SIM call to `phone` using the tel: URI.
 
         Uses `am start` with ACTION_CALL — does NOT use `shell=True`.
-        The phone number is passed as a separate argument element so it
-        cannot break out of the URI context.
+        Also wakes the screen and dismisses keyguard before dialing to
+        ensure the Samsung dialler is in foreground.
 
         Args:
             phone: E.164 number, e.g. "+919427047705"
@@ -218,14 +218,46 @@ class AdbManager:
 
         logger.info(f"Dialling {phone} via ADB ACTION_CALL")
 
-        self._run(
+        # Wake + unlock screen before dialing (critical for Samsung)
+        try:
+            if not self.is_screen_on():
+                self.wake_screen()
+                time.sleep(0.3)
+            self.dismiss_keyguard()
+            time.sleep(0.3)
+        except Exception as exc:
+            logger.warning(f"Screen wake/unlock failed (continuing anyway): {exc}")
+
+        # Primary dial command: ACTION_CALL (requires CALL_PHONE permission on device)
+        result = self._run(
             [
                 "shell", "am", "start",
                 "-a", "android.intent.action.CALL",
                 "-d", uri,
             ],
             timeout=_DIAL_CMD_TIMEOUT,
+            check=False,  # don't raise — inspect output
         )
+
+        # am start returns 0 but may print "Error:" on some Samsung versions
+        if result.returncode != 0 or "Error" in result.stdout or "error" in result.stderr:
+            logger.warning(
+                f"ACTION_CALL may have failed (rc={result.returncode}): "
+                f"stdout={result.stdout.strip()} stderr={result.stderr.strip()}"
+            )
+            # Fallback: try ACTION_DIAL (opens dialler without CALL_PHONE, less reliable)
+            logger.info(f"Trying ACTION_DIAL fallback for {phone}")
+            self._run(
+                [
+                    "shell", "am", "start",
+                    "-a", "android.intent.action.DIAL",
+                    "-d", uri,
+                ],
+                timeout=_DIAL_CMD_TIMEOUT,
+                check=False,
+            )
+        else:
+            logger.info(f"ACTION_CALL sent successfully: {result.stdout.strip() or 'ok'}")
 
     def hangup(self) -> None:
         """

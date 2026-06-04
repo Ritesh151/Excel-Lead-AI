@@ -1,9 +1,9 @@
 package com.optimatrix.gsmcall.audio
 
 import android.content.Context
-import androidx.media.MediaMetadataCompat
-import androidx.media.session.MediaSessionCompat
-import androidx.media.session.PlaybackStateCompat
+import android.support.v4.media.MediaMetadataCompat
+import android.support.v4.media.session.MediaSessionCompat
+import android.support.v4.media.session.PlaybackStateCompat
 import com.optimatrix.gsmcall.utils.LogStore
 
 class MediaSessionController(context: Context) {

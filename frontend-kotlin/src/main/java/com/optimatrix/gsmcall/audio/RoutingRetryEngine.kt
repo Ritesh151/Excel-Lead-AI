@@ -97,7 +97,7 @@ class RoutingRetryEngine(private val context: Context) {
         reports += playWithMediaPlayer(
             wavFile,
             "MediaPlayer_VoiceComm",
-            audioManager.MODE_IN_COMMUNICATION,
+            audioManager.mode,
             usageVoiceCommunication = true,
             speakerphone = false
         )

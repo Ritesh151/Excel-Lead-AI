@@ -4,7 +4,17 @@
             "outputFile": "com.optimatrix.gsmcall-mergeDebugResources-63:/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "/home/ritesh/.gradle/caches/8.12/transforms/95b59f7991aa34ec4114736f29f6d604/transformed/appcompat-1.6.1/res/values-v23/values-v23.xml",
+                    "source": "/home/ritesh/.gradle/caches/8.12/transforms/f7e2578a9dbfa272da0e8db2c9224825/transformed/work-runtime-2.9.1/res/values-v23/values-v23.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,121",
+                        "endColumns": "65,62",
+                        "endOffsets": "116,179"
+                    }
+                },
+                {
+                    "source": "/home/ritesh/.gradle/caches/8.12/transforms/f03932b265377a29570f8bebe0b8bf42/transformed/appcompat-1.6.1/res/values-v23/values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,20,34,35,36,39,43,44,45,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -23,17 +33,7 @@
                     }
                 },
                 {
-                    "source": "/home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/res/values-v23/values-v23.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,121",
-                        "endColumns": "65,62",
-                        "endOffsets": "116,179"
-                    }
-                },
-                {
-                    "source": "/home/ritesh/.gradle/caches/8.12/transforms/7c31450abeb2510264da59bdb58fd670/transformed/material-1.12.0/res/values-v23/values-v23.xml",
+                    "source": "/home/ritesh/.gradle/caches/8.12/transforms/65f728c297b41a2b8a3ad4e7ff714df7/transformed/material-1.12.0/res/values-v23/values-v23.xml",
                     "from": {
                         "startLines": "2,5,9,13,16,19,22,25,28,32",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -52,7 +52,7 @@
                     }
                 },
                 {
-                    "source": "/home/ritesh/.gradle/caches/8.12/transforms/057b84f551900a49877541bb8d67a6dd/transformed/cardview-1.0.0/res/values-v23/values-v23.xml",
+                    "source": "/home/ritesh/.gradle/caches/8.12/transforms/d0299720d38d2a8a932a25084005fe17/transformed/cardview-1.0.0/res/values-v23/values-v23.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

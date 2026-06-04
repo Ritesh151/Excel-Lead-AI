@@ -4,7 +4,7 @@
             "outputFile": "com.optimatrix.gsmcall-mergeReleaseResources-60:/values-v28/values-v28.xml",
             "map": [
                 {
-                    "source": "/home/ritesh/.gradle/caches/8.12/transforms/43c8dc172ad0236bbdbaf75ae3a651bd/transformed/material-1.12.0/res/values-v28/values-v28.xml",
+                    "source": "/home/ritesh/.gradle/caches/8.12/transforms/65f728c297b41a2b8a3ad4e7ff714df7/transformed/material-1.12.0/res/values-v28/values-v28.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/home/ritesh/.gradle/caches/8.12/transforms/2d885547f40c0ee80fbdc24389a7738e/transformed/appcompat-1.6.1/res/values-v28/values-v28.xml",
+                    "source": "/home/ritesh/.gradle/caches/8.12/transforms/f03932b265377a29570f8bebe0b8bf42/transformed/appcompat-1.6.1/res/values-v28/values-v28.xml",
                     "from": {
                         "startLines": "2,3,4,8",
                         "startColumns": "4,4,4,4",
