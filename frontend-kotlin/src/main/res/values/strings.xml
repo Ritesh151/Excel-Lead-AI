@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GSM Call Automation</string>
+    <string name="service_title">GSM Call Automation Service</string>
+    <string name="service_description">Monitoring active GSM calls and playing greeting audio.</string>
+</resources>

@@ -1,0 +1,25 @@
+# ─── Node.js ──────────────────────────────────────────────────────────────────
+backend-node/node_modules/
+backend-node/.env
+
+# ─── Python ───────────────────────────────────────────────────────────────────
+ai-python/.env
+ai-python/__pycache__/
+ai-python/**/__pycache__/
+ai-python/*.pyc
+ai-python/.venv/
+ai-python/venv/
+
+# ─── Logs ─────────────────────────────────────────────────────────────────────
+logs/*.log
+logs/*.zip
+!logs/.gitkeep
+
+# ─── Recordings ───────────────────────────────────────────────────────────────
+recordings/*.wav
+recordings/*.mp3
+!recordings/.gitkeep
+
+# ─── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

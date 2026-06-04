@@ -1,0 +1,276 @@
+API for Project -> 
+EXTOL_API_KEY = f126470652bca076c7728d552d94e15bb532b196fda11f2b
+EXOTEL_API_TOKEN= 136478c48bf752ed451b6ab34671ea5b0e6dfc2bb8ee5ccb
+EXOTEL_CALLER_ID=09513886363
+
+
+
+╔══════════════════════════════════════════════════════════════════╗
+║         AI VOICE CALLING AUTOMATION — RUN INSTRUCTIONS          ║
+╚══════════════════════════════════════════════════════════════════╝
+
+════════════════════════════════════════════════════════════════════
+PREREQUISITES
+════════════════════════════════════════════════════════════════════
+
+  1. Python 3.10+
+  2. Node.js 18+
+  3. MongoDB running (default: mongodb://localhost:27017)
+  4. Android device connected via USB with ADB debugging enabled
+  5. USB audio device or loopback for PC audio → phone mic path
+  6. Audio files present:
+       audio/greeting.wav
+       audio/thank_you.wav
+  7. Excel leads file:
+       leads/leads.xlsx   (columns: Name, Mobile Number)
+
+
+════════════════════════════════════════════════════════════════════
+FOLDER 1 — ai-python/  (Python AI Engine)
+════════════════════════════════════════════════════════════════════
+
+  ── Install Dependencies ──────────────────────────────────────────
+
+      cd ai-python
+      pip install -r requirements.txt
+
+  ── Configuration ─────────────────────────────────────────────────
+
+      cp .env.example .env
+      # Edit .env if needed (MongoDB URI, paths, model size, etc.)
+
+  ── Verify ADB Device ─────────────────────────────────────────────
+
+      python main.py check
+
+      Expected output:
+        Serial:   <device_serial>
+        Model:    <device_model>
+        State:    device
+        Ready:    True
+        ADB:      OK
+
+  ── Run as Server (recommended) ────────────────────────────────────
+
+      python main.py server
+
+      Starts FastAPI on http://localhost:8000
+      Endpoints:
+        GET  /health
+        POST /api/call/execute     — execute single call
+        GET  /api/call/status      — engine status
+        POST /api/campaign/start   — start campaign (background)
+        POST /api/campaign/stop    — stop campaign
+        GET  /api/campaign/status  — campaign progress
+
+  ── Run as CLI (alternative) ───────────────────────────────────────
+
+      python main.py run
+
+      Options:
+        --file, -f  PATH   Custom leads file path
+        --json, -j  PATH   Save results as JSON file
+
+      Examples:
+        python main.py run
+        python main.py run --file ../leads/custom.xlsx
+        python main.py run --json results.json
+
+  ── Other CLI Commands ─────────────────────────────────────────────
+
+      python main.py intent "haan bilkul"    # Test intent detection
+      python main.py check                   # Verify ADB device
+
+
+════════════════════════════════════════════════════════════════════
+FOLDER 2 — backend-node/  (Node.js Backend)
+════════════════════════════════════════════════════════════════════
+
+  ── Install Dependencies ──────────────────────────────────────────
+
+      cd backend-node
+      npm install
+
+  ── Configuration ─────────────────────────────────────────────────
+
+      cp .env.example .env
+      # Key settings:
+      #   PORT=3000
+      #   MONGO_URI=mongodb://localhost:27017/ai_calling
+      #   AI_ENGINE_URL=http://localhost:8000   (Python FastAPI)
+      #   LEADS_FILE_PATH=../leads/leads.xlsx
+
+  ── Start Server ──────────────────────────────────────────────────
+
+      npm start
+      # or for development with auto-reload:
+      npm run dev
+
+      Starts Express on http://localhost:3000
+      Endpoints:
+        GET  /health
+        GET  /api/leads              — list all leads
+        GET  /api/leads/:id          — get lead by ID
+        POST /api/leads/import       — import leads from Excel
+        POST /api/call/start         — start sequential calling
+        POST /api/call/stop          — stop campaign
+        GET  /api/call/status        — campaign status
+
+
+════════════════════════════════════════════════════════════════════
+FOLDER 3 — leads/  (Excel Leads File)
+════════════════════════════════════════════════════════════════════
+
+  ── Format ────────────────────────────────────────────────────────
+
+      File: leads/leads.xlsx
+      Columns:
+        A: Name           (e.g. "Rajesh Gajjar")
+        B: Mobile Number  (e.g. "+91 9427047705")
+
+  ── Import Options ────────────────────────────────────────────────
+
+      Option A: Node.js API (if backend-node is running)
+        curl -X POST http://localhost:3000/api/leads/import
+
+      Option B: Python reads directly at campaign start
+        (handled automatically when campaign starts)
+
+  ── Notes ─────────────────────────────────────────────────────────
+
+      - Phone numbers are auto-normalized to E.164 format
+      - Duplicate phone numbers are skipped (only first entry kept)
+      - Invalid rows are logged and skipped
+
+
+════════════════════════════════════════════════════════════════════
+FOLDER 4 — audio/  (Audio Files)
+════════════════════════════════════════════════════════════════════
+
+  Required files:
+      audio/greeting.wav     — played when call connects
+      audio/thank_you.wav    — played when caller says YES
+
+  Audio specs:
+      Format:  WAV (PCM)
+      Sample:  16000 Hz, mono, 16-bit (recommended)
+      Volume:  Normalised to -3dB to -1dB peak
+
+  Greeting text suggestion:
+      "Hello, I'm Ritesh Gajjar from Opti Matrix,
+       are you looking for any IT Services?"
+
+
+════════════════════════════════════════════════════════════════════
+FOLDER 5 — recordings/  (Call Recordings)
+════════════════════════════════════════════════════════════════════
+
+  Recorded WAV files are saved here automatically.
+  File naming:  <phone_number>_<timestamp>.wav
+  Example:      +919427047705_20260603_170000.wav
+
+
+════════════════════════════════════════════════════════════════════
+FOLDER 6 — logs/  (Log Files)
+════════════════════════════════════════════════════════════════════
+
+  Python logs:    logs/ai_engine.log
+  Python errors:  logs/ai_engine_error.log
+  Node.js logs:   logs/combined.log
+  Node.js errors: logs/error.log
+
+
+════════════════════════════════════════════════════════════════════
+STARTUP ORDER
+════════════════════════════════════════════════════════════════════
+
+  Step 1:  Start MongoDB
+             mongod --dbpath /var/lib/mongodb
+             # or: sudo systemctl start mongod
+
+  Step 2:  Connect Android device via USB
+             adb devices
+             # Ensure device shows as "device"
+
+  Step 3:  Start Python FastAPI
+             cd ai-python
+             python main.py server
+
+  Step 4:  Start Node.js backend
+             cd backend-node
+             npm start
+
+  Step 5:  Import leads (if needed)
+             curl -X POST http://localhost:3000/api/leads/import
+
+  Step 6:  Start campaign
+             curl -X POST http://localhost:3000/api/call/start
+             # OR use Python CLI directly:
+             cd ai-python && python main.py run
+
+
+════════════════════════════════════════════════════════════════════
+QUICK START (one-liner per terminal)
+════════════════════════════════════════════════════════════════════
+
+  Terminal 1 — Python FastAPI:
+      cd ai-python && python main.py server
+
+  Terminal 2 — Node.js:
+      cd backend-node && npm start
+
+  Terminal 3 — Trigger campaign:
+      curl -X POST http://localhost:3000/api/leads/import
+      curl -X POST http://localhost:3000/api/call/start
+
+  Terminal 3 — Monitor:
+      curl http://localhost:3000/api/call/status
+
+
+════════════════════════════════════════════════════════════════════
+API QUICK REFERENCE
+════════════════════════════════════════════════════════════════════
+
+  Node.js (port 3000):
+    GET  /health                    Health check
+    GET  /api/leads                 List all leads
+    GET  /api/leads/:id             Get lead by ID
+    POST /api/leads/import          Import leads from Excel
+    POST /api/call/start            Start campaign
+    POST /api/call/stop             Stop campaign
+    GET  /api/call/status           Campaign status
+
+  Python FastAPI (port 8000):
+    GET  /health                    Health check
+    POST /api/call/execute          Execute single call
+    GET  /api/call/status           Engine status
+    POST /api/campaign/start        Start campaign
+    POST /api/campaign/stop         Stop campaign
+    GET  /api/campaign/status       Campaign progress
+
+
+════════════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+════════════════════════════════════════════════════════════════════
+
+  Issue: ADB device not found
+    → Run: adb devices
+    → Ensure USB debugging is enabled on phone
+    → Try: adb kill-server && adb start-server && adb devices
+
+  Issue: MongoDB connection refused
+    → Run: mongosh --eval "db.runCommand({ping:1})"
+    → Ensure mongod is running
+
+  Issue: Whisper model download slow
+    → First run downloads model weights (~1.5GB for base model)
+    → Use --model tiny for faster downloads (less accurate)
+
+  Issue: Audio not playing through phone call
+    → Ensure PC speaker is the default playback device
+    → Phone microphone captures the speaker audio
+    → Adjust AUDIO_VOLUME in .env (0.0 - 1.0)
+
+  Issue: "faster-whisper" not installed
+    → Run: pip install faster-whisper
+    → On ARM/Raspberry Pi, use: pip install faster-whisper --no-deps
