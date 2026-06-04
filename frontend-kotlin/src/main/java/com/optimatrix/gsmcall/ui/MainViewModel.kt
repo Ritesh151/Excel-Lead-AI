@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 /**
@@ -209,6 +210,84 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             "ws_disconnected" -> _uiState.update { it.copy(websocketConnected = false, backendStatus = "offline") }
 
             else -> { /* ignore unknown events */ }
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Campaign control — called by MainActivity "Start/Stop automation" buttons
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Start the local Android foreground service AND trigger the backend campaign.
+     *
+     * Sequence:
+     *   1. Update state to "starting"
+     *   2. POST /api/adb/start on IO thread
+     *   3. On success → update campaignRunning state
+     *   4. On failure → surface error in UI
+     *
+     * The caller is responsible for also calling
+     * `CallAutomationService.startService(context)` to start the local service
+     * so the Android app is ready to handle the incoming ADB-dialed calls.
+     */
+    fun startCampaign(campaignName: String = "Android Campaign") {
+        if (_uiState.value.campaignStarting || _uiState.value.campaignRunning) {
+            appendLog("⚠ Campaign already starting or running — ignoring duplicate request")
+            return
+        }
+
+        appendLog("🚀 Starting campaign on backend: $campaignName")
+        LogStore.log("ViewModel", "startCampaign: $campaignName")
+
+        _uiState.update { it.copy(campaignStarting = true, campaignStartError = "") }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = try {
+                apiClient.startCampaign(campaignName)
+            } catch (ex: Exception) {
+                LogStore.log("ViewModel", "startCampaign exception: ${ex.message}")
+                null
+            }
+
+            withContext(Dispatchers.Main) {
+                if (result == null) {
+                    val msg = "Failed to reach backend — is it running at ${com.optimatrix.gsmcall.NetworkConfig.httpBaseUrl}?"
+                    _uiState.update { it.copy(campaignStarting = false, campaignStartError = msg) }
+                    appendLog("❌ $msg")
+                    return@withContext
+                }
+                if (result.success) {
+                    _uiState.update { it.copy(
+                        campaignStarting  = false,
+                        campaignStartError = "",
+                        campaignRunning   = true,
+                        campaignId        = result.campaignId ?: "",
+                        campaignTotalLeads = result.totalLeads,
+                    ) }
+                    appendLog("✅ Campaign started: ${result.campaignId} — ${result.totalLeads} leads queued")
+                    LogStore.log("ViewModel", "Campaign started: id=${result.campaignId} leads=${result.totalLeads}")
+                } else {
+                    val msg = result.errorMessage ?: "Backend returned success=false"
+                    _uiState.update { it.copy(campaignStarting = false, campaignStartError = msg) }
+                    appendLog("❌ Campaign start failed: $msg")
+                    LogStore.log("ViewModel", "Campaign start failed: $msg")
+                }
+            }
+        }
+    }
+
+    /**
+     * Stop the running campaign and the local Android service.
+     */
+    fun stopCampaign() {
+        appendLog("🛑 Stopping campaign…")
+        LogStore.log("ViewModel", "stopCampaign requested")
+        viewModelScope.launch(Dispatchers.IO) {
+            val ok = try { apiClient.stopCampaign() } catch (_: Exception) { false }
+            withContext(Dispatchers.Main) {
+                _uiState.update { it.copy(campaignRunning = false, campaignStarting = false) }
+                appendLog(if (ok) "✅ Campaign stop requested" else "⚠ Stop request sent (may not have reached backend)")
+            }
         }
     }
 

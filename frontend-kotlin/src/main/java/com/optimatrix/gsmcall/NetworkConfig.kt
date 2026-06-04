@@ -1,5 +1,7 @@
 package com.optimatrix.gsmcall
 
+import com.optimatrix.gsmcall.BuildConfig
+
 /**
  * Central network configuration — override via local.properties:
  *   BACKEND_HOST=192.168.1.50
@@ -12,3 +14,4 @@ object NetworkConfig {
     val httpBaseUrl: String = "http://$host:$port"
     val wsUrl: String = "ws://$host:$port/"
 }
+

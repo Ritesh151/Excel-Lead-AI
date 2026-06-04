@@ -201,6 +201,82 @@ class ApiClient(private val context: Context) {
         }
     }
 
+    // ── Campaign control ──────────────────────────────────────────────────────
+
+    data class StartCampaignResult(
+        val success: Boolean,
+        val campaignId: String?,
+        val totalLeads: Int,
+        val message: String?,
+        val errorMessage: String? = null,
+    )
+
+    /**
+     * POST /api/adb/start — trigger ADB campaign on backend-node.
+     * Backend reads Excel, builds queue, starts dialing via ai-python.
+     * Returns immediately (campaign runs async on backend).
+     */
+    fun startCampaign(campaignName: String = "Android Campaign"): StartCampaignResult {
+        LogStore.log("ApiClient", "POST $BASE_URL/api/adb/start  name=$campaignName")
+        return try {
+            val body = "{\"campaignName\":\"$campaignName\"}"
+                .toRequestBody("application/json".toMediaTypeOrNull())
+            val request = Request.Builder()
+                .url("$BASE_URL/api/adb/start")
+                .post(body)
+                .addHeader("User-Agent", "Android-GSM-AI/3.0 (okhttp)")
+                .build()
+            client.newCall(request).execute().use { response ->
+                val bodyStr = response.body?.string().orEmpty()
+                LogStore.log("ApiClient", "startCampaign response: ${response.code} $bodyStr")
+                if (!response.isSuccessful) {
+                    return StartCampaignResult(
+                        success = false,
+                        campaignId = null,
+                        totalLeads = 0,
+                        message = null,
+                        errorMessage = "HTTP ${response.code}: $bodyStr",
+                    )
+                }
+                val json = JSONObject(bodyStr)
+                val data = json.optJSONObject("data") ?: json
+                StartCampaignResult(
+                    success    = json.optBoolean("success", true),
+                    campaignId = data.optString("campaignId").takeIf { it.isNotBlank() },
+                    totalLeads = data.optInt("totalLeads", 0),
+                    message    = data.optString("message").takeIf { it.isNotBlank() },
+                )
+            }
+        } catch (ex: Exception) {
+            LogStore.log("ApiClient", "startCampaign exception: ${ex.javaClass.simpleName}: ${ex.message}")
+            StartCampaignResult(
+                success      = false,
+                campaignId   = null,
+                totalLeads   = 0,
+                message      = null,
+                errorMessage = ex.message,
+            )
+        }
+    }
+
+    /**
+     * POST /api/adb/stop — stop the running campaign after the current call.
+     */
+    fun stopCampaign(): Boolean {
+        LogStore.log("ApiClient", "POST $BASE_URL/api/adb/stop")
+        return try {
+            val request = Request.Builder()
+                .url("$BASE_URL/api/adb/stop")
+                .post("{}".toRequestBody("application/json".toMediaTypeOrNull()))
+                .addHeader("User-Agent", "Android-GSM-AI/3.0 (okhttp)")
+                .build()
+            client.newCall(request).execute().use { it.isSuccessful }
+        } catch (ex: Exception) {
+            LogStore.log("ApiClient", "stopCampaign exception: ${ex.message}")
+            false
+        }
+    }
+
     // ── Data models ──────────────────────────────────────────────────────────
 
     data class IntentResponse(

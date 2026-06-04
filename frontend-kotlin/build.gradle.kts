@@ -15,8 +15,14 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        val backendHost = (project.findProperty("BACKEND_HOST") as String?) ?: "192.168.1.100"
-        val backendPort = (project.findProperty("BACKEND_PORT") as String?) ?: "3000"
+        val localPropertiesFile = rootProject.file("local.properties")
+        val localProperties = java.util.Properties()
+        if (localPropertiesFile.exists()) {
+            localProperties.load(localPropertiesFile.inputStream())
+        }
+
+        val backendHost = localProperties.getProperty("BACKEND_HOST") ?: "192.168.1.100"
+        val backendPort = localProperties.getProperty("BACKEND_PORT") ?: "3000"
 
         buildConfigField("String", "BACKEND_HOST", "\"$backendHost\"")
         buildConfigField("int", "BACKEND_PORT", backendPort)

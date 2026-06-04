@@ -1,3 +1,5 @@
 {"level":"info","message":"::1 - - [04/Jun/2026:11:23:25 +0000] \"POST /api/adb/start HTTP/1.1\" 200 286 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-04 16:53:25.750"}
 {"level":"info","message":"::1 - - [04/Jun/2026:11:23:27 +0000] \"POST /api/events/emit HTTP/1.1\" 200 50 \"-\" \"python-httpx/0.28.1\"","timestamp":"2026-06-04 16:53:27.833"}
 {"level":"info","message":"::1 - - [04/Jun/2026:11:23:30 +0000] \"GET /api/debug/pipeline HTTP/1.1\" 503 464 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-04 16:53:30.135"}
+{"level":"info","message":"::1 - - [04/Jun/2026:12:06:54 +0000] \"POST /api/events/emit HTTP/1.1\" 200 50 \"-\" \"python-httpx/0.28.1\"","timestamp":"2026-06-04 17:36:54.091"}
+{"level":"info","message":"::1 - - [04/Jun/2026:12:06:54 +0000] \"POST /api/adb/call HTTP/1.1\" 200 223 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-04 17:36:54.275"}

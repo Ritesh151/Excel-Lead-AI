@@ -10,15 +10,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -46,11 +49,13 @@ fun MainScreen(
             CallDetailCard(state)
             CampaignCard(state)
             ActionRow(
-                state.permissionsGranted,
-                onRequestPermissions,
-                onStartService,
-                onStopService,
-                onExportLogs,
+                granted = state.permissionsGranted,
+                onRequestPermissions = onRequestPermissions,
+                onStartService = onStartService,
+                onStopService = onStopService,
+                onExportLogs = onExportLogs,
+                campaignStarting = state.campaignStarting,
+                campaignRunning  = state.campaignRunning,
             )
             LogPanel(state.logs, onClearLogs, modifier = Modifier.weight(1f))
         }
@@ -103,13 +108,35 @@ private fun CampaignCard(state: MainUiState) {
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text("Campaign", style = MaterialTheme.typography.titleSmall)
-            if (state.campaignRunning || state.campaignTotalLeads > 0) {
-                Text("ID: ${state.campaignId.ifBlank { "—" }}")
-                Text("Progress: ${state.campaignProcessed}/${state.campaignTotalLeads}  YES=${state.campaignYesCount}  NO=${state.campaignNoCount}")
-                val progress = (state.campaignProgress.coerceIn(0, 100)) / 100f
-                LinearProgressIndicator(progress = progress, modifier = Modifier.fillMaxWidth())
-            } else {
-                Text("No active campaign (start via backend POST /api/adb/start)")
+
+            when {
+                state.campaignStarting -> {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        CircularProgressIndicator(modifier = Modifier.size(18.dp), strokeWidth = 2.dp)
+                        Text("Starting campaign on backend…")
+                    }
+                }
+                state.campaignStartError.isNotBlank() -> {
+                    Text(
+                        "❌ ${state.campaignStartError}",
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                }
+                state.campaignRunning || state.campaignTotalLeads > 0 -> {
+                    Text("ID: ${state.campaignId.ifBlank { "—" }}")
+                    Text("Progress: ${state.campaignProcessed}/${state.campaignTotalLeads}  YES=${state.campaignYesCount}  NO=${state.campaignNoCount}")
+                    LinearProgressIndicator(
+                        progress = { (state.campaignProgress.coerceIn(0, 100)) / 100f },
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+                else -> {
+                    Text("No active campaign — press \"Start automation\" below")
+                }
             }
         }
     }
@@ -122,16 +149,40 @@ private fun ActionRow(
     onStartService: () -> Unit,
     onStopService: () -> Unit,
     onExportLogs: () -> Unit,
+    campaignStarting: Boolean = false,
+    campaignRunning: Boolean = false,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Button(onClick = onRequestPermissions, modifier = Modifier.fillMaxWidth()) {
-            Text(text = if (granted) "Permissions ready" else "Request permissions")
+            Text(text = if (granted) "✅ Permissions ready" else "⚠ Request permissions")
         }
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-            Button(onClick = onStartService, modifier = Modifier.weight(1f)) {
-                Text("Start automation")
+            Button(
+                onClick = onStartService,
+                enabled = !campaignStarting && !campaignRunning,
+                modifier = Modifier.weight(1f),
+            ) {
+                if (campaignStarting) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .size(16.dp)
+                            .padding(end = 4.dp),
+                        strokeWidth = 2.dp,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                    )
+                }
+                Text(
+                    when {
+                        campaignStarting -> "Starting…"
+                        campaignRunning  -> "Running…"
+                        else             -> "Start automation"
+                    }
+                )
             }
-            Button(onClick = onStopService, modifier = Modifier.weight(1f)) {
+            Button(
+                onClick = onStopService,
+                modifier = Modifier.weight(1f),
+            ) {
                 Text("Stop automation")
             }
         }

@@ -35,6 +35,8 @@ data class MainUiState(
 
     // Campaign progress
     val campaignRunning: Boolean = false,
+    val campaignStarting: Boolean = false,    // true while POST /api/adb/start is in-flight
+    val campaignStartError: String = "",      // non-empty when start failed
     val campaignId: String = "",
     val campaignTotalLeads: Int = 0,
     val campaignProcessed: Int = 0,

@@ -51,8 +51,16 @@ class MainActivity : ComponentActivity() {
             MainScreen(
                 state = state,
                 onRequestPermissions = { requestPermissions() },
-                onStartService = { CallAutomationService.startService(this) },
-                onStopService = { CallAutomationService.stopService(this) },
+                onStartService = {
+                    // 1. Start the Android foreground service (handles in-call audio + recording)
+                    CallAutomationService.startService(this)
+                    // 2. Tell the backend to start the campaign (fetches Excel, queues ADB calls)
+                    viewModel.startCampaign("Android Campaign")
+                },
+                onStopService = {
+                    CallAutomationService.stopService(this)
+                    viewModel.stopCampaign()
+                },
                 onExportLogs = { exportLogs() },
                 onClearLogs = { viewModel.clearLogs() },
             )
