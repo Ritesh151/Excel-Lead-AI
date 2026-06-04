@@ -12,17 +12,18 @@ const logger = require('../utils/logger');
  * Exits the process on failure so the app never starts in a broken state.
  */
 async function connect() {
-  const uri = process.env.MONGO_URI;
+  const uri = process.env.MONGO_URI || process.env.MONGODB_URI;
 
   if (!uri) {
-    logger.error('MONGO_URI is not defined in environment variables');
+    logger.error('MONGO_URI (or MONGODB_URI) is not defined in environment variables');
     process.exit(1);
   }
 
   try {
     await mongoose.connect(uri, {
-      // Recommended options for Mongoose 8+
       serverSelectionTimeoutMS: 5000,
+      maxPoolSize: parseInt(process.env.MONGO_MAX_POOL_SIZE || '10', 10),
+      retryWrites: true,
     });
 
     logger.info(`MongoDB connected: ${mongoose.connection.host}`);

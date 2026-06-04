@@ -1,0 +1,506 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.optimatrix.gsmcall"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="34" />
+10
+11    <!-- Core telephony permissions -->
+12    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+12-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:7:5-71
+12-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:7:22-68
+13    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+13-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:8:5-75
+13-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:8:22-72
+14    <uses-permission android:name="android.permission.CALL_PHONE" />
+14-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:9:5-69
+14-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:9:22-66
+15    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
+15-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:10:5-77
+15-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:10:22-74
+16    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+16-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:11:5-81
+16-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:11:22-78
+17    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+17-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:12:5-72
+17-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:12:22-69
+18    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+18-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:13:5-73
+18-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:13:22-70
+19    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+19-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:14:5-75
+19-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:14:22-72
+20
+21    <!-- Service persistence permissions -->
+22    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+22-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:17:5-77
+22-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:17:22-74
+23    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
+23-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:18:5-88
+23-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:18:22-85
+24    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+24-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:19:5-88
+24-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:19:22-85
+25    <uses-permission android:name="android.permission.WAKE_LOCK" />
+25-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:20:5-68
+25-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:20:22-65
+26    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+26-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:21:5-95
+26-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:21:22-92
+27    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+27-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:22:5-78
+27-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:22:22-75
+28
+29    <!-- Notification -->
+30    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+30-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:25:5-77
+30-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:25:22-74
+31
+32    <!-- Storage — for recording files -->
+33    <uses-permission
+33-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:28:5-29:38
+34        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+34-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:28:22-78
+35        android:maxSdkVersion="28" />
+35-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:29:9-35
+36    <uses-permission
+36-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:30:5-31:38
+37        android:name="android.permission.READ_EXTERNAL_STORAGE"
+37-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:30:22-77
+38        android:maxSdkVersion="32" />
+38-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:31:9-35
+39    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+39-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:32:5-33:40
+39-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:32:22-79
+40
+41    <!-- Bluetooth SCO routing -->
+42    <uses-permission android:name="android.permission.BLUETOOTH" />
+42-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:36:5-68
+42-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:36:22-65
+43    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+43-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:37:5-76
+43-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:37:22-73
+44    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+44-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:38:5-80
+44-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:38:22-77
+45
+46    <!-- Network for WebSocket/API -->
+47    <uses-permission android:name="android.permission.INTERNET" />
+47-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:41:5-67
+47-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:41:22-64
+48    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+48-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:42:5-79
+48-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:42:22-76
+49    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+49-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:43:5-79
+49-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:43:22-76
+50
+51    <!-- Receive boot completed for auto-start -->
+52    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+52-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:46:5-81
+52-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:46:22-78
+53
+54    <uses-feature
+54-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:48:5-87
+55        android:name="android.hardware.telephony"
+55-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:48:19-60
+56        android:required="true" />
+56-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:48:61-84
+57    <uses-feature
+57-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:49:5-88
+58        android:name="android.hardware.microphone"
+58-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:49:19-61
+59        android:required="true" />
+59-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:49:62-85
+60
+61    <permission
+61-->[androidx.core:core:1.13.0] /home/ritesh/.gradle/caches/8.12/transforms/6f8ba0f9dc67a5f1f383c3e9ad28e817/transformed/core-1.13.0/AndroidManifest.xml:22:5-24:47
+62        android:name="com.optimatrix.gsmcall.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+62-->[androidx.core:core:1.13.0] /home/ritesh/.gradle/caches/8.12/transforms/6f8ba0f9dc67a5f1f383c3e9ad28e817/transformed/core-1.13.0/AndroidManifest.xml:23:9-81
+63        android:protectionLevel="signature" />
+63-->[androidx.core:core:1.13.0] /home/ritesh/.gradle/caches/8.12/transforms/6f8ba0f9dc67a5f1f383c3e9ad28e817/transformed/core-1.13.0/AndroidManifest.xml:24:9-44
+64
+65    <uses-permission android:name="com.optimatrix.gsmcall.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+65-->[androidx.core:core:1.13.0] /home/ritesh/.gradle/caches/8.12/transforms/6f8ba0f9dc67a5f1f383c3e9ad28e817/transformed/core-1.13.0/AndroidManifest.xml:26:5-97
+65-->[androidx.core:core:1.13.0] /home/ritesh/.gradle/caches/8.12/transforms/6f8ba0f9dc67a5f1f383c3e9ad28e817/transformed/core-1.13.0/AndroidManifest.xml:26:22-94
+66
+67    <application
+67-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:51:5-107:19
+68        android:allowBackup="false"
+68-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:52:9-36
+69        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+69-->[androidx.core:core:1.13.0] /home/ritesh/.gradle/caches/8.12/transforms/6f8ba0f9dc67a5f1f383c3e9ad28e817/transformed/core-1.13.0/AndroidManifest.xml:28:18-86
+70        android:debuggable="true"
+71        android:exported="true"
+71-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:57:9-32
+72        android:extractNativeLibs="false"
+73        android:icon="@android:drawable/sym_call_incoming"
+73-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:54:9-59
+74        android:label="GSM Call AI"
+74-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:53:9-36
+75        android:requestLegacyExternalStorage="true"
+75-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:58:9-52
+76        android:roundIcon="@android:drawable/sym_call_incoming"
+76-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:55:9-64
+77        android:supportsRtl="true" >
+77-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:56:9-35
+78
+79        <!-- Main activity -->
+80        <activity
+80-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:62:9-71:20
+81            android:name="com.optimatrix.gsmcall.ui.MainActivity"
+81-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:63:13-66
+82            android:exported="true"
+82-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:64:13-36
+83            android:launchMode="singleTop"
+83-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:65:13-43
+84            android:screenOrientation="portrait" >
+84-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:66:13-49
+85            <intent-filter>
+85-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:67:13-70:29
+86                <action android:name="android.intent.action.MAIN" />
+86-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:68:17-69
+86-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:68:25-66
+87
+88                <category android:name="android.intent.category.LAUNCHER" />
+88-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:69:17-77
+88-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:69:27-74
+89            </intent-filter>
+90        </activity>
+91
+92        <!-- Core automation foreground service -->
+93        <service
+93-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:74:9-80:38
+94            android:name="com.optimatrix.gsmcall.services.CallAutomationService"
+94-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:75:13-81
+95            android:enabled="true"
+95-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:80:13-35
+96            android:exported="false"
+96-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:76:13-37
+97            android:foregroundServiceType="phoneCall|microphone"
+97-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:77:13-65
+98            android:persistent="false"
+98-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:79:13-39
+99            android:stopWithTask="false" />
+99-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:78:13-41
+100
+101        <!-- Accessibility service for Samsung InCallUI monitoring -->
+102        <service
+102-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:83:9-94:19
+103            android:name="com.optimatrix.gsmcall.accessibility.CallAccessibilityService"
+103-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:84:13-89
+104            android:enabled="true"
+104-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:87:13-35
+105            android:exported="true"
+105-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:86:13-36
+106            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
+106-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:85:13-79
+107            <intent-filter>
+107-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:88:13-90:29
+108                <action android:name="android.accessibilityservice.AccessibilityService" />
+108-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:89:17-92
+108-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:89:25-89
+109            </intent-filter>
+110
+111            <meta-data
+111-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:91:13-93:72
+112                android:name="android.accessibilityservice"
+112-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:92:17-60
+113                android:resource="@xml/accessibility_service_config" />
+113-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:93:17-69
+114        </service>
+115
+116        <!-- Boot receiver for auto-start after reboot -->
+117        <receiver
+117-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:97:9-105:20
+118            android:name="com.optimatrix.gsmcall.receivers.BootReceiver"
+118-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:98:13-73
+119            android:enabled="true"
+119-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:100:13-35
+120            android:exported="true" >
+120-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:99:13-36
+121            <intent-filter android:priority="999" >
+121-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:101:13-104:29
+121-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:101:28-50
+122                <action android:name="android.intent.action.BOOT_COMPLETED" />
+122-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:102:17-79
+122-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:102:25-76
+123                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+123-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:103:17-84
+123-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:103:25-81
+124            </intent-filter>
+125        </receiver>
+126
+127        <provider
+127-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:29:9-37:20
+128            android:name="androidx.startup.InitializationProvider"
+128-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:30:13-67
+129            android:authorities="com.optimatrix.gsmcall.androidx-startup"
+129-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:31:13-68
+130            android:exported="false" >
+130-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:32:13-37
+131            <meta-data
+131-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:34:13-36:52
+132                android:name="androidx.work.WorkManagerInitializer"
+132-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:35:17-68
+133                android:value="androidx.startup" />
+133-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:36:17-49
+134            <meta-data
+134-->[androidx.emoji2:emoji2:1.3.0] /home/ritesh/.gradle/caches/8.12/transforms/ad0fbc2d79b710dae21d69a3b1a1710e/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+135                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+135-->[androidx.emoji2:emoji2:1.3.0] /home/ritesh/.gradle/caches/8.12/transforms/ad0fbc2d79b710dae21d69a3b1a1710e/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+136                android:value="androidx.startup" />
+136-->[androidx.emoji2:emoji2:1.3.0] /home/ritesh/.gradle/caches/8.12/transforms/ad0fbc2d79b710dae21d69a3b1a1710e/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+137            <meta-data
+137-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/ritesh/.gradle/caches/8.12/transforms/6712c0a85f7a31389553be0a462316ec/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
+138                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+138-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/ritesh/.gradle/caches/8.12/transforms/6712c0a85f7a31389553be0a462316ec/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
+139                android:value="androidx.startup" />
+139-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/ritesh/.gradle/caches/8.12/transforms/6712c0a85f7a31389553be0a462316ec/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
+140            <meta-data
+140-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+141                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+141-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+142                android:value="androidx.startup" />
+142-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+143        </provider>
+144
+145        <service
+145-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:39:9-45:35
+146            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+146-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:40:13-88
+147            android:directBootAware="false"
+147-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:41:13-44
+148            android:enabled="@bool/enable_system_alarm_service_default"
+148-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:42:13-72
+149            android:exported="false" />
+149-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:43:13-37
+150        <service
+150-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:46:9-52:35
+151            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+151-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:47:13-84
+152            android:directBootAware="false"
+152-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:48:13-44
+153            android:enabled="@bool/enable_system_job_service_default"
+153-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:49:13-70
+154            android:exported="true"
+154-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:50:13-36
+155            android:permission="android.permission.BIND_JOB_SERVICE" />
+155-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:51:13-69
+156        <service
+156-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:53:9-59:35
+157            android:name="androidx.work.impl.foreground.SystemForegroundService"
+157-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:54:13-81
+158            android:directBootAware="false"
+158-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:55:13-44
+159            android:enabled="@bool/enable_system_foreground_service_default"
+159-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:56:13-77
+160            android:exported="false" />
+160-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:57:13-37
+161
+162        <receiver
+162-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:61:9-66:35
+163            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+163-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:62:13-88
+164            android:directBootAware="false"
+164-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:63:13-44
+165            android:enabled="true"
+165-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:64:13-35
+166            android:exported="false" />
+166-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:65:13-37
+167        <receiver
+167-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:67:9-77:20
+168            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+168-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:68:13-106
+169            android:directBootAware="false"
+169-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:69:13-44
+170            android:enabled="false"
+170-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:70:13-36
+171            android:exported="false" >
+171-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:71:13-37
+172            <intent-filter>
+172-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:73:13-76:29
+173                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+173-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:74:17-87
+173-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:74:25-84
+174                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+174-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:75:17-90
+174-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:75:25-87
+175            </intent-filter>
+176        </receiver>
+177        <receiver
+177-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:78:9-88:20
+178            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+178-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:79:13-104
+179            android:directBootAware="false"
+179-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:80:13-44
+180            android:enabled="false"
+180-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:81:13-36
+181            android:exported="false" >
+181-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:82:13-37
+182            <intent-filter>
+182-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:84:13-87:29
+183                <action android:name="android.intent.action.BATTERY_OKAY" />
+183-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:85:17-77
+183-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:85:25-74
+184                <action android:name="android.intent.action.BATTERY_LOW" />
+184-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:86:17-76
+184-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:86:25-73
+185            </intent-filter>
+186        </receiver>
+187        <receiver
+187-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:89:9-99:20
+188            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+188-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:90:13-104
+189            android:directBootAware="false"
+189-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:91:13-44
+190            android:enabled="false"
+190-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:92:13-36
+191            android:exported="false" >
+191-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:93:13-37
+192            <intent-filter>
+192-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:95:13-98:29
+193                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+193-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:96:17-83
+193-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:96:25-80
+194                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+194-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:97:17-82
+194-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:97:25-79
+195            </intent-filter>
+196        </receiver>
+197        <receiver
+197-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:100:9-109:20
+198            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+198-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:101:13-103
+199            android:directBootAware="false"
+199-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:102:13-44
+200            android:enabled="false"
+200-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:103:13-36
+201            android:exported="false" >
+201-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:104:13-37
+202            <intent-filter>
+202-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:106:13-108:29
+203                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+203-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:107:17-79
+203-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:107:25-76
+204            </intent-filter>
+205        </receiver>
+206        <receiver
+206-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:110:9-121:20
+207            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+207-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:111:13-88
+208            android:directBootAware="false"
+208-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:112:13-44
+209            android:enabled="false"
+209-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:113:13-36
+210            android:exported="false" >
+210-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:114:13-37
+211            <intent-filter>
+211-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:116:13-120:29
+212                <action android:name="android.intent.action.BOOT_COMPLETED" />
+212-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:102:17-79
+212-->/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/AndroidManifest.xml:102:25-76
+213                <action android:name="android.intent.action.TIME_SET" />
+213-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:118:17-73
+213-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:118:25-70
+214                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+214-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:119:17-81
+214-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:119:25-78
+215            </intent-filter>
+216        </receiver>
+217        <receiver
+217-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:122:9-131:20
+218            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+218-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:123:13-99
+219            android:directBootAware="false"
+219-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:124:13-44
+220            android:enabled="@bool/enable_system_alarm_service_default"
+220-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:125:13-72
+221            android:exported="false" >
+221-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:126:13-37
+222            <intent-filter>
+222-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:128:13-130:29
+223                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+223-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:129:17-98
+223-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:129:25-95
+224            </intent-filter>
+225        </receiver>
+226        <receiver
+226-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:132:9-142:20
+227            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+227-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:133:13-78
+228            android:directBootAware="false"
+228-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:134:13-44
+229            android:enabled="true"
+229-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:135:13-35
+230            android:exported="true"
+230-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:136:13-36
+231            android:permission="android.permission.DUMP" >
+231-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:137:13-57
+232            <intent-filter>
+232-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:139:13-141:29
+233                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+233-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:140:17-88
+233-->[androidx.work:work-runtime:2.9.1] /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/AndroidManifest.xml:140:25-85
+234            </intent-filter>
+235        </receiver>
+236
+237        <activity
+237-->[androidx.compose.ui:ui-tooling-android:1.6.0] /home/ritesh/.gradle/caches/8.12/transforms/43379de0620a38ce9c7c1efdff743b17/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+238            android:name="androidx.compose.ui.tooling.PreviewActivity"
+238-->[androidx.compose.ui:ui-tooling-android:1.6.0] /home/ritesh/.gradle/caches/8.12/transforms/43379de0620a38ce9c7c1efdff743b17/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+239            android:exported="true" />
+239-->[androidx.compose.ui:ui-tooling-android:1.6.0] /home/ritesh/.gradle/caches/8.12/transforms/43379de0620a38ce9c7c1efdff743b17/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+240
+241        <service
+241-->[androidx.room:room-runtime:2.5.0] /home/ritesh/.gradle/caches/8.12/transforms/d87c11a6c8416d2ae0bb2df294fa6477/transformed/room-runtime-2.5.0/AndroidManifest.xml:24:9-28:63
+242            android:name="androidx.room.MultiInstanceInvalidationService"
+242-->[androidx.room:room-runtime:2.5.0] /home/ritesh/.gradle/caches/8.12/transforms/d87c11a6c8416d2ae0bb2df294fa6477/transformed/room-runtime-2.5.0/AndroidManifest.xml:25:13-74
+243            android:directBootAware="true"
+243-->[androidx.room:room-runtime:2.5.0] /home/ritesh/.gradle/caches/8.12/transforms/d87c11a6c8416d2ae0bb2df294fa6477/transformed/room-runtime-2.5.0/AndroidManifest.xml:26:13-43
+244            android:exported="false" />
+244-->[androidx.room:room-runtime:2.5.0] /home/ritesh/.gradle/caches/8.12/transforms/d87c11a6c8416d2ae0bb2df294fa6477/transformed/room-runtime-2.5.0/AndroidManifest.xml:27:13-37
+245
+246        <receiver
+246-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+247            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+247-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+248            android:directBootAware="false"
+248-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+249            android:enabled="true"
+249-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+250            android:exported="true"
+250-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+251            android:permission="android.permission.DUMP" >
+251-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+252            <intent-filter>
+252-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+253                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+253-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+253-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+254            </intent-filter>
+255            <intent-filter>
+255-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+256                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+256-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+256-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+257            </intent-filter>
+258            <intent-filter>
+258-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+259                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+259-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+259-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+260            </intent-filter>
+261            <intent-filter>
+261-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+262                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+262-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+262-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+263            </intent-filter>
+264        </receiver>
+265    </application>
+266
+267</manifest>

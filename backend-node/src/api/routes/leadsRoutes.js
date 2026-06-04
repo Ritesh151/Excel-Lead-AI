@@ -11,10 +11,10 @@ const router = Router();
 // GET  /api/leads           — list all leads
 router.get('/', getAllLeads);
 
+// POST /api/leads/import    — trigger Excel import (before /:id)
+router.post('/import', importLeads);
+
 // GET  /api/leads/:id       — single lead by ID
 router.get('/:id', getLeadById);
-
-// POST /api/leads/import    — trigger Excel import
-router.post('/import', importLeads);
 
 module.exports = router;

@@ -1,0 +1,67 @@
+com.optimatrix.gsmcall-work-runtime-ktx-2.9.1-0 /home/ritesh/.gradle/caches/8.12/transforms/00b8e58162b3427435fa8eb2362bae99/transformed/work-runtime-ktx-2.9.1/res
+com.optimatrix.gsmcall-emoji2-views-helper-1.3.0-1 /home/ritesh/.gradle/caches/8.12/transforms/024640923bbf32513c80a01d8f10c42c/transformed/emoji2-views-helper-1.3.0/res
+com.optimatrix.gsmcall-savedstate-1.2.1-2 /home/ritesh/.gradle/caches/8.12/transforms/03e682fa4c949f2c5f0932605577a166/transformed/savedstate-1.2.1/res
+com.optimatrix.gsmcall-cardview-1.0.0-3 /home/ritesh/.gradle/caches/8.12/transforms/057b84f551900a49877541bb8d67a6dd/transformed/cardview-1.0.0/res
+com.optimatrix.gsmcall-animation-release-4 /home/ritesh/.gradle/caches/8.12/transforms/11514cd51da6733c30d73de5ffea3b51/transformed/animation-release/res
+com.optimatrix.gsmcall-ui-graphics-release-5 /home/ritesh/.gradle/caches/8.12/transforms/14bbc510bfdcc8a16ee547a3ebca9d79/transformed/ui-graphics-release/res
+com.optimatrix.gsmcall-animation-core-release-6 /home/ritesh/.gradle/caches/8.12/transforms/1c143309d906394802c6b0a53f943549/transformed/animation-core-release/res
+com.optimatrix.gsmcall-lifecycle-viewmodel-compose-2.6.2-7 /home/ritesh/.gradle/caches/8.12/transforms/1d32eb68119d1bce099ba767dff5490d/transformed/lifecycle-viewmodel-compose-2.6.2/res
+com.optimatrix.gsmcall-savedstate-ktx-1.2.1-8 /home/ritesh/.gradle/caches/8.12/transforms/26c2295472039353d70045c5fe223bc3/transformed/savedstate-ktx-1.2.1/res
+com.optimatrix.gsmcall-lifecycle-livedata-core-2.6.2-9 /home/ritesh/.gradle/caches/8.12/transforms/2d37446eab88e3b033e90cc8fcc592e2/transformed/lifecycle-livedata-core-2.6.2/res
+com.optimatrix.gsmcall-lifecycle-viewmodel-2.6.2-10 /home/ritesh/.gradle/caches/8.12/transforms/33404a17c5118a9e32545b0dd069e0b0/transformed/lifecycle-viewmodel-2.6.2/res
+com.optimatrix.gsmcall-drawerlayout-1.1.1-11 /home/ritesh/.gradle/caches/8.12/transforms/3891853e8812b536e76824bf90dfb08f/transformed/drawerlayout-1.1.1/res
+com.optimatrix.gsmcall-lifecycle-service-2.6.2-12 /home/ritesh/.gradle/caches/8.12/transforms/427c3108ea173a15fe203adb3521e877/transformed/lifecycle-service-2.6.2/res
+com.optimatrix.gsmcall-ui-tooling-release-13 /home/ritesh/.gradle/caches/8.12/transforms/43379de0620a38ce9c7c1efdff743b17/transformed/ui-tooling-release/res
+com.optimatrix.gsmcall-recyclerview-1.1.0-14 /home/ritesh/.gradle/caches/8.12/transforms/459258df61a938e5b10f255e48c1b970/transformed/recyclerview-1.1.0/res
+com.optimatrix.gsmcall-lifecycle-runtime-2.6.2-15 /home/ritesh/.gradle/caches/8.12/transforms/45a33aac224e776b87e33ec19240308f/transformed/lifecycle-runtime-2.6.2/res
+com.optimatrix.gsmcall-transition-1.5.0-16 /home/ritesh/.gradle/caches/8.12/transforms/4a357ccabe4ccc45d24c16dc10b7105d/transformed/transition-1.5.0/res
+com.optimatrix.gsmcall-sqlite-2.3.0-17 /home/ritesh/.gradle/caches/8.12/transforms/4eb4f33747dcb4bc913dc4feea04ea26/transformed/sqlite-2.3.0/res
+com.optimatrix.gsmcall-coordinatorlayout-1.1.0-18 /home/ritesh/.gradle/caches/8.12/transforms/51d77e50ae4052fcccf5d6df2d5f77e1/transformed/coordinatorlayout-1.1.0/res
+com.optimatrix.gsmcall-material-release-19 /home/ritesh/.gradle/caches/8.12/transforms/5826a8ab23798e79893e4001e87f374e/transformed/material-release/res
+com.optimatrix.gsmcall-foundation-release-20 /home/ritesh/.gradle/caches/8.12/transforms/58b657fb437e147683ea42adc598f5fe/transformed/foundation-release/res
+com.optimatrix.gsmcall-lifecycle-process-2.6.2-21 /home/ritesh/.gradle/caches/8.12/transforms/6712c0a85f7a31389553be0a462316ec/transformed/lifecycle-process-2.6.2/res
+com.optimatrix.gsmcall-ui-unit-release-22 /home/ritesh/.gradle/caches/8.12/transforms/67feb9a190b88989061b6b36dea0442d/transformed/ui-unit-release/res
+com.optimatrix.gsmcall-material-ripple-release-23 /home/ritesh/.gradle/caches/8.12/transforms/6820464817d0f428453d7b2da80fe4c8/transformed/material-ripple-release/res
+com.optimatrix.gsmcall-core-1.13.0-24 /home/ritesh/.gradle/caches/8.12/transforms/6f8ba0f9dc67a5f1f383c3e9ad28e817/transformed/core-1.13.0/res
+com.optimatrix.gsmcall-material-icons-core-release-25 /home/ritesh/.gradle/caches/8.12/transforms/703c5d3957c95fd19ffd0358b3abc56f/transformed/material-icons-core-release/res
+com.optimatrix.gsmcall-ui-util-release-26 /home/ritesh/.gradle/caches/8.12/transforms/74cc332523de5806bdf614875b02a59a/transformed/ui-util-release/res
+com.optimatrix.gsmcall-room-ktx-2.5.0-27 /home/ritesh/.gradle/caches/8.12/transforms/7579aa97d3979689e8d27d74eaa1f34e/transformed/room-ktx-2.5.0/res
+com.optimatrix.gsmcall-material-1.12.0-28 /home/ritesh/.gradle/caches/8.12/transforms/7c31450abeb2510264da59bdb58fd670/transformed/material-1.12.0/res
+com.optimatrix.gsmcall-runtime-release-29 /home/ritesh/.gradle/caches/8.12/transforms/7f09fe77de7fd968e33e628c35916bbb/transformed/runtime-release/res
+com.optimatrix.gsmcall-sqlite-framework-2.3.0-30 /home/ritesh/.gradle/caches/8.12/transforms/81949b128c92b8bff1f4f7667bb4076e/transformed/sqlite-framework-2.3.0/res
+com.optimatrix.gsmcall-ui-geometry-release-31 /home/ritesh/.gradle/caches/8.12/transforms/87f09ad4355a9de6a0819b2aa4c839f8/transformed/ui-geometry-release/res
+com.optimatrix.gsmcall-ui-tooling-preview-release-32 /home/ritesh/.gradle/caches/8.12/transforms/94af13022e88fe1b32d2f73a5c063573/transformed/ui-tooling-preview-release/res
+com.optimatrix.gsmcall-appcompat-1.6.1-33 /home/ritesh/.gradle/caches/8.12/transforms/95b59f7991aa34ec4114736f29f6d604/transformed/appcompat-1.6.1/res
+com.optimatrix.gsmcall-appcompat-resources-1.6.1-34 /home/ritesh/.gradle/caches/8.12/transforms/9abcd666dc7c42e7f4aba1c472fc52af/transformed/appcompat-resources-1.6.1/res
+com.optimatrix.gsmcall-core-ktx-1.13.0-35 /home/ritesh/.gradle/caches/8.12/transforms/9d83a4afd1982992cdcae078c8c5aa43/transformed/core-ktx-1.13.0/res
+com.optimatrix.gsmcall-startup-runtime-1.1.1-36 /home/ritesh/.gradle/caches/8.12/transforms/9f85ef7b60911add37c970deefb6dd86/transformed/startup-runtime-1.1.1/res
+com.optimatrix.gsmcall-work-runtime-2.9.1-37 /home/ritesh/.gradle/caches/8.12/transforms/a09f7f7c537fe2f2d6c2b1331b7b33f1/transformed/work-runtime-2.9.1/res
+com.optimatrix.gsmcall-viewpager2-1.0.0-38 /home/ritesh/.gradle/caches/8.12/transforms/aa28bf48347857ab14ada05b3db05664/transformed/viewpager2-1.0.0/res
+com.optimatrix.gsmcall-ui-tooling-data-release-39 /home/ritesh/.gradle/caches/8.12/transforms/ac8a353b8ab1e71784396c8a27786031/transformed/ui-tooling-data-release/res
+com.optimatrix.gsmcall-emoji2-1.3.0-40 /home/ritesh/.gradle/caches/8.12/transforms/ad0fbc2d79b710dae21d69a3b1a1710e/transformed/emoji2-1.3.0/res
+com.optimatrix.gsmcall-activity-1.9.0-41 /home/ritesh/.gradle/caches/8.12/transforms/b1a101f5f5a01f28f4d1f69ab4cf905b/transformed/activity-1.9.0/res
+com.optimatrix.gsmcall-fragment-1.3.6-42 /home/ritesh/.gradle/caches/8.12/transforms/b2c7e94eeb76313f543be89783d727cc/transformed/fragment-1.3.6/res
+com.optimatrix.gsmcall-lifecycle-runtime-ktx-2.6.2-43 /home/ritesh/.gradle/caches/8.12/transforms/ba32eadfe127df88cd7618b90a920dc3/transformed/lifecycle-runtime-ktx-2.6.2/res
+com.optimatrix.gsmcall-lifecycle-livedata-2.6.2-44 /home/ritesh/.gradle/caches/8.12/transforms/c665cb0823de9d3f06b60e7260548a51/transformed/lifecycle-livedata-2.6.2/res
+com.optimatrix.gsmcall-activity-compose-1.9.0-45 /home/ritesh/.gradle/caches/8.12/transforms/c88834ef53d8805f2858b60a67f66a55/transformed/activity-compose-1.9.0/res
+com.optimatrix.gsmcall-lifecycle-viewmodel-ktx-2.6.2-46 /home/ritesh/.gradle/caches/8.12/transforms/ce6c17355f8d590c6863f1cd2a72705c/transformed/lifecycle-viewmodel-ktx-2.6.2/res
+com.optimatrix.gsmcall-media-1.8.0-47 /home/ritesh/.gradle/caches/8.12/transforms/d28db0ff80b566a3af05f41d79e72439/transformed/media-1.8.0/res
+com.optimatrix.gsmcall-customview-poolingcontainer-1.0.0-48 /home/ritesh/.gradle/caches/8.12/transforms/d72ca283a1bed226c45a62e5bac521c7/transformed/customview-poolingcontainer-1.0.0/res
+com.optimatrix.gsmcall-room-runtime-2.5.0-49 /home/ritesh/.gradle/caches/8.12/transforms/d87c11a6c8416d2ae0bb2df294fa6477/transformed/room-runtime-2.5.0/res
+com.optimatrix.gsmcall-foundation-layout-release-50 /home/ritesh/.gradle/caches/8.12/transforms/d8aa7a66d3509da38327bc540d0aefe2/transformed/foundation-layout-release/res
+com.optimatrix.gsmcall-activity-ktx-1.9.0-51 /home/ritesh/.gradle/caches/8.12/transforms/da92e52e021f2bfc5a531a1255cd7ebe/transformed/activity-ktx-1.9.0/res
+com.optimatrix.gsmcall-constraintlayout-2.0.1-52 /home/ritesh/.gradle/caches/8.12/transforms/e1cfb78045bf5852a47edc14c2d2c0e1/transformed/constraintlayout-2.0.1/res
+com.optimatrix.gsmcall-ui-release-53 /home/ritesh/.gradle/caches/8.12/transforms/e4554949d17494fb52d6d1950994b0e5/transformed/ui-release/res
+com.optimatrix.gsmcall-ui-text-release-54 /home/ritesh/.gradle/caches/8.12/transforms/e66fa808d9412fd1888192bb6cc98639/transformed/ui-text-release/res
+com.optimatrix.gsmcall-core-runtime-2.2.0-55 /home/ritesh/.gradle/caches/8.12/transforms/e6b012975af6e1c23662c74f7301dde5/transformed/core-runtime-2.2.0/res
+com.optimatrix.gsmcall-lifecycle-viewmodel-savedstate-2.6.2-56 /home/ritesh/.gradle/caches/8.12/transforms/e7f340972c605f1405793af7606f58a8/transformed/lifecycle-viewmodel-savedstate-2.6.2/res
+com.optimatrix.gsmcall-profileinstaller-1.3.1-57 /home/ritesh/.gradle/caches/8.12/transforms/ee7131ffec5e15b0d9fc24c5206ae8d4/transformed/profileinstaller-1.3.1/res
+com.optimatrix.gsmcall-material3-release-58 /home/ritesh/.gradle/caches/8.12/transforms/f598f041eb2460b5641ff6bce865cf37/transformed/material3-release/res
+com.optimatrix.gsmcall-runtime-saveable-release-59 /home/ritesh/.gradle/caches/8.12/transforms/f836bb64fc257bfac30c3b05825d19d1/transformed/runtime-saveable-release/res
+com.optimatrix.gsmcall-annotation-experimental-1.4.0-60 /home/ritesh/.gradle/caches/8.12/transforms/fbba14a2ec0d9efc4c13a37d95412754/transformed/annotation-experimental-1.4.0/res
+com.optimatrix.gsmcall-resValues-61 /run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/build/generated/res/resValues/debug
+com.optimatrix.gsmcall-packageDebugResources-62 /run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.optimatrix.gsmcall-packageDebugResources-63 /run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.optimatrix.gsmcall-merged_res-64 /run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/build/intermediates/merged_res/debug
+com.optimatrix.gsmcall-debug-65 /run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/debug/res
+com.optimatrix.gsmcall-main-66 /run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/frontend-kotlin/src/main/res

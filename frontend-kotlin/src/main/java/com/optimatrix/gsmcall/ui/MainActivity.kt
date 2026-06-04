@@ -4,12 +4,15 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import com.optimatrix.gsmcall.permissions.PermissionManager
 import com.optimatrix.gsmcall.services.CallAutomationService
 import com.optimatrix.gsmcall.utils.LogStore
@@ -25,27 +28,37 @@ class MainActivity : ComponentActivity() {
             ActivityResultContracts.RequestMultiplePermissions()
         ) { results ->
             val granted = results.entries.all { it.value }
-            viewModel.updatePermissionsStatus(granted)
+            viewModel.updatePermissionsGranted(granted)
             if (!granted) {
                 LogStore.log("MainActivity", "Permissions incomplete: ${results.filter { !it.value }.keys}")
             }
         }
 
-        registerReceiver(statusReceiver, IntentFilter(CallAutomationService.ACTION_STATUS_UPDATE))
-        registerReceiver(statusReceiver, IntentFilter(CallAutomationService.ACTION_LOG_UPDATE))
+        val filter = IntentFilter().apply {
+            addAction(CallAutomationService.ACTION_STATUS_UPDATE)
+            addAction(CallAutomationService.ACTION_LOG_UPDATE)
+            addAction(CallAutomationService.ACTION_WS_UPDATE)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(statusReceiver, filter, RECEIVER_NOT_EXPORTED)
+        } else {
+            @Suppress("DEPRECATION")
+            registerReceiver(statusReceiver, filter)
+        }
 
         setContent {
+            val state by viewModel.uiState.collectAsState()
             MainScreen(
-                state = viewModel.uiState,
+                state = state,
                 onRequestPermissions = { requestPermissions() },
                 onStartService = { CallAutomationService.startService(this) },
                 onStopService = { CallAutomationService.stopService(this) },
                 onExportLogs = { exportLogs() },
-                onClearLogs = { viewModel.clearLogs() }
+                onClearLogs = { viewModel.clearLogs() },
             )
         }
 
-        viewModel.updatePermissionsStatus(PermissionManager.hasAllPermissions(this))
+        viewModel.updatePermissionsGranted(PermissionManager.hasAllPermissions(this))
     }
 
     private val statusReceiver = object : BroadcastReceiver() {
@@ -53,11 +66,15 @@ class MainActivity : ComponentActivity() {
             when (intent.action) {
                 CallAutomationService.ACTION_STATUS_UPDATE -> {
                     val status = intent.getStringExtra(CallAutomationService.EXTRA_CURRENT_STATUS) ?: "unknown"
-                    viewModel.updateServiceState(status)
+                    viewModel.updateFromServiceStatus(status)
                 }
                 CallAutomationService.ACTION_LOG_UPDATE -> {
                     val logMessage = intent.getStringExtra(CallAutomationService.EXTRA_LOG_MESSAGE) ?: return
                     viewModel.appendLog(logMessage)
+                }
+                CallAutomationService.ACTION_WS_UPDATE -> {
+                    val json = intent.getStringExtra(CallAutomationService.EXTRA_WS_JSON) ?: return
+                    viewModel.handleWebSocketEvent(json)
                 }
             }
         }

@@ -82,6 +82,10 @@ class Settings(BaseSettings):
     # VAD (Voice Activity Detection) filter — removes silence before transcribing
     whisper_vad_filter: bool = Field(True, env="WHISPER_VAD_FILTER")
 
+    # ── backend-node integration ────────────────────────────────────────────────
+    backend_node_url: str = Field("http://localhost:3000", env="BACKEND_NODE_URL")
+    internal_api_token: str = Field("", env="INTERNAL_API_TOKEN")
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"

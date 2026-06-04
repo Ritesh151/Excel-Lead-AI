@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -37,10 +39,12 @@ fun MainScreen(
             .padding(16.dp)
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.fillMaxSize()
         ) {
             StatusCard(state)
+            CallDetailCard(state)
+            CampaignCard(state)
             ActionRow(
                 state.permissionsGranted,
                 onRequestPermissions,
@@ -48,7 +52,7 @@ fun MainScreen(
                 onStopService,
                 onExportLogs,
             )
-            LogPanel(state.logs, onClearLogs)
+            LogPanel(state.logs, onClearLogs, modifier = Modifier.weight(1f))
         }
     }
 }
@@ -56,14 +60,56 @@ fun MainScreen(
 @Composable
 private fun StatusCard(state: MainUiState) {
     Card(modifier = Modifier.fillMaxWidth()) {
-        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Permissions granted: ${state.permissionsGranted}")
-            Text("Service status: ${state.serviceStatus}")
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text("GSM Call AI Dashboard", style = MaterialTheme.typography.titleMedium)
+            Text("Permissions: ${if (state.permissionsGranted) "OK" else "Required"}")
+            Text("Service: ${state.serviceStatus}")
+            Text("Backend: ${state.backendStatus}  |  WebSocket: ${if (state.websocketConnected) "connected" else "disconnected"}")
             Text("Call state: ${state.callState}")
-            Text("Audio routing: ${state.audioRoutingState}")
-            Text("Backend: ${state.backendStatus}")
+            if (state.callTimerSeconds > 0) {
+                Text("Call timer: ${state.callTimerSeconds}s")
+            }
             if (state.exportedLogPath.isNotBlank()) {
-                Text("Logs exported: ${state.exportedLogPath}")
+                Text("Logs exported: ${state.exportedLogPath}", style = MaterialTheme.typography.bodySmall)
+            }
+        }
+    }
+}
+
+@Composable
+private fun CallDetailCard(state: MainUiState) {
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text("Active call", style = MaterialTheme.typography.titleSmall)
+            Text("Phone: ${state.activeCallPhone.ifBlank { "—" }}")
+            Text("Routing: ${state.audioRoutingState}")
+            Text("Playback: ${state.playbackState} ${state.playbackStrategy.takeIf { it.isNotBlank() }?.let { "($it)" } ?: ""}")
+            Text("Recording: ${state.recordingState}")
+            if (state.transcriptionText.isNotBlank()) {
+                Text("Transcription: ${state.transcriptionText.take(200)}")
+            }
+            if (state.detectedIntent.isNotBlank()) {
+                Text(
+                    "Intent: ${state.detectedIntent}" +
+                        if (state.intentConfidence > 0f) " (${(state.intentConfidence * 100).toInt()}%)" else ""
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun CampaignCard(state: MainUiState) {
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("Campaign", style = MaterialTheme.typography.titleSmall)
+            if (state.campaignRunning || state.campaignTotalLeads > 0) {
+                Text("ID: ${state.campaignId.ifBlank { "—" }}")
+                Text("Progress: ${state.campaignProcessed}/${state.campaignTotalLeads}  YES=${state.campaignYesCount}  NO=${state.campaignNoCount}")
+                val progress = (state.campaignProgress.coerceIn(0, 100)) / 100f
+                LinearProgressIndicator(progress = progress, modifier = Modifier.fillMaxWidth())
+            } else {
+                Text("No active campaign (start via backend POST /api/adb/start)")
             }
         }
     }
@@ -77,8 +123,8 @@ private fun ActionRow(
     onStopService: () -> Unit,
     onExportLogs: () -> Unit,
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Button(onClick = onRequestPermissions) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Button(onClick = onRequestPermissions, modifier = Modifier.fillMaxWidth()) {
             Text(text = if (granted) "Permissions ready" else "Request permissions")
         }
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
@@ -89,25 +135,44 @@ private fun ActionRow(
                 Text("Stop automation")
             }
         }
-        Button(onClick = onExportLogs) {
+        Button(onClick = onExportLogs, modifier = Modifier.fillMaxWidth()) {
             Text("Export logs")
         }
     }
 }
 
 @Composable
-private fun LogPanel(logs: List<String>, onClearLogs: () -> Unit) {
-    Card(modifier = Modifier.fillMaxWidth().weight(1f, fill = false)) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text("Debug console", style = MaterialTheme.typography.titleMedium)
-            Spacer(modifier = Modifier.padding(8.dp))
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                items(logs) { entry ->
-                    Text(entry, color = Color.White, modifier = Modifier.background(Color.DarkGray).padding(8.dp))
+private fun LogPanel(
+    logs: List<String>,
+    onClearLogs: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Card(modifier = modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.padding(12.dp)) {
+            Text("Debug console", style = MaterialTheme.typography.titleSmall)
+            Spacer(modifier = Modifier.height(8.dp))
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.weight(1f, fill = false),
+            ) {
+                items(logs.take(80)) { entry ->
+                    Text(
+                        entry,
+                        color = Color.White,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.DarkGray)
+                            .padding(6.dp),
+                        style = MaterialTheme.typography.bodySmall,
+                    )
                 }
             }
-            Spacer(modifier = Modifier.padding(8.dp))
-            Text("Tap logs to clear", modifier = Modifier.clickable { onClearLogs() })
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                "Tap to clear logs",
+                modifier = Modifier.clickable { onClearLogs() },
+                style = MaterialTheme.typography.labelSmall,
+            )
         }
     }
 }

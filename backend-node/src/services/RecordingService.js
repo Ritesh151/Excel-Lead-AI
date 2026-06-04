@@ -11,8 +11,8 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const axios = require('axios');
 const logger = require('../utils/logger');
+const aiPython = require('./AiPythonClient');
 const CallLog = require('../mongodb/models/CallLog');
 const ExotelService = require('./ExotelService');
 
@@ -177,31 +177,24 @@ class RecordingService {
       // Validate recording exists
       await fs.stat(recordingPath);
 
-      // Endpoint: POST /api/call/transcribe (Exotel flow v2)
-      const response = await axios.post(
-        `${this.aiEngineUrl}/api/call/transcribe`,
-        {
-          recording_path: recordingPath,
-          call_sid:       callSid,
-          phone_number:   phoneNumber,
-          customer_name:  customerName || null,
-        },
-        {
-          timeout: 120000, // 2 minutes for transcription
-        }
-      );
+      const data = await aiPython.transcribe({
+        recording_path: recordingPath,
+        call_sid:       callSid,
+        phone_number:   phoneNumber,
+        customer_name:  customerName || null,
+      });
 
       logger.info('Transcription received', {
         callSid,
-        transcription: response.data.transcription,
-        intent: response.data.intent,
+        transcription: data.transcription,
+        intent: data.intent,
       });
 
       return {
         success: true,
-        transcription: response.data.transcription,
-        intent: response.data.intent,
-        confidence: response.data.confidence || null,
+        transcription: data.transcription,
+        intent: data.intent,
+        confidence: data.confidence || null,
       };
     } catch (error) {
       logger.error('Transcription request failed', {

@@ -35,8 +35,14 @@ const leadSchema = new mongoose.Schema(
     /** Detected intent from caller's voice response */
     response: {
       type: String,
-      enum: ['YES', 'NO', 'unknown', null],
+      enum: ['YES', 'NO', 'UNKNOWN', 'unknown', null],
       default: null,
+    },
+
+    campaignId: {
+      type: String,
+      default: null,
+      index: true,
     },
 
     /** Path to the saved recording file */
