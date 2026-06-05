@@ -33,3 +33,48 @@
 {"level":"info","message":"10.75.233.230 - - [05/Jun/2026:04:14:11 +0000] \"GET / HTTP/1.1\" 404 45 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36\"","timestamp":"2026-06-05 09:44:11.257"}
 {"level":"info","message":"10.75.233.230 - - [05/Jun/2026:04:14:11 +0000] \"GET /favicon.ico HTTP/1.1\" 404 45 \"http://10.75.233.119:3000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36\"","timestamp":"2026-06-05 09:44:11.292"}
 {"level":"info","message":"127.0.0.1 - - [05/Jun/2026:04:24:18 +0000] \"GET / HTTP/1.1\" 404 45 \"-\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36\"","timestamp":"2026-06-05 09:54:18.631"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:04:47:36 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 10:17:36.210"}
+{"level":"info","message":"10.75.233.119 - - [05/Jun/2026:04:47:52 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 10:17:52.233"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:04:53:12 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 10:23:12.484"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:04:54:57 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 10:24:57.524"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:04:55:54 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 10:25:54.638"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:04:56:41 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 10:26:41.152"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:04:58:37 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 10:28:37.072"}
+{"level":"info","message":"10.75.233.230 - - [05/Jun/2026:06:02:18 +0000] \"GET / HTTP/1.1\" 404 45 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36\"","timestamp":"2026-06-05 11:32:18.294"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:06:02:28 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 11:32:28.275"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:06:02:29 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 11:32:29.744"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:03:45 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:33:45.594"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:05:10 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:35:10.083"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:06:05:41 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 11:35:41.119"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:12:29 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:42:29.679"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:12:29 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:42:29.777"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:12:29 +0000] \"GET /api/debug/network HTTP/1.1\" 200 781 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:42:29.897"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:06:12:53 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 11:42:53.660"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:15:40 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:45:40.338"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:15:40 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:45:40.439"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:18:03 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:48:03.390"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:18:07 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:48:07.727"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:18:13 +0000] \"GET /api/debug/network HTTP/1.1\" 200 781 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:48:13.591"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:19:20 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:49:20.186"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:19:21 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:49:21.209"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:19:22 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:49:22.221"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:19:23 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:49:23.233"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:19:24 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:49:24.246"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:19:25 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:49:25.260"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:19:26 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:49:26.271"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:19:27 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:49:27.283"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:06:19:28 +0000] \"GET /api/debug/socket HTTP/1.1\" 200 99 \"-\" \"curl/8.19.0\"","timestamp":"2026-06-05 11:49:28.296"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:06:57:16 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 12:27:16.638"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:06:57:19 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 12:27:19.460"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:06:57:23 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 12:27:23.339"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:07:04:04 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 12:34:04.080"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:07:04:04 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:34:04.081"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:07:04:09 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"-\"","timestamp":"2026-06-05 12:34:09.474"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:07:04:10 +0000] \"POST /api/adb/start HTTP/1.1\" 500 157 \"-\" \"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:34:10.953"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:07:04:14 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:34:14.291"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:07:04:19 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 12:34:19.146"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:07:05:04 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:35:04.211"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:07:05:04 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 12:35:04.212"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:07:05:06 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"-\"","timestamp":"2026-06-05 12:35:06.323"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:07:05:06 +0000] \"POST /api/adb/start HTTP/1.1\" 500 157 \"-\" \"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:35:06.369"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:07:05:14 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:35:14.297"}

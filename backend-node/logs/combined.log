@@ -444,3 +444,72 @@
 {"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 09:31:17.570"}
 {"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 09:31:17.570"}
 {"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 09:31:17.573","warnings":0}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:56118 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:33:56.480"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:33:56.496"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 12:33:56.529","ts":1780643036899}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 12:33:56.530"}
+{"level":"debug","message":"[WS] → android_connected (1/1 clients)","timestamp":"2026-06-05 12:33:56.530"}
+{"level":"warn","message":"[WS] ✗ Android client disconnected - will reconnect","timestamp":"2026-06-05 12:33:57.439"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 12:33:57.440"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:32776 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:34:04.065"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:34:04.066"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:34:04.068","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:32790 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:34:04.444"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:34:04.444"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 12:34:04.482","ts":1780643044881}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 12:34:04.483"}
+{"level":"debug","message":"[WS] → android_connected (2/2 clients)","timestamp":"2026-06-05 12:34:04.484"}
+{"event":"call_state","flowId":0,"level":"info","message":"[WS] ← call_state","phone":"","state":"ended","timestamp":"2026-06-05 12:34:04.858","ts":1780643045248}
+{"level":"debug","message":"[WS] → call_state_update (2/2 clients)","timestamp":"2026-06-05 12:34:04.859"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"POST","path":"/api/adb/start","timestamp":"2026-06-05 12:34:10.195","ua":"Android-GSMCall/3.0 (okhttp)"}
+{"campaignName":"Android Campaign","level":"info","message":"[AdbController] Start campaign request","timestamp":"2026-06-05 12:34:10.196"}
+{"level":"info","message":"[AdbCampaign] Running pre-flight checks...","timestamp":"2026-06-05 12:34:10.200"}
+{"level":"info","message":"[AdbCampaign] ✓ ai-python is reachable","status":"ok","timestamp":"2026-06-05 12:34:10.448"}
+{"level":"info","message":"[AdbCampaign] ✓ Pre-flight checks passed","timestamp":"2026-06-05 12:34:10.739"}
+{"file":"/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/leads/leads.xlsx","level":"info","message":"[AdbCampaign] Reading leads from Excel","timestamp":"2026-06-05 12:34:10.741"}
+{"level":"info","message":"[AdbCampaign] Excel rows read: 1","timestamp":"2026-06-05 12:34:10.867"}
+{"0":"Name","1":"Mobile Number","level":"info","message":"[AdbCampaign] Excel columns detected:","timestamp":"2026-06-05 12:34:10.867"}
+{"level":"debug","message":"[AdbCampaign] Duplicate skipped: +919427047705","timestamp":"2026-06-05 12:34:10.922"}
+{"inserted":0,"invalid":0,"level":"info","message":"[AdbCampaign] Import complete","skipped":1,"timestamp":"2026-06-05 12:34:10.922","total":1}
+{"error":"No pending leads to process. Either the Excel file has no valid rows or all leads are already processed.","level":"error","message":"[AdbController] Start failed","timestamp":"2026-06-05 12:34:10.952"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:34:15.225"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:34:19.145","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 12:34:21.040"}
+{"level":"warn","message":"[WS] ✗ Android client disconnected - will reconnect","timestamp":"2026-06-05 12:34:21.041"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 12:34:21.041"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:33322 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:34:23.582"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:34:23.582"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 12:34:23.591","ts":1780643064008}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 12:34:23.625"}
+{"level":"debug","message":"[WS] → android_connected (1/1 clients)","timestamp":"2026-06-05 12:34:23.627"}
+{"level":"warn","message":"[WS] ✗ Android client disconnected - will reconnect","timestamp":"2026-06-05 12:34:25.546"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 12:34:25.546"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:33336 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:34:30.264"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:34:30.264"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 12:34:30.273","ts":1780643070689}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 12:34:30.273"}
+{"level":"debug","message":"[WS] → android_connected (1/1 clients)","timestamp":"2026-06-05 12:34:30.273"}
+{"level":"warn","message":"[WS] ✗ Android client disconnected - will reconnect","timestamp":"2026-06-05 12:34:31.080"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 12:34:31.080"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:35:04.212","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:53594 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:35:04.213"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:35:04.213"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:53614 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:35:04.251"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:35:04.252"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 12:35:04.261","ts":1780643104675}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 12:35:04.261"}
+{"level":"debug","message":"[WS] → android_connected (2/2 clients)","timestamp":"2026-06-05 12:35:04.261"}
+{"event":"call_state","flowId":0,"level":"info","message":"[WS] ← call_state","phone":"","state":"ended","timestamp":"2026-06-05 12:35:04.804","ts":1780643105155}
+{"level":"debug","message":"[WS] → call_state_update (2/2 clients)","timestamp":"2026-06-05 12:35:04.805"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:35:05.224"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"POST","path":"/api/adb/start","timestamp":"2026-06-05 12:35:06.354","ua":"Android-GSMCall/3.0 (okhttp)"}
+{"campaignName":"Android Campaign","level":"info","message":"[AdbController] Start campaign request","timestamp":"2026-06-05 12:35:06.354"}
+{"level":"info","message":"[AdbCampaign] Running pre-flight checks...","timestamp":"2026-06-05 12:35:06.354"}
+{"level":"info","message":"[AdbCampaign] ✓ ai-python is reachable","status":"ok","timestamp":"2026-06-05 12:35:06.358"}
+{"level":"info","message":"[AdbCampaign] ✓ Pre-flight checks passed","timestamp":"2026-06-05 12:35:06.359"}
+{"file":"/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/leads/leads.xlsx","level":"info","message":"[AdbCampaign] Reading leads from Excel","timestamp":"2026-06-05 12:35:06.360"}
+{"level":"info","message":"[AdbCampaign] Excel rows read: 1","timestamp":"2026-06-05 12:35:06.364"}
+{"0":"Name","1":"Mobile Number","level":"info","message":"[AdbCampaign] Excel columns detected:","timestamp":"2026-06-05 12:35:06.364"}
+{"level":"debug","message":"[AdbCampaign] Duplicate skipped: +919427047705","timestamp":"2026-06-05 12:35:06.367"}
+{"inserted":0,"invalid":0,"level":"info","message":"[AdbCampaign] Import complete","skipped":1,"timestamp":"2026-06-05 12:35:06.367","total":1}
+{"error":"No pending leads to process. Either the Excel file has no valid rows or all leads are already processed.","level":"error","message":"[AdbController] Start failed","timestamp":"2026-06-05 12:35:06.369"}

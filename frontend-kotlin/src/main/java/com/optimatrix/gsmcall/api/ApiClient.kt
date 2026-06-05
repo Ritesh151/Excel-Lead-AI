@@ -70,7 +70,22 @@ class ApiClient(private val context: Context) {
         .connectTimeout(15, TimeUnit.SECONDS)
         .readTimeout(120, TimeUnit.SECONDS)
         .writeTimeout(60, TimeUnit.SECONDS)
-        .retryOnConnectionFailure(true)       // Retry on transient failures
+        .retryOnConnectionFailure(true)       // Retry on transient failures (max 1 retry)
+        // Connection pool for keep-alive
+        .connectionPool(okhttp3.ConnectionPool(5, 30, TimeUnit.SECONDS))
+        // Add interceptor for detailed error logging
+        .addInterceptor { chain ->
+            try {
+                val request = chain.request()
+                LogStore.log("ApiClient", "→ ${request.method} ${request.url}")
+                val response = chain.proceed(request)
+                LogStore.log("ApiClient", "← ${response.code} ${response.message}")
+                response
+            } catch (e: Exception) {
+                LogStore.log("ApiClient", "✗ Request failed: ${e.javaClass.simpleName}: ${e.message}")
+                throw e
+            }
+        }
         .build()
 
     private val moshi = Moshi.Builder()
@@ -137,8 +152,35 @@ class ApiClient(private val context: Context) {
                 UploadResult(intent, parsed?.transcription, true)
             }
         } catch (ex: Exception) {
-            LogStore.log("ApiClient", "Upload exception: ${ex.javaClass.simpleName}: ${ex.message}")
-            UploadResult(CallerIntent.UNKNOWN, null, false, ex.message)
+            val errorType = when (ex) {
+                is java.net.SocketTimeoutException -> "TIMEOUT"
+                is java.net.ConnectException -> "CONNECTION_REFUSED"
+                is java.net.UnknownHostException -> "DNS_FAILED"
+                is java.io.EOFException -> "CONNECTION_RESET"
+                is javax.net.ssl.SSLHandshakeException -> "SSL_ERROR"
+                else -> ex.javaClass.simpleName
+            }
+            LogStore.log("ApiClient", "Upload exception [$errorType]: ${ex.message}")
+            
+            // Log detailed context for debugging
+            when (ex) {
+                is java.net.SocketTimeoutException -> {
+                    LogStore.log("ApiClient", "TIMEOUT: Backend not responding within timeouts. Check:")
+                    LogStore.log("ApiClient", "  1. Backend is running: 0.0.0.0:3000")
+                    LogStore.log("ApiClient", "  2. Android is on same WiFi as backend")
+                    LogStore.log("ApiClient", "  3. Firewall allows TCP:3000")
+                }
+                is java.net.ConnectException -> {
+                    LogStore.log("ApiClient", "CONNECTION_REFUSED: Backend not reachable at $BASE_URL")
+                    LogStore.log("ApiClient", "  Check: Is backend-node running?")
+                }
+                is java.net.UnknownHostException -> {
+                    LogStore.log("ApiClient", "DNS_FAILED: Cannot resolve ${NetworkConfig.host}")
+                    LogStore.log("ApiClient", "  Check: Is Android on same network?")
+                }
+            }
+            
+            UploadResult(CallerIntent.UNKNOWN, null, false, "$errorType: ${ex.message}")
         }
     }
 

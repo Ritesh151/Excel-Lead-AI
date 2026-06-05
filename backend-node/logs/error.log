@@ -1,0 +1,2 @@
+{"error":"No pending leads to process. Either the Excel file has no valid rows or all leads are already processed.","level":"error","message":"[AdbController] Start failed","timestamp":"2026-06-05 12:34:10.952"}
+{"error":"No pending leads to process. Either the Excel file has no valid rows or all leads are already processed.","level":"error","message":"[AdbController] Start failed","timestamp":"2026-06-05 12:35:06.369"}
