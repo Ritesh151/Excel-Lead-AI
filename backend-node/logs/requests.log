@@ -598,3 +598,12 @@
 {"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:33:32 +0000] \"GET /api/adb/status HTTP/1.1\" 200 361 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 15:03:32.886"}
 {"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:33:38 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 15:03:38.058"}
 {"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:36:40 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 15:06:40.532"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:11:23:45 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 16:53:45.924"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:11:23:45 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 16:53:45.926"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:11:23:56 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 16:53:56.137"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:11:23:56 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"-\"","timestamp":"2026-06-05 16:53:56.520"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:11:23:57 +0000] \"POST /api/adb/start HTTP/1.1\" 200 286 \"-\" \"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 16:53:57.460"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:11:23:58 +0000] \"POST /api/events/emit HTTP/1.1\" 200 52 \"-\" \"python-httpx/0.28.1\"","timestamp":"2026-06-05 16:53:58.288"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:11:23:58 +0000] \"POST /api/events/emit HTTP/1.1\" 200 51 \"-\" \"python-httpx/0.28.1\"","timestamp":"2026-06-05 16:53:58.301"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:11:24:00 +0000] \"GET /api/adb/status HTTP/1.1\" 200 347 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 16:54:00.956"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:11:24:06 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 16:54:06.370"}
