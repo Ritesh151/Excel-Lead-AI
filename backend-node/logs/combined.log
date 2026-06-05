@@ -513,3 +513,765 @@
 {"level":"debug","message":"[AdbCampaign] Duplicate skipped: +919427047705","timestamp":"2026-06-05 12:35:06.367"}
 {"inserted":0,"invalid":0,"level":"info","message":"[AdbCampaign] Import complete","skipped":1,"timestamp":"2026-06-05 12:35:06.367","total":1}
 {"error":"No pending leads to process. Either the Excel file has no valid rows or all leads are already processed.","level":"error","message":"[AdbController] Start failed","timestamp":"2026-06-05 12:35:06.369"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:35:19.245","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:35:30.225"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:35:34.239","ts":1780643134651}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:35:34.284","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:35:49.518","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:35:55.225"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:36:04.260","ts":1780643164661}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:36:04.573","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:36:19.592","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:36:20.226"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:36:34.370","ts":1780643194670}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:36:34.788","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:36:45.226"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:36:49.818","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:37:04.577","ts":1780643224676}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:37:04.853","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:37:10.226"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:37:19.883","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:37:34.432","ts":1780643254685}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:37:34.989","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:37:35.226"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:37:50.144","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:38:00.226"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:38:04.484","ts":1780643284694}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:38:05.180","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:38:20.249","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:38:25.226"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:38:34.385","ts":1780643314702}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:38:35.292","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:38:50.226"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:38:50.312","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:39:04.295","ts":1780643344710}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:39:05.519","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:39:15.226"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:39:20.662","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:39:34.388","ts":1780643374718}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:39:35.697","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:39:40.226"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:39:50.766","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:40:04.492","ts":1780643404726}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:40:05.227"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:40:05.929","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:40:20.950","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:40:30.228"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:40:34.414","ts":1780643434734}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:40:36.039","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:40:51.077","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:40:55.228"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:41:04.329","ts":1780643464742}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:41:06.146","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:41:20.229"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"POST","path":"/api/adb/start","timestamp":"2026-06-05 12:41:20.783","ua":"Android-GSMCall/3.0 (okhttp)"}
+{"campaignName":"Android Campaign","level":"info","message":"[AdbController] Start campaign request","timestamp":"2026-06-05 12:41:20.784"}
+{"level":"info","message":"[AdbCampaign] Running pre-flight checks...","timestamp":"2026-06-05 12:41:20.784"}
+{"level":"info","message":"[AdbCampaign] ✓ ai-python is reachable","status":"ok","timestamp":"2026-06-05 12:41:20.799"}
+{"level":"info","message":"[AdbCampaign] ✓ Pre-flight checks passed","timestamp":"2026-06-05 12:41:20.806"}
+{"file":"/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/leads/leads.xlsx","level":"info","message":"[AdbCampaign] Reading leads from Excel","timestamp":"2026-06-05 12:41:20.807"}
+{"level":"info","message":"[AdbCampaign] Excel rows read: 1","timestamp":"2026-06-05 12:41:20.825"}
+{"0":"Name","1":"Mobile Number","level":"info","message":"[AdbCampaign] Excel columns detected:","timestamp":"2026-06-05 12:41:20.825"}
+{"level":"debug","message":"[AdbCampaign] Duplicate skipped: +919427047705","timestamp":"2026-06-05 12:41:20.828"}
+{"inserted":0,"invalid":0,"level":"info","message":"[AdbCampaign] Import complete","skipped":1,"timestamp":"2026-06-05 12:41:20.829","total":1}
+{"error":"No pending leads to process. Either the Excel file has no valid rows or all leads are already processed.","level":"error","message":"[AdbController] Start failed","timestamp":"2026-06-05 12:41:20.831"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:41:21.169","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:41:34.406","ts":1780643494752}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:41:36.254","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:41:45.230"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:41:51.399","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:42:04.353","ts":1780643524764}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:42:06.567","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:42:14.058"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:42:14.086"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:42:14.111"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:42:14.174"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:42:14.176"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:42:14.202"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:42:14.202"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:42:14.202"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:42:14.203"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:42:14.203"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:42:14.203"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:42:14.203"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:42:14.203"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:42:14.203"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:42:14.211"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:42:14.212"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:42:14.213","warnings":0}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:39844 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:42:16.605"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:42:16.605"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:39854 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:42:16.607"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:42:16.607"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 12:42:16.624","ts":1780643537037}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 12:42:16.625"}
+{"level":"debug","message":"[WS] → android_connected (2/2 clients)","timestamp":"2026-06-05 12:42:16.625"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:42:19.922"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:42:19.952"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:42:19.964"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:42:20.009"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:42:20.010"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:42:20.022"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:42:20.022"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:42:20.023"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:42:20.023"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:42:20.023"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:42:20.023"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:42:20.023"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:42:20.023"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:42:20.023"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:42:20.030"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:42:20.030"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:42:20.038","warnings":0}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:42:21.627","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:39890 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:42:22.420"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:42:22.420"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:39876 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:42:22.421"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:42:22.422"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 12:42:22.441","ts":1780643542850}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 12:42:22.441"}
+{"level":"debug","message":"[WS] → android_connected (2/2 clients)","timestamp":"2026-06-05 12:42:22.442"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:42:33.779"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:42:33.806"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:42:33.818"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:42:33.863"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:42:33.864"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:42:33.876"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:42:33.876"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:42:33.877"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:42:33.877"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:42:33.877"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:42:33.877"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:42:33.877"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:42:33.877"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:42:33.877"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:42:33.885"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:42:33.885"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:42:33.887","warnings":0}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:50410 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:42:34.421"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:42:34.421"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 12:42:34.434","ts":1780643554843}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 12:42:34.435"}
+{"level":"debug","message":"[WS] → android_connected (1/1 clients)","timestamp":"2026-06-05 12:42:34.435"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:50426 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:42:35.953"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:42:35.953"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:42:36.687","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:42:51.729","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:42:58.779"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:43:04.415","ts":1780643584798}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:43:06.772","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:43:10.664"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:43:10.692"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:43:10.702"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:43:10.748"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:43:10.749"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:43:10.762"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:43:10.762"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:43:10.762"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:43:10.762"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:43:10.762"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:43:10.762"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:43:10.762"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:43:10.763"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:43:10.763"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:43:10.771"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:43:10.771"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:43:10.772","warnings":0}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:60212 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:43:12.694"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:43:12.694"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 12:43:12.707","ts":1780643593113}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 12:43:12.708"}
+{"level":"debug","message":"[WS] → android_connected (1/1 clients)","timestamp":"2026-06-05 12:43:12.709"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:60228 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:43:12.727"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:43:12.728"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:43:21.924","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:43:34.407","ts":1780643614803}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:43:35.663"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:43:37.092","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:43:52.234","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:44:00.663"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:44:04.522","ts":1780643644813}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:44:07.289","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:44:22.341","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:44:25.663"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:44:34.628","ts":1780643674827}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:44:37.413","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:44:50.663"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:44:52.651","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:45:04.529","ts":1780643704840}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:45:07.786","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:45:15.663"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:45:22.837","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:45:34.634","ts":1780643734853}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:45:37.901","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:45:40.663"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:45:52.948","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:46:04.535","ts":1780643764867}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:46:05.663"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:46:08.026","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:46:23.059","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:46:30.663"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:46:34.639","ts":1780643794876}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:46:38.131","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:46:53.154","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:46:55.663"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:47:04.540","ts":1780643824885}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:47:08.187","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:47:20.664"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:47:23.218","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:47:34.500","ts":1780643854897}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:47:38.340","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:47:45.664"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:47:53.486","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:48:04.512","ts":1780643884907}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:48:08.554","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:48:10.664"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:48:23.796","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:48:34.650","ts":1780643914917}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:48:35.664"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:48:38.861","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"POST","path":"/api/adb/stop","timestamp":"2026-06-05 12:48:49.195","ua":"Android-GSM-AI/3.0 (okhttp)"}
+{"level":"info","message":"[AdbCampaign] Stop requested — will stop after current call completes","timestamp":"2026-06-05 12:48:49.196"}
+{"level":"info","message":"[WS] Client disconnected code=1000 reason=Client disconnect","timestamp":"2026-06-05 12:48:49.201"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:48:53.633"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:48:53.685"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:48:53.694"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:48:53.755"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:48:53.759"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:48:53.778"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:48:53.778"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:48:53.778"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:48:53.778"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:48:53.778"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:48:53.779"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:48:53.779"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:48:53.779"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:48:53.779"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:48:53.785"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:48:53.785"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:48:53.786","warnings":0}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:48:53.911","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:57400 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:48:55.959"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:48:55.959"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:57412 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:48:55.961"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:48:55.961"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 12:48:55.969","ts":1780643936384}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 12:48:55.970"}
+{"level":"debug","message":"[WS] → android_connected (2/2 clients)","timestamp":"2026-06-05 12:48:55.970"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:49:09.063","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:49:18.632"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:49:22.869","ts":1780643963275}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:49:24.094","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:49:39.125","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:49:43.632"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:49:52.881","ts":1780643993284}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:49:54.152","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"POST","path":"/api/adb/stop","timestamp":"2026-06-05 12:50:06.442","ua":"Android-GSM-AI/3.0 (okhttp)"}
+{"level":"info","message":"[AdbCampaign] Stop requested — will stop after current call completes","timestamp":"2026-06-05 12:50:06.442"}
+{"level":"warn","message":"[WS] ✗ Android client disconnected - will reconnect","timestamp":"2026-06-05 12:50:06.448"}
+{"level":"info","message":"[WS] Client disconnected code=1000 reason=Client disconnect","timestamp":"2026-06-05 12:50:06.449"}
+{"level":"debug","message":"[WS] Heartbeat: 1 active, 0 removed","timestamp":"2026-06-05 12:50:08.632"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:50:09.187","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:50:24.214","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 1 active, 0 removed","timestamp":"2026-06-05 12:50:33.632"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:50:39.370","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:50:44.295"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:50:44.321"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:50:44.331"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:50:44.375"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:50:44.376"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:50:44.388"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:50:44.388"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:50:44.388"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:50:44.388"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:50:44.388"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:50:44.388"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:50:44.389"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:50:44.389"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:50:44.389"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:50:44.395"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:50:44.395"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:50:44.396","warnings":0}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:39708 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:50:46.834"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:50:46.835"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:50:54.524","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 1 active, 0 removed","timestamp":"2026-06-05 12:51:09.294"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:51:09.576","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:51:24.619","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 1 active, 0 removed","timestamp":"2026-06-05 12:51:34.294"}
+{"level":"warn","message":"[WS] ✗ Android client disconnected - will reconnect","timestamp":"2026-06-05 12:51:37.737"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 12:51:37.737"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:52798 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:51:43.857"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:51:43.857"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:51:46.956","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 1 active, 0 removed","timestamp":"2026-06-05 12:51:59.294"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:52:02.113","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:52:17.143","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 1 active, 0 removed","timestamp":"2026-06-05 12:52:24.295"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:52:32.171","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:52:47.178","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 1 active, 0 removed","timestamp":"2026-06-05 12:52:49.295"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:53:02.207","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:53:13.469"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:53:13.555"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:53:13.577"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:53:13.635"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:53:13.636"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:53:13.647"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:53:13.648"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:53:13.648"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:53:13.648"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:53:13.648"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:53:13.648"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:53:13.648"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:53:13.648"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:53:13.648"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:53:13.657"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:53:13.657"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:53:13.658","warnings":0}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:41536 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:53:16.039"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:53:16.039"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:53:17.227","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:53:32.267","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 1 active, 0 removed","timestamp":"2026-06-05 12:53:38.464"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:44254 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:53:43.041"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:53:43.041"}
+{"event":"call_state","flowId":0,"level":"info","message":"[WS] ← call_state","phone":"","state":"ended","timestamp":"2026-06-05 12:53:43.050","ts":1780644223476}
+{"level":"debug","message":"[WS] → call_state_update (2/2 clients)","timestamp":"2026-06-05 12:53:43.051"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 12:53:43.054","ts":1780644223476}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 12:53:43.054"}
+{"level":"debug","message":"[WS] → android_connected (2/2 clients)","timestamp":"2026-06-05 12:53:43.055"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"POST","path":"/api/adb/start","timestamp":"2026-06-05 12:53:43.234","ua":"Android-GSMCall/3.0 (okhttp)"}
+{"campaignName":"Android Campaign","level":"info","message":"[AdbController] Start campaign request","timestamp":"2026-06-05 12:53:43.235"}
+{"level":"info","message":"[AdbCampaign] Running pre-flight checks...","timestamp":"2026-06-05 12:53:43.235"}
+{"level":"info","message":"[AdbCampaign] ✓ ai-python is reachable","status":"ok","timestamp":"2026-06-05 12:53:43.239"}
+{"level":"info","message":"[AdbCampaign] ✓ Pre-flight checks passed","timestamp":"2026-06-05 12:53:43.244"}
+{"file":"/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/leads/leads.xlsx","level":"info","message":"[AdbCampaign] Reading leads from Excel","timestamp":"2026-06-05 12:53:43.244"}
+{"level":"info","message":"[AdbCampaign] Excel rows read: 1","timestamp":"2026-06-05 12:53:43.261"}
+{"0":"Name","1":"Mobile Number","level":"info","message":"[AdbCampaign] Excel columns detected:","timestamp":"2026-06-05 12:53:43.261"}
+{"level":"debug","message":"[AdbCampaign] Duplicate skipped: +919327983260","timestamp":"2026-06-05 12:53:43.264"}
+{"inserted":0,"invalid":0,"level":"info","message":"[AdbCampaign] Import complete","skipped":1,"timestamp":"2026-06-05 12:53:43.265","total":1}
+{"error":"No pending leads to process. Either the Excel file has no valid rows or all leads are already processed.","level":"error","message":"[AdbController] Start failed","timestamp":"2026-06-05 12:53:43.269"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:53:47.369","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 12:53:57.002"}
+{"level":"warn","message":"[WS] ✗ Android client disconnected - will reconnect","timestamp":"2026-06-05 12:53:57.003"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 12:53:57.004"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:54:29.629"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:54:29.657"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:54:29.670"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:54:29.718"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:54:29.719"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:54:29.732"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:54:29.732"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:54:29.732"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:54:29.732"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:54:29.733"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:54:29.733"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:54:29.733"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:54:29.733"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:54:29.733"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:54:29.740"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:54:29.741"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:54:29.742","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:54:37.680"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:54:37.706"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:54:37.717"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:54:37.762"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:54:37.763"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:54:37.775"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:54:37.775"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:54:37.775"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:54:37.775"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:54:37.775"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:54:37.775"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:54:37.775"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:54:37.776"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:54:37.776"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:54:37.782"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:54:37.782"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:54:37.783","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:54:43.135"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:54:43.160"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:54:43.171"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:54:43.213"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:54:43.214"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:54:43.226"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:54:43.226"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:54:43.226"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:54:43.227"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:54:43.227"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:54:43.227"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:54:43.227"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:54:43.227"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:54:43.227"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:54:43.235"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:54:43.236"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:54:43.237","warnings":0}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:56:31.644","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:32966 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:56:31.647"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:56:31.647"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:60626 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 12:56:38.227"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:56:38.227"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 12:56:38.233","ts":1780644398666}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 12:56:38.233"}
+{"level":"debug","message":"[WS] → android_connected (2/2 clients)","timestamp":"2026-06-05 12:56:38.234"}
+{"event":"call_state","flowId":0,"level":"info","message":"[WS] ← call_state","phone":"","state":"ended","timestamp":"2026-06-05 12:56:38.307","ts":1780644398740}
+{"level":"debug","message":"[WS] → call_state_update (2/2 clients)","timestamp":"2026-06-05 12:56:38.308"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"POST","path":"/api/adb/start","timestamp":"2026-06-05 12:56:38.383","ua":"Android-GSMCall/3.0 (okhttp)"}
+{"campaignName":"Android Campaign","level":"info","message":"[AdbController] Start campaign request","timestamp":"2026-06-05 12:56:38.384"}
+{"level":"info","message":"[AdbCampaign] Running pre-flight checks...","timestamp":"2026-06-05 12:56:38.385"}
+{"level":"info","message":"[AdbCampaign] ✓ ai-python is reachable","status":"ok","timestamp":"2026-06-05 12:56:38.388"}
+{"level":"info","message":"[AdbCampaign] ✓ Pre-flight checks passed","timestamp":"2026-06-05 12:56:38.393"}
+{"file":"/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/leads/leads.xlsx","level":"info","message":"[AdbCampaign] Reading leads from Excel","timestamp":"2026-06-05 12:56:38.393"}
+{"level":"info","message":"[AdbCampaign] Excel rows read: 1","timestamp":"2026-06-05 12:56:38.409"}
+{"0":"Name","1":"Mobile Number","level":"info","message":"[AdbCampaign] Excel columns detected:","timestamp":"2026-06-05 12:56:38.409"}
+{"level":"debug","message":"[AdbCampaign] Duplicate skipped: +919327983260","timestamp":"2026-06-05 12:56:38.413"}
+{"inserted":0,"invalid":0,"level":"info","message":"[AdbCampaign] Import complete","skipped":1,"timestamp":"2026-06-05 12:56:38.413","total":1}
+{"error":"No pending leads to process. Either the Excel file has no valid rows or all leads are already processed.","level":"error","message":"[AdbController] Start failed","timestamp":"2026-06-05 12:56:38.415"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:56:46.683","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:56:48.135"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:57:01.721","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 12:57:08.268","ts":1780644428647}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 12:57:13.135"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:57:16.759","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:57:31.829","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"POST","path":"/api/adb/stop","timestamp":"2026-06-05 12:57:34.688","ua":"Android-GSM-AI/3.0 (okhttp)"}
+{"level":"info","message":"[AdbCampaign] Stop requested — will stop after current call completes","timestamp":"2026-06-05 12:57:34.689"}
+{"level":"warn","message":"[WS] ✗ Android client disconnected - will reconnect","timestamp":"2026-06-05 12:57:34.733"}
+{"level":"info","message":"[WS] Client disconnected code=1000 reason=Client disconnect","timestamp":"2026-06-05 12:57:34.733"}
+{"level":"debug","message":"[WS] Heartbeat: 1 active, 0 removed","timestamp":"2026-06-05 12:57:38.135"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 12:57:40.628"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:57:42.492","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:43600 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:57:42.494"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:57:42.494"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:57:44.281"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:57:44.309"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:57:44.319"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:57:44.361"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:57:44.362"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:57:44.374"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:57:44.375"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:57:44.375"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:57:44.375"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:57:44.375"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:57:44.375"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:57:44.375"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:57:44.375"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:57:44.375"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:57:44.381"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:57:44.382"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:57:44.383","warnings":0}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:51506 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 12:57:46.753"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 12:57:46.754"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:57:57.627","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 1 active, 0 removed","timestamp":"2026-06-05 12:58:09.281"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 12:58:12.651","ua":"okhttp/4.11.0"}
+{"level":"warn","message":"[WS] ✗ Android client disconnected - will reconnect","timestamp":"2026-06-05 12:58:16.680"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 12:58:16.681"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:58:34.286"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:58:34.313"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:58:34.323"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:58:34.372"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:58:34.373"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:58:34.384"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:58:34.384"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:58:34.384"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:58:34.384"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:58:34.384"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:58:34.385"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:58:34.385"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:58:34.385"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:58:34.385"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:58:34.393"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:58:34.393"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:58:34.395","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 12:59:27.322"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 12:59:27.353"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 12:59:27.367"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 12:59:27.436"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 12:59:27.437"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:59:27.454"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 12:59:27.454"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 12:59:27.454"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 12:59:27.454"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 12:59:27.455"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 12:59:27.455"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 12:59:27.455"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 12:59:27.455"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 12:59:27.455"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 12:59:27.465"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 12:59:27.465"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 12:59:27.467","warnings":0}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:02:25.992","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:02:41.021","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:56428 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 13:02:49.071"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 13:02:49.072"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:02:56.050","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:03:11.174","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 1 active, 0 removed","timestamp":"2026-06-05 13:03:12.324"}
+{"level":"warn","message":"[WS] ✗ Android client disconnected - will reconnect","timestamp":"2026-06-05 13:03:21.321"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 13:03:21.322"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 13:04:11.084"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 13:04:11.111"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 13:04:11.122"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 13:04:11.172"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 13:04:11.173"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:04:11.184"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 13:04:11.185"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 13:04:11.185"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 13:04:11.185"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 13:04:11.185"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 13:04:11.185"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 13:04:11.185"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 13:04:11.186"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:04:11.186"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 13:04:11.192"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 13:04:11.193"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 13:04:11.194","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 13:04:15.935"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 13:04:15.974"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 13:04:15.994"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 13:04:16.077"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 13:04:16.079"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:04:16.097"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 13:04:16.097"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 13:04:16.098"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 13:04:16.098"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 13:04:16.098"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 13:04:16.098"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 13:04:16.099"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 13:04:16.099"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:04:16.099"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 13:04:16.108"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 13:04:16.108"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 13:04:16.110","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 13:06:06.141"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 13:06:06.181"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 13:06:06.197"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 13:06:06.273"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 13:06:06.275"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:06:06.292"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 13:06:06.293"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 13:06:06.293"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 13:06:06.293"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 13:06:06.293"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 13:06:06.293"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 13:06:06.294"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 13:06:06.294"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:06:06.294"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 13:06:06.305"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 13:06:06.305"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 13:06:06.307","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 13:07:23.239"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 13:07:23.277"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 13:07:23.291"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 13:07:23.364"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 13:07:23.366"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:07:23.383"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 13:07:23.383"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 13:07:23.383"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 13:07:23.383"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 13:07:23.383"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 13:07:23.383"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 13:07:23.383"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 13:07:23.384"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:07:23.384"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 13:07:23.391"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 13:07:23.392"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 13:07:23.393","warnings":0}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:09:13.378","ua":"okhttp/4.11.0"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:44896 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 13:09:13.470"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 13:09:13.470"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:44934 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 13:09:13.612"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 13:09:13.612"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 13:09:13.623","ts":1780645154056}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 13:09:13.623"}
+{"level":"debug","message":"[WS] → android_connected (2/2 clients)","timestamp":"2026-06-05 13:09:13.624"}
+{"event":"call_state","flowId":0,"level":"info","message":"[WS] ← call_state","phone":"","state":"ended","timestamp":"2026-06-05 13:09:13.631","ts":1780645154065}
+{"level":"debug","message":"[WS] → call_state_update (2/2 clients)","timestamp":"2026-06-05 13:09:13.631"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"POST","path":"/api/adb/start","timestamp":"2026-06-05 13:09:13.700","ua":"Android-GSMCall/3.0 (okhttp)"}
+{"campaignName":"Android Campaign","level":"info","message":"[AdbController] Start campaign request","timestamp":"2026-06-05 13:09:13.701"}
+{"level":"info","message":"[AdbCampaign] Running pre-flight checks...","timestamp":"2026-06-05 13:09:13.701"}
+{"level":"info","message":"[AdbCampaign] ✓ ai-python is reachable","status":"ok","timestamp":"2026-06-05 13:09:13.707"}
+{"level":"info","message":"[AdbCampaign] ✓ Pre-flight checks passed","timestamp":"2026-06-05 13:09:13.714"}
+{"file":"/run/media/ritesh/Project Data/AI Projects/AI Calling - Excel Lead/leads/leads.xlsx","level":"info","message":"[AdbCampaign] Reading leads from Excel","timestamp":"2026-06-05 13:09:13.714"}
+{"level":"info","message":"[AdbCampaign] Excel rows read: 1","timestamp":"2026-06-05 13:09:13.732"}
+{"0":"Name","1":"Mobile Number","level":"info","message":"[AdbCampaign] Excel columns detected:","timestamp":"2026-06-05 13:09:13.732"}
+{"level":"debug","message":"[AdbCampaign] Duplicate skipped: +919327983260","timestamp":"2026-06-05 13:09:13.736"}
+{"inserted":0,"invalid":0,"level":"info","message":"[AdbCampaign] Import complete","skipped":1,"timestamp":"2026-06-05 13:09:13.736","total":1}
+{"error":"No pending leads to process. Either the Excel file has no valid rows or all leads are already processed.","level":"error","message":"[AdbController] Start failed","timestamp":"2026-06-05 13:09:13.739"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 13:09:28.238"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:09:28.399","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:09:43.586","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 13:09:43.605","ts":1780645184035}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 13:09:53.239"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:09:58.733","ua":"okhttp/4.11.0"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 13:10:13.628","ts":1780645214045}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:10:13.772","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 13:10:18.239"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:10:28.941","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 13:10:43.240"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 13:11:08.241"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 13:11:33.240"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 13:11:53.914","ts":1780645314323}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:11:54.252","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 13:11:58.242"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 13:12:01.601"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 13:12:01.640"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 13:12:01.655"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 13:12:01.774"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 13:12:01.777"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:12:01.798"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 13:12:01.798"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 13:12:01.798"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 13:12:01.798"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 13:12:01.799"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 13:12:01.799"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 13:12:01.799"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 13:12:01.799"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:12:01.799"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 13:12:01.815"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 13:12:01.817"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 13:12:01.819","warnings":0}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:39362 ua=\"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 13:12:03.816"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 13:12:03.817"}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:39374 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 13:12:03.818"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 13:12:03.819"}
+{"event":"android_ready","level":"info","message":"[WS] ← android_ready","timestamp":"2026-06-05 13:12:03.835","ts":1780645324274}
+{"level":"info","message":"[WS] Android app ready","timestamp":"2026-06-05 13:12:03.835"}
+{"level":"debug","message":"[WS] → android_connected (2/2 clients)","timestamp":"2026-06-05 13:12:03.836"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 13:12:26.601"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 13:12:51.600"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:12:52.452","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 13:13:16.600"}
+{"event":"watchdog","level":"info","message":"[WS] ← watchdog","timestamp":"2026-06-05 13:13:20.457","ts":1780645400793}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:13:21.287","ua":"okhttp/4.11.0"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 13:13:36.431","ua":"okhttp/4.11.0"}
+{"level":"debug","message":"[WS] Heartbeat: 2 active, 0 removed","timestamp":"2026-06-05 13:13:41.601"}
+{"level":"info","message":"[WS] Client disconnected code=1000 reason=Client disconnect","timestamp":"2026-06-05 13:13:44.228"}
+{"level":"warn","message":"[WS] ✗ Android client disconnected - will reconnect","timestamp":"2026-06-05 13:13:47.080"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 13:13:47.081"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 13:51:39.435"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 13:51:39.462"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 13:51:39.471"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 13:51:39.514"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 13:51:39.515"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:51:39.527"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 13:51:39.527"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 13:51:39.527"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 13:51:39.527"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 13:51:39.527"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 13:51:39.527"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 13:51:39.527"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 13:51:39.527"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:51:39.528"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 13:51:39.542"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 13:51:39.542"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 13:51:39.544","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 13:51:57.417"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 13:51:57.449"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 13:51:57.458"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 13:51:57.502"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 13:51:57.503"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:51:57.514"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 13:51:57.514"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 13:51:57.514"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 13:51:57.515"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 13:51:57.515"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 13:51:57.515"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 13:51:57.515"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 13:51:57.515"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:51:57.516"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 13:51:57.523"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 13:51:57.523"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 13:51:57.525","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 13:54:05.164"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 13:54:05.192"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 13:54:05.203"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 13:54:05.252"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 13:54:05.253"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:54:05.266"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 13:54:05.266"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 13:54:05.266"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 13:54:05.267"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 13:54:05.267"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 13:54:05.267"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 13:54:05.267"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 13:54:05.267"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:54:05.267"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 13:54:05.274"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 13:54:05.274"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 13:54:05.275","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 13:55:11.341"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 13:55:11.370"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 13:55:11.381"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 13:55:11.429"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 13:55:11.430"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:55:11.442"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 13:55:11.443"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 13:55:11.443"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 13:55:11.443"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 13:55:11.443"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 13:55:11.443"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 13:55:11.444"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 13:55:11.444"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:55:11.444"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 13:55:11.452"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 13:55:11.453"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 13:55:11.454","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 13:55:50.911"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 13:55:50.945"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 13:55:50.961"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 13:55:51.034"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 13:55:51.035"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:55:51.046"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 13:55:51.046"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 13:55:51.046"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 13:55:51.046"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 13:55:51.046"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 13:55:51.046"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 13:55:51.047"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 13:55:51.047"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:55:51.047"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 13:55:51.052"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 13:55:51.053"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 13:55:51.054","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 13:56:40.902"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 13:56:40.929"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 13:56:40.940"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 13:56:40.988"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 13:56:40.989"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:56:41.001"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 13:56:41.001"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 13:56:41.001"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 13:56:41.002"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 13:56:41.002"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 13:56:41.002"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 13:56:41.002"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 13:56:41.002"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:56:41.002"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 13:56:41.009"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 13:56:41.010"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 13:56:41.011","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 13:59:23.222"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 13:59:23.256"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 13:59:23.268"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 13:59:23.329"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 13:59:23.330"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:59:23.343"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 13:59:23.344"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 13:59:23.344"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 13:59:23.344"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 13:59:23.344"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 13:59:23.344"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 13:59:23.344"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 13:59:23.344"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 13:59:23.345"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 13:59:23.353"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 13:59:23.353"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 13:59:23.354","warnings":0}
+{"level":"info","message":"[WS] Client connected ip=10.75.233.49:35002 ua=\"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 14:00:28.920"}
+{"level":"info","message":"[WS] ✓ Android client registered from 10.75.233.49","timestamp":"2026-06-05 14:00:28.920"}
+{"ip":"10.75.233.49","level":"info","message":"[Req]","method":"GET","path":"/api/adb/status","timestamp":"2026-06-05 14:00:28.922","ua":"okhttp/4.11.0"}
+{"level":"warn","message":"[WS] ✗ Android client disconnected - will reconnect","timestamp":"2026-06-05 14:00:34.358"}
+{"level":"info","message":"[WS] Client disconnected code=1006 reason=","timestamp":"2026-06-05 14:00:34.358"}
