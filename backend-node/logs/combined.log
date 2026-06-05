@@ -224,3 +224,223 @@
 {"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-04 17:41:45.942"}
 {"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-04 17:41:45.943"}
 {"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-04 17:41:45.944","warnings":0}
+{"level":"info","message":"SIGINT — shutting down","timestamp":"2026-06-04 17:42:53.741"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 22:00:06.793"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 22:00:06.873"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 22:00:07.046"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 22:00:07.266"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-04 22:00:07.269"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 22:00:07.286"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-04 22:00:07.286"}
+{"level":"info","message":"  HTTP  : http://localhost:3000","timestamp":"2026-06-04 22:00:07.286"}
+{"level":"info","message":"  WS    : ws://localhost:3000/","timestamp":"2026-06-04 22:00:07.286"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-04 22:00:07.286"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-04 22:00:07.287"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 22:00:07.287"}
+{"level":"warn","message":"[Startup] ⚠ ai-python not reachable — ADB calls will fail until started:","timestamp":"2026-06-04 22:00:07.299"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-04 22:00:07.300"}
+{"level":"warn","message":"[Startup] Non-critical warnings:","timestamp":"2026-06-04 22:00:07.302","warnings":["aiPython: ai-python not reachable at http://localhost:8000: . Start with: python main.py server"]}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":4,"timestamp":"2026-06-04 22:00:07.302","warnings":1}
+{"level":"info","message":"SIGINT — shutting down","timestamp":"2026-06-04 22:42:53.083"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 22:43:01.004"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 22:43:01.035"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 22:43:01.075"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 22:43:01.178"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-04 22:43:01.179"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 22:43:01.190"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-04 22:43:01.190"}
+{"level":"info","message":"  HTTP  : http://localhost:3000","timestamp":"2026-06-04 22:43:01.190"}
+{"level":"info","message":"  WS    : ws://localhost:3000/","timestamp":"2026-06-04 22:43:01.190"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-04 22:43:01.191"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-04 22:43:01.191"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 22:43:01.191"}
+{"level":"warn","message":"[Startup] ⚠ ai-python not reachable — ADB calls will fail until started:","timestamp":"2026-06-04 22:43:01.197"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-04 22:43:01.198"}
+{"level":"warn","message":"[Startup] Non-critical warnings:","timestamp":"2026-06-04 22:43:01.198","warnings":["aiPython: ai-python not reachable at http://localhost:8000: . Start with: python main.py server"]}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":4,"timestamp":"2026-06-04 22:43:01.199","warnings":1}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 23:01:46.057"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 23:01:46.083"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 23:01:46.112"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 23:01:46.194"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-04 23:01:46.195"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 23:01:46.216"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-04 23:01:46.217"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://192.168.29.148:3000","timestamp":"2026-06-04 23:01:46.217"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://192.168.29.148:3000/","timestamp":"2026-06-04 23:01:46.217"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-04 23:01:46.217"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-04 23:01:46.217"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-04 23:01:46.217"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-04 23:01:46.217"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 23:01:46.218"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-04 23:01:46.506"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-04 23:01:46.506"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-04 23:01:46.508","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 23:02:00.866"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 23:02:00.894"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 23:02:00.905"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 23:02:00.952"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-04 23:02:00.953"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 23:02:00.965"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-04 23:02:00.965"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://192.168.29.148:3000","timestamp":"2026-06-04 23:02:00.965"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://192.168.29.148:3000/","timestamp":"2026-06-04 23:02:00.966"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-04 23:02:00.966"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-04 23:02:00.966"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-04 23:02:00.966"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-04 23:02:00.966"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 23:02:00.966"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-04 23:02:00.974"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-04 23:02:00.975"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-04 23:02:00.976","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 23:02:09.121"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 23:02:09.159"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 23:02:09.172"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 23:02:09.239"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-04 23:02:09.240"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 23:02:09.257"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-04 23:02:09.257"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://192.168.29.148:3000","timestamp":"2026-06-04 23:02:09.258"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://192.168.29.148:3000/","timestamp":"2026-06-04 23:02:09.258"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-04 23:02:09.258"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-04 23:02:09.258"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-04 23:02:09.258"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-04 23:02:09.259"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 23:02:09.259"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-04 23:02:09.268"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-04 23:02:09.268"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-04 23:02:09.270","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 23:07:49.401"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 23:07:49.432"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 23:07:49.491"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 23:07:49.586"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-04 23:07:49.587"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 23:07:49.603"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-04 23:07:49.603"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://192.168.29.148:3000","timestamp":"2026-06-04 23:07:49.603"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://192.168.29.148:3000/","timestamp":"2026-06-04 23:07:49.603"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-04 23:07:49.604"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-04 23:07:49.604"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-04 23:07:49.604"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-04 23:07:49.604"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 23:07:49.604"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-04 23:07:49.774"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-04 23:07:49.777"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-04 23:07:49.779","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 23:08:10.979"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 23:08:11.006"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 23:08:11.017"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 23:08:11.060"}
+{"level":"info","message":"SIGTERM — shutting down","timestamp":"2026-06-04 23:08:37.036"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 23:08:59.373"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 23:08:59.399"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 23:08:59.410"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 23:08:59.456"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-04 23:08:59.457"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 23:08:59.469"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-04 23:08:59.469"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://192.168.29.148:3000","timestamp":"2026-06-04 23:08:59.470"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://192.168.29.148:3000/","timestamp":"2026-06-04 23:08:59.470"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-04 23:08:59.470"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-04 23:08:59.470"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-04 23:08:59.471"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-04 23:08:59.471"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 23:08:59.471"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-04 23:08:59.480"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-04 23:08:59.480"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-04 23:08:59.481","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 23:18:10.332"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 23:18:10.357"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 23:18:10.369"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 23:18:10.413"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 23:22:44.321"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 23:22:44.347"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 23:22:44.359"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 23:22:44.412"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 23:22:56.569"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 23:22:56.602"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 23:22:56.616"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 23:22:56.674"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 23:23:09.293"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 23:23:09.319"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 23:23:09.329"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 23:23:09.375"}
+{"level":"warn","message":"[MongoDB] Disconnected — Mongoose will auto-reconnect","timestamp":"2026-06-04 23:38:09.782"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-04 23:40:05.283"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-04 23:40:05.314"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-04 23:40:05.324"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-04 23:40:05.369"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-04 23:40:05.370"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 23:40:05.383"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-04 23:40:05.383"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://192.168.29.148:3000","timestamp":"2026-06-04 23:40:05.383"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://192.168.29.148:3000/","timestamp":"2026-06-04 23:40:05.383"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-04 23:40:05.383"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-04 23:40:05.384"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-04 23:40:05.384"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-04 23:40:05.384"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-04 23:40:05.384"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-04 23:40:05.394"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-04 23:40:05.395"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-04 23:40:05.395","warnings":0}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 09:18:20.713"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 09:18:20.740"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 09:18:20.756"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 09:18:20.812"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 09:18:20.813"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 09:18:20.824"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 09:18:20.824"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 09:18:20.824"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 09:18:20.824"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 09:18:20.825"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 09:18:20.825"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 09:18:20.825"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 09:18:20.825"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 09:18:20.825"}
+{"level":"warn","message":"[Startup] ⚠ ai-python not reachable — ADB calls will fail until started:","timestamp":"2026-06-05 09:18:20.831"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 09:18:20.831"}
+{"level":"warn","message":"[Startup] Non-critical warnings:","timestamp":"2026-06-05 09:18:20.832","warnings":["aiPython: ai-python not reachable at http://localhost:8000: . Start with: python main.py server"]}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":4,"timestamp":"2026-06-05 09:18:20.833","warnings":1}
+{"level":"info","message":"SIGINT — shutting down","timestamp":"2026-06-05 09:25:40.226"}
+{"level":"info","message":"[WS] WebSocket server closed","timestamp":"2026-06-05 09:25:40.228"}
+{"level":"info","message":"SIGINT — shutting down","timestamp":"2026-06-05 09:25:40.279"}
+{"level":"info","message":"[WS] WebSocket server closed","timestamp":"2026-06-05 09:25:40.279"}
+{"level":"info","message":"SIGINT — shutting down","timestamp":"2026-06-05 09:25:40.302"}
+{"level":"info","message":"[WS] WebSocket server closed","timestamp":"2026-06-05 09:25:40.302"}
+{"level":"info","message":"SIGINT — shutting down","timestamp":"2026-06-05 09:25:41.160"}
+{"level":"info","message":"[WS] WebSocket server closed","timestamp":"2026-06-05 09:25:41.160"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 09:25:52.088"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 09:25:52.125"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 09:25:52.205"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 09:25:52.309"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 09:25:52.310"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 09:25:52.321"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 09:25:52.321"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 09:25:52.321"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 09:25:52.321"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 09:25:52.322"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 09:25:52.322"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 09:25:52.322"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 09:25:52.322"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 09:25:52.322"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 09:25:52.538"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 09:25:52.538"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 09:25:52.540","warnings":0}
+{"level":"warn","message":"[MongoDB] Disconnected — Mongoose will auto-reconnect","timestamp":"2026-06-05 09:26:20.775"}
+{"level":"info","message":"SIGINT — shutting down","timestamp":"2026-06-05 09:30:57.278"}
+{"level":"info","message":"[WS] WebSocket server attached to HTTP server on path /","timestamp":"2026-06-05 09:31:16.924"}
+{"level":"info","message":"Recordings directory ready","path":"../recordings","timestamp":"2026-06-05 09:31:17.036"}
+{"level":"info","message":"[MongoDB] Connected to ai_calling","timestamp":"2026-06-05 09:31:17.104"}
+{"level":"info","message":"[MongoDB] All collection indexes verified","timestamp":"2026-06-05 09:31:17.299"}
+{"level":"info","message":"[Startup] Running environment diagnostics...","timestamp":"2026-06-05 09:31:17.301"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 09:31:17.324"}
+{"level":"info","message":"  AI Calling Backend v3 — ADB+Android+Kotlin","timestamp":"2026-06-05 09:31:17.324"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): http://10.75.233.119:3000","timestamp":"2026-06-05 09:31:17.325"}
+{"level":"info","message":"  🌍 PUBLIC (Android LAN): ws://10.75.233.119:3000/","timestamp":"2026-06-05 09:31:17.325"}
+{"level":"info","message":"  💻 LOCAL (PC only):      http://localhost:3000","timestamp":"2026-06-05 09:31:17.325"}
+{"level":"info","message":"  💻 LOCAL (PC only):      ws://localhost:3000/","timestamp":"2026-06-05 09:31:17.325"}
+{"level":"info","message":"  Env   : development","timestamp":"2026-06-05 09:31:17.326"}
+{"level":"info","message":"  AI URL: http://localhost:8000","timestamp":"2026-06-05 09:31:17.326"}
+{"level":"info","message":"═══════════════════════════════════════════════","timestamp":"2026-06-05 09:31:17.326"}
+{"level":"info","message":"[Startup] ✓ ai-python reachable","timestamp":"2026-06-05 09:31:17.570"}
+{"level":"info","message":"[Startup] WebSocket ready — path / (0 clients)","timestamp":"2026-06-05 09:31:17.570"}
+{"failures":0,"level":"info","message":"[Startup] Diagnostics complete","passed":5,"timestamp":"2026-06-05 09:31:17.573","warnings":0}

@@ -54,52 +54,80 @@ class WebSocketServer {
     this._wss.on('connection', (ws, req) => {
       const ip = req.socket.remoteAddress || 'unknown';
       const ua = req.headers['user-agent'] || '';
-      logger.info(`[WS] Client connected ip=${ip} ua="${ua}"`);
+      const remotePort = req.socket.remotePort || '?';
+      
+      logger.info(`[WS] Client connected ip=${ip}:${remotePort} ua="${ua.substring(0, 80)}"`);
+      console.log(`✓ [WS] New connection from ${ip}:${remotePort}`);
 
       this._clients.add(ws);
-
-      // Identify Android client
-      if (ua.includes('okhttp') || ua.includes('Android') || ua.toLowerCase().includes('android')) {
+      
+      // Identify Android client by User-Agent
+      const isAndroid = ua.includes('okhttp') || ua.includes('Android') || ua.toLowerCase().includes('android') || ua.includes('GSMCall');
+      if (isAndroid) {
         this._androidClient = ws;
-        logger.info('[WS] Android client registered');
+        logger.info('[WS] ✓ Android client registered from ' + ip);
+        console.log(`✓ [WS] Android device connected: ${ip}`);
       }
 
-      ws.on('message', (data) => this._handleMessage(ws, data));
+      // Enhanced error handling
+      ws.on('message', (data) => {
+        try {
+          this._handleMessage(ws, data);
+        } catch (err) {
+          logger.error('[WS] Message handler error:', err.message);
+        }
+      });
 
       ws.on('close', (code, reason) => {
         this._clients.delete(ws);
         if (this._androidClient === ws) {
           this._androidClient = null;
-          logger.info('[WS] Android client disconnected');
+          logger.warn('[WS] ✗ Android client disconnected - will reconnect');
+          console.log(`✗ [WS] Android device disconnected (code=${code})`);
         }
         logger.info(`[WS] Client disconnected code=${code} reason=${reason?.toString() || ''}`);
       });
 
       ws.on('error', (err) => {
-        logger.error(`[WS] Client error: ${err.message}`);
+        logger.error(`[WS] Client error from ${ip}: ${err.message}`);
         this._clients.delete(ws);
       });
 
+      // Pong handler for heartbeat validation
       ws.on('pong', () => {
-        // Keep-alive confirmed
+        // Heartbeat acknowledged
       });
 
-      // Send welcome + current state
-      this._sendToOne(ws, { event: 'connected', message: 'AI Calling backend ready', timestamp: Date.now() });
+      // Send welcome message
+      this._sendToOne(ws, {
+        event: 'connected',
+        message: 'AI Calling backend ready',
+        timestamp: Date.now(),
+      });
     });
 
-    // Ping all clients every 30s to keep connections alive
+    // ENHANCED HEARTBEAT: Ping all clients every 25s (aggressive keep-alive)
     this._pingInterval = setInterval(() => {
+      let activeCount = 0;
+      let deadCount = 0;
+
       this._clients.forEach((ws) => {
-        if (ws.readyState === ws.OPEN) {
+        if (ws.readyState === 1) { // OPEN
           ws.ping();
+          activeCount++;
         } else {
+          deadCount++;
           this._clients.delete(ws);
         }
       });
-    }, 30_000);
 
-    logger.info('[WS] WebSocket server attached to HTTP server on path /');
+      if (this._clients.size > 0) {
+        logger.debug(`[WS] Heartbeat: ${activeCount} active, ${deadCount} removed`);
+      }
+    }, 25_000);
+
+    logger.info(`[WS] WebSocket server attached to HTTP server on path /`);
+    console.log('✓ [WS] WebSocket server ready');
     return this;
   }
 

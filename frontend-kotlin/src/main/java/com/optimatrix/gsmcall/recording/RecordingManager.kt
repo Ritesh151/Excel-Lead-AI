@@ -151,78 +151,131 @@ class RecordingManager(context: Context) {
     private val bytesPerSample = 2
 
     fun recordResponse(durationSeconds: Int): File? {
+        LogStore.log("Recording", "recordResponse START — duration=$durationSeconds")
+        
         val minBuffer = AudioRecord.getMinBufferSize(sampleRate, channelConfig, audioFormat)
         if (minBuffer == AudioRecord.ERROR || minBuffer == AudioRecord.ERROR_BAD_VALUE) {
-            LogStore.log("Recording", "Invalid AudioRecord buffer size, cannot record")
+            LogStore.log("Recording", "ERROR: Invalid AudioRecord buffer size")
             return null
         }
+        
         val bufferSize = minBuffer.coerceAtLeast(sampleRate * bytesPerSample)
         val tempBuffer = ByteArray(bufferSize)
         val outFile = File(recordsDir, "response_${System.currentTimeMillis()}.wav")
         val rawStream = ByteArrayOutputStream()
 
         var recorder: AudioRecord? = null
+        
         return try {
-            recorder = AudioRecord.Builder()
-                .setAudioSource(MediaRecorder.AudioSource.VOICE_COMMUNICATION)
-                .setAudioFormat(
-                    AudioFormat.Builder()
-                        .setEncoding(audioFormat)
-                        .setSampleRate(sampleRate)
-                        .setChannelMask(channelConfig)
-                        .build()
-                )
-                .setBufferSizeInBytes(bufferSize)
-                .build()
-
-            if (recorder?.state != AudioRecord.STATE_INITIALIZED) {
-                LogStore.log("Recording", "VOICE_COMMUNICATION audio source unavailable, falling back to MIC")
+            // ─── TRY VOICE_COMMUNICATION FIRST ─────────────────────────────
+            try {
+                LogStore.log("Recording", "Attempting VOICE_COMMUNICATION audio source")
+                recorder = AudioRecord.Builder()
+                    .setAudioSource(MediaRecorder.AudioSource.VOICE_COMMUNICATION)
+                    .setAudioFormat(
+                        AudioFormat.Builder()
+                            .setEncoding(audioFormat)
+                            .setSampleRate(sampleRate)
+                            .setChannelMask(channelConfig)
+                            .build()
+                    )
+                    .setBufferSizeInBytes(bufferSize)
+                    .build()
+                
+                // CRITICAL: Samsung needs time for async initialization (FIX 1.3)
+                Thread.sleep(100)
+                
+                if (recorder?.state != AudioRecord.STATE_INITIALIZED) {
+                    LogStore.log("Recording", "VOICE_COMMUNICATION failed to init, trying MIC fallback")
+                    recorder?.release()
+                    recorder = null
+                } else {
+                    LogStore.log("Recording", "VOICE_COMMUNICATION initialized successfully")
+                }
+            } catch (ex: Exception) {
+                LogStore.log("Recording", "VOICE_COMMUNICATION exception: ${ex.javaClass.simpleName}, fallback to MIC")
                 recorder?.release()
-                recorder = AudioRecord(MediaRecorder.AudioSource.MIC, sampleRate, channelConfig, audioFormat, bufferSize)
+                recorder = null
             }
 
+            // ─── FALLBACK TO MIC ──────────────────────────────────────────
+            if (recorder == null) {
+                try {
+                    LogStore.log("Recording", "Attempting MIC audio source fallback")
+                    recorder = AudioRecord(
+                        MediaRecorder.AudioSource.MIC, 
+                        sampleRate, 
+                        channelConfig, 
+                        audioFormat, 
+                        bufferSize
+                    )
+                    
+                    Thread.sleep(100)
+                    
+                    if (recorder?.state != AudioRecord.STATE_INITIALIZED) {
+                        LogStore.log("Recording", "MIC also failed to initialize")
+                        recorder?.release()
+                        return null
+                    }
+                    LogStore.log("Recording", "MIC initialized successfully")
+                } catch (ex: Exception) {
+                    LogStore.log("Recording", "MIC fallback exception: ${ex.javaClass.simpleName}: ${ex.message}")
+                    recorder?.release()
+                    return null
+                }
+            }
+
+            // ─── VALIDATE FINAL RECORDER ──────────────────────────────────
             val activeRecorder = recorder ?: run {
-                LogStore.log("Recording", "AudioRecord is null after construction")
+                LogStore.log("Recording", "ERROR: Recorder is null after both initialization attempts!")
                 return null
             }
 
-            if (activeRecorder.state != AudioRecord.STATE_INITIALIZED) {
-                LogStore.log("Recording", "AudioRecord failed to initialise (RECORD_AUDIO permission may be missing)")
-                activeRecorder.release()
-                return null
-            }
-
+            // ─── START RECORDING ──────────────────────────────────────────
             activeRecorder.startRecording()
-            LogStore.log("Recording", "Recording started for $durationSeconds seconds")
+            LogStore.log("Recording", "Recording started ($durationSeconds seconds)")
 
             var totalBytes = 0
             val endTime = System.currentTimeMillis() + durationSeconds * 1000L
+            
             while (System.currentTimeMillis() < endTime) {
                 val read = activeRecorder.read(tempBuffer, 0, tempBuffer.size)
-                if (read > 0) {
-                    rawStream.write(tempBuffer, 0, read)
-                    totalBytes += read
-                } else if (read == AudioRecord.ERROR_INVALID_OPERATION || read == AudioRecord.ERROR_BAD_VALUE) {
-                    LogStore.log("Recording", "AudioRecord.read returned error code $read, stopping early")
-                    break
+                when {
+                    read > 0 -> {
+                        rawStream.write(tempBuffer, 0, read)
+                        totalBytes += read
+                    }
+                    read == AudioRecord.ERROR_INVALID_OPERATION -> {
+                        LogStore.log("Recording", "AudioRecord returned ERROR_INVALID_OPERATION")
+                        break
+                    }
+                    read == AudioRecord.ERROR_BAD_VALUE -> {
+                        LogStore.log("Recording", "AudioRecord returned ERROR_BAD_VALUE")
+                        break
+                    }
                 }
             }
 
             activeRecorder.stop()
-            LogStore.log("Recording", "Recording finished size=$totalBytes bytes")
+            LogStore.log("Recording", "Recording stopped — $totalBytes bytes total")
 
+            // ─── TRIM SILENCE & WRITE WAV ─────────────────────────────────
             val pcmData = trimSilence(rawStream.toByteArray())
             WavFileWriter.writeWavFile(outFile, pcmData, sampleRate, 1, 16)
-            LogStore.log("Recording", "Saved response to ${outFile.absolutePath}")
+            LogStore.log("Recording", "Response saved to ${outFile.absolutePath}")
+            
             outFile
 
         } catch (ex: Exception) {
-            LogStore.log("Recording", "Recording failed: ${ex.message}")
+            LogStore.log("Recording", "Exception in recordResponse: ${ex.javaClass.simpleName}: ${ex.message}")
             if (outFile.exists()) outFile.delete()
             null
+            
         } finally {
-            recorder?.release()
-            rawStream.close()
+            try { recorder?.stop() } catch (_: Exception) {}
+            try { recorder?.release() } catch (_: Exception) {}
+            try { rawStream.close() } catch (_: Exception) {}
+            LogStore.log("Recording", "recordResponse cleanup complete")
         }
     }
 

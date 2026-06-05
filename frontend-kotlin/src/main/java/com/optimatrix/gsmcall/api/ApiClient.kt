@@ -70,6 +70,7 @@ class ApiClient(private val context: Context) {
         .connectTimeout(15, TimeUnit.SECONDS)
         .readTimeout(120, TimeUnit.SECONDS)
         .writeTimeout(60, TimeUnit.SECONDS)
+        .retryOnConnectionFailure(true)       // Retry on transient failures
         .build()
 
     private val moshi = Moshi.Builder()
@@ -149,13 +150,20 @@ class ApiClient(private val context: Context) {
      */
     fun checkHealth(): HealthResult {
         return try {
+            LogStore.log("ApiClient", "Health check → GET $BASE_URL$HEALTH_ENDPOINT")
             val request = Request.Builder()
                 .url(BASE_URL + HEALTH_ENDPOINT)
                 .get()
+                .addHeader("User-Agent", "Android-GSM-AI/3.0 (okhttp)")
                 .build()
             client.newCall(request).execute().use { response ->
-                if (!response.isSuccessful) return HealthResult(false)
+                LogStore.log("ApiClient", "Health response: ${response.code}")
+                if (!response.isSuccessful) {
+                    LogStore.log("ApiClient", "Health check failed: HTTP ${response.code}")
+                    return HealthResult(false)
+                }
                 val body = response.body?.string() ?: return HealthResult(false)
+                LogStore.log("ApiClient", "Health body: ${body.take(200)}")
                 val json = JSONObject(body)
                 val ws = json.optJSONObject("websocket")
                 HealthResult(
@@ -164,7 +172,9 @@ class ApiClient(private val context: Context) {
                     androidConnected = ws?.optBoolean("android", false) ?: false,
                 )
             }
-        } catch (_: Exception) {
+        } catch (ex: Exception) {
+            LogStore.log("ApiClient", "Health check exception: ${ex.javaClass.simpleName}: ${ex.message}")
+            LogStore.log("ApiClient", "Health check failed — backend-node unreachable at $BASE_URL")
             HealthResult(false)
         }
     }
@@ -217,7 +227,7 @@ class ApiClient(private val context: Context) {
      * Returns immediately (campaign runs async on backend).
      */
     fun startCampaign(campaignName: String = "Android Campaign"): StartCampaignResult {
-        LogStore.log("ApiClient", "POST $BASE_URL/api/adb/start  name=$campaignName")
+        LogStore.log("ApiClient", "Starting campaign at POST $BASE_URL/api/adb/start (name=$campaignName)")
         return try {
             val body = "{\"campaignName\":\"$campaignName\"}"
                 .toRequestBody("application/json".toMediaTypeOrNull())
@@ -226,35 +236,43 @@ class ApiClient(private val context: Context) {
                 .post(body)
                 .addHeader("User-Agent", "Android-GSM-AI/3.0 (okhttp)")
                 .build()
+            LogStore.log("ApiClient", "Campaign request URL: $BASE_URL/api/adb/start")
             client.newCall(request).execute().use { response ->
                 val bodyStr = response.body?.string().orEmpty()
-                LogStore.log("ApiClient", "startCampaign response: ${response.code} $bodyStr")
+                LogStore.log("ApiClient", "Campaign response: HTTP ${response.code}")
+                LogStore.log("ApiClient", "Campaign response body: ${bodyStr.take(300)}")
                 if (!response.isSuccessful) {
+                    val msg = "HTTP ${response.code}: $bodyStr"
+                    LogStore.log("ApiClient", "Campaign start failed: $msg")
                     return StartCampaignResult(
                         success = false,
                         campaignId = null,
                         totalLeads = 0,
                         message = null,
-                        errorMessage = "HTTP ${response.code}: $bodyStr",
+                        errorMessage = msg,
                     )
                 }
                 val json = JSONObject(bodyStr)
                 val data = json.optJSONObject("data") ?: json
-                StartCampaignResult(
+                val result = StartCampaignResult(
                     success    = json.optBoolean("success", true),
                     campaignId = data.optString("campaignId").takeIf { it.isNotBlank() },
                     totalLeads = data.optInt("totalLeads", 0),
                     message    = data.optString("message").takeIf { it.isNotBlank() },
                 )
+                LogStore.log("ApiClient", "Campaign started: ${result.campaignId} (${result.totalLeads} leads)")
+                result
             }
         } catch (ex: Exception) {
-            LogStore.log("ApiClient", "startCampaign exception: ${ex.javaClass.simpleName}: ${ex.message}")
+            val msg = "${ex.javaClass.simpleName}: ${ex.message}"
+            LogStore.log("ApiClient", "Campaign start exception: $msg")
+            LogStore.log("ApiClient", "NETWORK ERROR — cannot reach $BASE_URL/api/adb/start")
             StartCampaignResult(
                 success      = false,
                 campaignId   = null,
                 totalLeads   = 0,
                 message      = null,
-                errorMessage = ex.message,
+                errorMessage = msg,
             )
         }
     }
@@ -263,16 +281,19 @@ class ApiClient(private val context: Context) {
      * POST /api/adb/stop — stop the running campaign after the current call.
      */
     fun stopCampaign(): Boolean {
-        LogStore.log("ApiClient", "POST $BASE_URL/api/adb/stop")
+        LogStore.log("ApiClient", "Stopping campaign at POST $BASE_URL/api/adb/stop")
         return try {
             val request = Request.Builder()
                 .url("$BASE_URL/api/adb/stop")
                 .post("{}".toRequestBody("application/json".toMediaTypeOrNull()))
                 .addHeader("User-Agent", "Android-GSM-AI/3.0 (okhttp)")
                 .build()
-            client.newCall(request).execute().use { it.isSuccessful }
+            client.newCall(request).execute().use { response ->
+                LogStore.log("ApiClient", "Stop campaign response: HTTP ${response.code}")
+                response.isSuccessful
+            }
         } catch (ex: Exception) {
-            LogStore.log("ApiClient", "stopCampaign exception: ${ex.message}")
+            LogStore.log("ApiClient", "Stop campaign exception: ${ex.javaClass.simpleName}: ${ex.message}")
             false
         }
     }

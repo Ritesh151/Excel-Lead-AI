@@ -7,6 +7,76 @@ No SIM card API, no VoIP provider, no Exotel — just a real Android phone conne
 
 ---
 
+## Network Configuration (Android 9+)
+
+### Cleartext Traffic Policy
+
+Android 9+ enforces HTTPS by default and blocks cleartext (HTTP) traffic. This project runs backend-node and ai-python on a **local development network**, so we need to permit cleartext HTTP to local IP addresses.
+
+**Network Security Configuration:**
+- File: `frontend-kotlin/src/main/res/xml/network_security_config.xml`
+- Permits cleartext HTTP to:
+  - Local IP ranges: `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`
+  - Loopback: `localhost`, `127.0.0.1`
+  - Your specific backend: `10.216.39.119` ← Change this to your actual IP
+- All other domains (internet) require HTTPS (production-safe)
+
+**AndroidManifest Configuration:**
+- Sets `android:networkSecurityConfig="@xml/network_security_config"`
+- Sets `android:usesCleartextTraffic="true"` (only applies to config rules)
+
+**Backend Configuration** (`frontend-kotlin/local.properties`):
+```properties
+BACKEND_HOST=10.216.39.119    # Change to your actual IP
+BACKEND_PORT=3000
+```
+
+### Connectivity Diagnostics
+
+Before attempting a campaign start, the app runs automatic diagnostics:
+- Checks Android network connectivity (WiFi/cellular)
+- Validates DNS resolution of backend host
+- Tests TCP socket connection to backend:port
+- Verifies HTTP `/health` endpoint reachability
+- Tests WebSocket connectivity
+
+If issues are found, they're logged and reported to the UI, but the campaign start is still attempted (non-blocking).
+
+**Diagnostics Output Example:**
+```
+═══════════════════════════════════════════
+  CONNECTIVITY DIAGNOSTICS
+═══════════════════════════════════════════
+Backend        : http://10.216.39.119:3000
+Android Network: ✓ WiFi
+DNS            : ✓ 10.216.39.119
+TCP Socket     : ✓ Connectable
+HTTP Health    : ✓ Reachable
+WebSocket      : ✓ Reachable
+```
+
+### Troubleshooting Network Errors
+
+#### "CLEARTEXT communication not permitted"
+- Ensure `network_security_config.xml` is in `src/main/res/xml/`
+- Ensure AndroidManifest references it: `android:networkSecurityConfig="@xml/network_security_config"`
+- Add your backend IP to the `<domain>` list if not in a private range
+- Rebuild: `./gradlew installDebug`
+
+#### "Failed to reach backend"
+- Verify backend-node is running: `lsof -i :3000`
+- Verify IP is correct in `local.properties` and matches your actual LAN IP
+- Check firewall isn't blocking port 3000
+- Ping from phone: open Android Terminal → `ping 10.216.39.119`
+- Check backend logs for incoming requests
+
+#### "Cannot resolve hostname"
+- Verify backend host in `local.properties` is an IP (not hostname)
+- Ensure phone and backend are on same network (same WiFi/LAN)
+- Restart router / reconnect to WiFi
+
+---
+
 ## Architecture
 
 ```

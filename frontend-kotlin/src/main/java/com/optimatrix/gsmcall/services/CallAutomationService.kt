@@ -105,6 +105,7 @@ class CallAutomationService : Service(), CallSessionTracker.Listener {
     // ── State ─────────────────────────────────────────────────────────────────
     private val sessionRunning      = AtomicBoolean(false)
     private val flowCounter         = AtomicInteger(0)
+    private val wakeLockAcquired    = AtomicBoolean(false)  // FIX 1.4: Track WakeLock state
     private var socketManager       : SocketManager? = null
     private var watchdogJob         : Job? = null
     private var lastSession         : CallSession? = null
@@ -170,8 +171,14 @@ class CallAutomationService : Service(), CallSessionTracker.Listener {
         val phase = session.phase.name.lowercase()
         broadcastStatus(phase)
 
-        // Tell backend about the state change
-        socketManager?.sendCallState(phase, session.remoteNumber)
+        // FIX 1.1: Null-check before sending to socket
+        if (socketManager?.connected == true) {
+            try {
+                socketManager?.sendCallState(phase, session.remoteNumber)
+            } catch (ex: Exception) {
+                LogStore.log("Telephony", "WebSocket send failed: ${ex.message}")
+            }
+        }
 
         when (session.phase) {
             CallSession.Phase.CONNECTED -> {
@@ -208,8 +215,11 @@ class CallAutomationService : Service(), CallSessionTracker.Listener {
 
     private suspend fun runAutomationFlow(session: CallSession) {
         val fid = flowCounter.get()
-        LogStore.log("Flow", "[$fid] START number=${session.remoteNumber}")
+        LogStore.log("Flow", "[$fid] ════════════ START ════════════")
+        LogStore.log("Flow", "[$fid] Phone: ${session.remoteNumber}")
+        
         withContext(Dispatchers.Main) { acquireWakeLock() }
+        sessionRunning.set(true)
 
         try {
             // ── Stabilize ─────────────────────────────────────────────────
@@ -270,12 +280,31 @@ class CallAutomationService : Service(), CallSessionTracker.Listener {
             socketManager?.sendCallState("recording", session.remoteNumber, fid)
             LogStore.log("Flow", "[$fid] Recording ${RECORDING_DURATION_SEC}s")
 
-            val responseFile = withContext(Dispatchers.IO) {
-                recordingManager.recordResponse(RECORDING_DURATION_SEC)
+            // FIX 1.5: Wrap recording in try-catch for permission errors
+            val responseFile = try {
+                withContext(Dispatchers.IO) {
+                    recordingManager.recordResponse(RECORDING_DURATION_SEC)
+                }
+            } catch (ex: SecurityException) {
+                val msg = "[$fid] Recording permission denied"
+                LogStore.log("Flow", msg)
+                broadcastLog(msg)
+                broadcastStatus("recording_permission_denied")
+                socketManager?.sendCallState("recording_failed", session.remoteNumber, fid)
+                endCallSafely()
+                return
+            } catch (ex: Exception) {
+                val msg = "[$fid] Recording exception: ${ex.javaClass.simpleName}: ${ex.message}"
+                LogStore.log("Flow", msg)
+                broadcastLog(msg)
+                broadcastStatus("recording_error")
+                socketManager?.sendCallState("recording_failed", session.remoteNumber, fid)
+                endCallSafely()
+                return
             }
 
             if (responseFile == null) {
-                val msg = "[$fid] Recording failed"
+                val msg = "[$fid] Recording returned null"
                 LogStore.log("Flow", msg)
                 broadcastLog(msg)
                 broadcastStatus("recording_failed")
@@ -347,20 +376,42 @@ class CallAutomationService : Service(), CallSessionTracker.Listener {
             broadcastStatus("completed")
             updateNotification("Call complete — monitoring…")
             broadcastLog("[$fid] FLOW COMPLETE ✓")
-            LogStore.log("Flow", "[$fid] COMPLETE")
+            LogStore.log("Flow", "[$fid] ════════════ COMPLETE ════════════")
 
+        } catch (ex: kotlinx.coroutines.CancellationException) {
+            LogStore.log("Flow", "[$fid] CANCELLED (expected during shutdown)")
+            throw ex // Re-throw — coroutine system will handle it
+            
         } catch (ex: Exception) {
-            LogStore.log("Flow", "[$fid] EXCEPTION: ${ex.javaClass.simpleName}: ${ex.message}")
-            broadcastLog("[$fid] ERROR: ${ex.message}")
-            broadcastStatus("error")
-            socketManager?.sendCallState("error", session.remoteNumber, fid)
+            LogStore.log("Flow", "[$fid] ❌ EXCEPTION: ${ex.javaClass.simpleName}")
+            LogStore.log("Flow", "[$fid] Message: ${ex.message}")
+            LogStore.log("Flow", "[$fid] Stack: ${ex.stackTraceToString().take(500)}")
+            
+            broadcastLog("[$fid] ERROR RECOVERED: ${ex.message}")
+            broadcastStatus("error_exception")
+            
+            try {
+                socketManager?.sendCallState("error_exception", session.remoteNumber, fid)
+            } catch (_: Exception) {}
+            
             endCallSafely()
+            
         } finally {
+            LogStore.log("Flow", "[$fid] Finally block executing")
             sessionRunning.set(false)
+            
             withContext(Dispatchers.Main) {
-                audioRoutingManager.restoreAudioMode()
+                try {
+                    audioRoutingManager.restoreAudioMode()
+                    LogStore.log("Flow", "[$fid] Audio mode restored")
+                } catch (ex: Exception) {
+                    LogStore.log("Flow", "[$fid] Audio restore error: ${ex.message}")
+                }
+                
                 releaseWakeLock()
             }
+            
+            LogStore.log("Flow", "[$fid] ════════════ CLEANUP DONE ════════════")
         }
     }
 
@@ -452,14 +503,27 @@ class CallAutomationService : Service(), CallSessionTracker.Listener {
     }
 
     private fun acquireWakeLock() {
-        if (!wakeLock.isHeld) {
-            wakeLock.acquire(WAKELOCK_TIMEOUT_MS)
-            LogStore.log("Service", "WakeLock acquired")
+        if (wakeLockAcquired.compareAndSet(false, true)) {
+            try {
+                wakeLock.acquire(WAKELOCK_TIMEOUT_MS)
+                LogStore.log("Service", "WakeLock acquired ($WAKELOCK_TIMEOUT_MS ms)")
+            } catch (ex: Exception) {
+                wakeLockAcquired.set(false)
+                LogStore.log("Service", "WakeLock acquire error: ${ex.message}")
+            }
         }
     }
 
     private fun releaseWakeLock() {
-        if (wakeLock.isHeld) { wakeLock.release(); LogStore.log("Service", "WakeLock released") }
+        if (wakeLockAcquired.compareAndSet(true, false)) {
+            try {
+                wakeLock.release()
+                LogStore.log("Service", "WakeLock released")
+            } catch (ex: Exception) {
+                LogStore.log("Service", "WakeLock release error: ${ex.javaClass.simpleName}")
+                wakeLockAcquired.set(false)
+            }
+        }
     }
 
     // ─────────────────────────────────────────────────────────────────────────

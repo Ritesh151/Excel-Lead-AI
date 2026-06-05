@@ -10,7 +10,11 @@ public final class BuildConfig {
   public static final int VERSION_CODE = 1;
   public static final String VERSION_NAME = "1.0";
   // Field from default config.
-  public static final String BACKEND_HOST = "192.168.1.100";
+  public static final String BACKEND_HOST = "10.216.39.119";
   // Field from default config.
   public static final int BACKEND_PORT = 3000;
+  // Field from default config.
+  public static final String BASE_URL = "http://10.216.39.119:3000";
+  // Field from default config.
+  public static final String WS_URL = "ws://10.216.39.119:3000/";
 }

@@ -61,6 +61,7 @@ class SocketManager(private val hostUrl: String) {
     private var socket: WebSocket? = null
     private val isConnected = AtomicBoolean(false)
     private val reconnectAttempts = AtomicInteger(0)
+    private val inMaxReconnectBackoff = AtomicBoolean(false)
     private val handler = Handler(Looper.getMainLooper())
     private var eventListener: EventListener? = null
     private var _onMessageRaw: ((String) -> Unit)? = null
@@ -68,7 +69,13 @@ class SocketManager(private val hostUrl: String) {
     // ── Public API ────────────────────────────────────────────────────────────
 
     fun connect() {
-        LogStore.log(TAG, "Connecting to $hostUrl")
+        val wsUrl = com.optimatrix.gsmcall.NetworkConfig.wsUrl
+        LogStore.log(TAG, "═══════════════════════════════════════════════════════")
+        LogStore.log(TAG, "WEBSOCKET INITIALIZATION")
+        LogStore.log(TAG, "═══════════════════════════════════════════════════════")
+        LogStore.log(TAG, "Backend: ${com.optimatrix.gsmcall.NetworkConfig.httpBaseUrl}")
+        LogStore.log(TAG, "WebSocket: $wsUrl")
+        LogStore.log(TAG, "═══════════════════════════════════════════════════════")
         connectInternal()
     }
 
@@ -76,23 +83,20 @@ class SocketManager(private val hostUrl: String) {
         eventListener = listener
     }
 
-    /** Raw JSON message listener (for ViewModel/UI updates) */
     fun setOnMessage(listener: (String) -> Unit) {
         _onMessageRaw = listener
     }
 
     val connected: Boolean get() = isConnected.get()
 
-    // ── Outgoing events ───────────────────────────────────────────────────────
+    // ── Outgoing events ───────────────────────────────────────────────────
 
-    /** Tell backend the Android app is ready */
-    fun sendReady() = sendJson(mapOf(
+    fun sendReady(): Boolean = sendJson(mapOf(
         "event" to "android_ready",
         "ts" to System.currentTimeMillis(),
     ))
 
-    /** Report telephony state change */
-    fun sendCallState(state: String, phone: String?, flowId: Int = 0) = sendJson(mapOf(
+    fun sendCallState(state: String, phone: String?, flowId: Int = 0): Boolean = sendJson(mapOf(
         "event" to "call_state",
         "state" to state,
         "phone" to (phone ?: ""),
@@ -100,8 +104,7 @@ class SocketManager(private val hostUrl: String) {
         "ts" to System.currentTimeMillis(),
     ))
 
-    /** Report greeting playback result */
-    fun sendPlaybackResult(fileName: String, strategy: String, success: Boolean) = sendJson(mapOf(
+    fun sendPlaybackResult(fileName: String, strategy: String, success: Boolean): Boolean = sendJson(mapOf(
         "event" to "playback_result",
         "file" to fileName,
         "strategy" to strategy,
@@ -109,74 +112,135 @@ class SocketManager(private val hostUrl: String) {
         "ts" to System.currentTimeMillis(),
     ))
 
-    /** Report recording file saved */
-    fun sendRecordingSaved(filePath: String, durationSec: Int) = sendJson(mapOf(
+    fun sendRecordingSaved(filePath: String, durationSec: Int): Boolean = sendJson(mapOf(
         "event" to "recording_saved",
         "path" to filePath,
         "duration" to durationSec,
         "ts" to System.currentTimeMillis(),
     ))
 
-    /** Heartbeat */
-    fun sendWatchdog() = sendJson(mapOf(
+    fun sendWatchdog(): Boolean = sendJson(mapOf(
         "event" to "watchdog",
         "ts" to System.currentTimeMillis(),
     ))
 
-    fun sendEvent(event: String) {
-        if (isConnected.get()) {
-            socket?.send(event)
-        } else {
-            LogStore.log(TAG, "Not connected — dropped: ${event.take(80)}")
+    fun sendEvent(event: String): Boolean {
+        if (!isConnected.get()) {
+            LogStore.log(TAG, "Socket not connected — dropped: ${event.take(80)}")
+            return false
+        }
+        
+        return try {
+            val sent = socket?.send(event) ?: false
+            if (!sent) {
+                LogStore.log(TAG, "WebSocket.send() returned false for: ${event.take(60)}")
+                isConnected.set(false)
+                scheduleReconnect()
+            }
+            sent
+        } catch (ex: Exception) {
+            LogStore.log(TAG, "sendEvent exception: ${ex.javaClass.simpleName}: ${ex.message}")
+            isConnected.set(false)
+            scheduleReconnect()
+            false
         }
     }
 
-    fun close() {
-        handler.removeCallbacksAndMessages(null)
-        socket?.close(1000, "Client closed")
-        socket = null
+    fun disconnect() {
+        LogStore.log(TAG, "Disconnecting...")
         isConnected.set(false)
-        LogStore.log(TAG, "Closed")
+        socket?.close(1000, "Client disconnect")
+        socket = null
+        handler.removeCallbacksAndMessages(null)
+    }
+
+    fun close() {
+        LogStore.log(TAG, "Closing SocketManager")
+        disconnect()
+    }
+
+    fun manualReconnect() {
+        LogStore.log(TAG, "Manual reconnect requested — resetting backoff state")
+        inMaxReconnectBackoff.set(false)
+        reconnectAttempts.set(0)
+        handler.removeCallbacksAndMessages(null)
+        connectInternal()
     }
 
     // ── Internal ──────────────────────────────────────────────────────────────
 
     private fun connectInternal() {
+        if (isConnected.get()) {
+            LogStore.log(TAG, "Already connected — skip connectInternal")
+            return
+        }
+
+        if (inMaxReconnectBackoff.get()) {
+            LogStore.log(TAG, "In max backoff state — waiting before retry")
+            return
+        }
+
+        val wsUrl = com.optimatrix.gsmcall.NetworkConfig.wsUrl
+        LogStore.log(TAG, "📡 Attempting WebSocket connection...")
+        LogStore.log(TAG, "   URL: $wsUrl")
+        LogStore.log(TAG, "   Host: ${com.optimatrix.gsmcall.NetworkConfig.host}")
+        LogStore.log(TAG, "   Port: ${com.optimatrix.gsmcall.NetworkConfig.port}")
+        
+        val request = Request.Builder()
+            .url(wsUrl)
+            .addHeader("User-Agent", "Android-GSM-AI/3.0 (okhttp)")
+            .build()
+
         try {
-            val request = Request.Builder()
-                .url(hostUrl)
-                .addHeader("User-Agent", "Android-GSM-AI/3.0 (okhttp)")
-                .build()
             socket = client.newWebSocket(request, listener)
         } catch (ex: Exception) {
-            LogStore.log(TAG, "Connect exception: ${ex.message}")
+            LogStore.log(TAG, "❌ Connect exception: ${ex.javaClass.simpleName}: ${ex.message}")
             scheduleReconnect()
         }
     }
 
     private fun scheduleReconnect() {
         val attempt = reconnectAttempts.incrementAndGet()
+        
         if (attempt > MAX_RECONNECT_ATTEMPTS) {
-            LogStore.log(TAG, "Max reconnect attempts ($MAX_RECONNECT_ATTEMPTS) reached — stopping")
+            if (inMaxReconnectBackoff.compareAndSet(false, true)) {
+                LogStore.log(TAG, "Max reconnect attempts ($MAX_RECONNECT_ATTEMPTS) reached — entering 5-minute backoff")
+                handler.postDelayed({
+                    if (inMaxReconnectBackoff.compareAndSet(true, false)) {
+                        LogStore.log(TAG, "Exiting backoff period, resetting attempt counter")
+                        reconnectAttempts.set(0)
+                        connectInternal()
+                    }
+                }, 5 * 60 * 1_000L)
+            }
             return
         }
-        val delay = RECONNECT_DELAY_BASE_MS * minOf(attempt, 5).toLong()
-        LogStore.log(TAG, "Reconnecting in ${delay}ms (attempt $attempt)")
-        handler.postDelayed({ connectInternal() }, delay)
+        
+        val exponentialDelay = RECONNECT_DELAY_BASE_MS * (1L shl minOf(attempt - 1, 4))
+        LogStore.log(TAG, "Reconnect attempt $attempt/$MAX_RECONNECT_ATTEMPTS in ${exponentialDelay}ms")
+        handler.postDelayed({ connectInternal() }, exponentialDelay)
     }
 
-    private fun sendJson(map: Map<String, Any?>) {
+    private fun sendJson(map: Map<String, Any?>): Boolean {
         if (!isConnected.get()) {
             LogStore.log(TAG, "Not connected — dropping ${map["event"]}")
-            return
+            return false
         }
         try {
             val obj = JSONObject()
             map.forEach { (k, v) -> obj.put(k, v) }
             val sent = socket?.send(obj.toString()) ?: false
-            if (!sent) LogStore.log(TAG, "send() returned false for ${map["event"]}")
+            if (!sent) {
+                LogStore.log(TAG, "send() returned false for ${map["event"]}")
+                isConnected.set(false)
+                scheduleReconnect()
+            }
+            return sent
         } catch (ex: Exception) {
             LogStore.log(TAG, "sendJson exception: ${ex.message}")
+            isConnected.set(false)
+            scheduleReconnect()
+            return false
         }
     }
 
@@ -224,7 +288,8 @@ class SocketManager(private val hostUrl: String) {
         override fun onOpen(webSocket: WebSocket, response: Response) {
             isConnected.set(true)
             reconnectAttempts.set(0)
-            LogStore.log(TAG, "Connected to $hostUrl")
+            inMaxReconnectBackoff.set(false)
+            LogStore.log(TAG, "✓ WebSocket OPEN (HTTP ${response.code})")
             sendReady()
         }
 
@@ -239,13 +304,14 @@ class SocketManager(private val hostUrl: String) {
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             isConnected.set(false)
-            LogStore.log(TAG, "Failure: ${t.message} — scheduling reconnect")
+            LogStore.log(TAG, "✗ WebSocket ERROR: ${t.javaClass.simpleName}: ${t.message}")
+            LogStore.log(TAG, "   (Response: HTTP ${response?.code ?: '?'})")
             scheduleReconnect()
         }
 
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
             isConnected.set(false)
-            LogStore.log(TAG, "Closed: code=$code reason=$reason")
+            LogStore.log(TAG, "✗ WebSocket CLOSED (code=$code reason=$reason)")
             if (code != 1000) scheduleReconnect()
         }
     }

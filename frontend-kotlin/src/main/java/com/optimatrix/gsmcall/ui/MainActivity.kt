@@ -16,10 +16,12 @@ import androidx.compose.runtime.getValue
 import com.optimatrix.gsmcall.permissions.PermissionManager
 import com.optimatrix.gsmcall.services.CallAutomationService
 import com.optimatrix.gsmcall.utils.LogStore
+import java.util.concurrent.atomic.AtomicBoolean
 
 class MainActivity : ComponentActivity() {
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private val viewModel: MainViewModel by viewModels()
+    private var isReceiverRegistered = AtomicBoolean(false)  // FIX 1.6: Track registration state
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +41,20 @@ class MainActivity : ComponentActivity() {
             addAction(CallAutomationService.ACTION_LOG_UPDATE)
             addAction(CallAutomationService.ACTION_WS_UPDATE)
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(statusReceiver, filter, RECEIVER_NOT_EXPORTED)
-        } else {
-            @Suppress("DEPRECATION")
-            registerReceiver(statusReceiver, filter)
+        
+        // FIX 1.6: Track registration state with try-catch
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                registerReceiver(statusReceiver, filter, RECEIVER_NOT_EXPORTED)
+            } else {
+                @Suppress("DEPRECATION")
+                registerReceiver(statusReceiver, filter)
+            }
+            isReceiverRegistered.set(true)
+            LogStore.log("MainActivity", "statusReceiver registered")
+        } catch (ex: Exception) {
+            LogStore.log("MainActivity", "statusReceiver registration failed: ${ex.message}")
+            isReceiverRegistered.set(false)
         }
 
         setContent {
@@ -53,12 +64,12 @@ class MainActivity : ComponentActivity() {
                 onRequestPermissions = { requestPermissions() },
                 onStartService = {
                     // 1. Start the Android foreground service (handles in-call audio + recording)
-                    CallAutomationService.startService(this)
+                    CallAutomationService.startService(this@MainActivity)
                     // 2. Tell the backend to start the campaign (fetches Excel, queues ADB calls)
                     viewModel.startCampaign("Android Campaign")
                 },
                 onStopService = {
-                    CallAutomationService.stopService(this)
+                    CallAutomationService.stopService(this@MainActivity)
                     viewModel.stopCampaign()
                 },
                 onExportLogs = { exportLogs() },
@@ -99,7 +110,15 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onDestroy() {
+        // FIX 1.6: Track unregistration state to prevent double-unregister
+        if (isReceiverRegistered.compareAndSet(true, false)) {
+            try {
+                unregisterReceiver(statusReceiver)
+                LogStore.log("MainActivity", "statusReceiver unregistered")
+            } catch (ex: Exception) {
+                LogStore.log("MainActivity", "statusReceiver unregister error: ${ex.message}")
+            }
+        }
         super.onDestroy()
-        unregisterReceiver(statusReceiver)
     }
 }

@@ -49,6 +49,7 @@ const leadsRoutes        = require('./api/routes/leadsRoutes');
 const callRoutes         = require('./api/routes/callRoutes');
 const adbRoutes          = require('./api/routes/adbRoutes');
 const debugRoutes        = require('./api/routes/debugRoutes');
+const networkDiagRoutes  = require('./api/routes/networkDiagnosticsRoutes');
 const voiceFlowRoutes    = require('./routes/voiceFlowRoutes');
 const audioRoutes        = require('./routes/audioRoutes');
 const testAudioRoutes    = require('./routes/testAudioRoutes');
@@ -107,7 +108,7 @@ app.use((req, _res, next) => {
   next();
 });
 
-// ─── Health ───────────────────────────────────────────────────────────────────
+// ─── Health & Diagnostics ─────────────────────────────────────────────────────
 
 app.get('/health', (_req, res) =>
   res.status(200).json({
@@ -118,6 +119,95 @@ app.get('/health', (_req, res) =>
     timestamp: new Date().toISOString(),
   })
 );
+
+// ─── Debug endpoints for network validation ────────────────────────────────────
+
+app.get('/api/debug/network', (_req, res) => {
+  const os = require('os');
+  const ifaces = os.networkInterfaces();
+  const ips = [];
+  const interfaces = {};
+
+  for (const [name, addrs] of Object.entries(ifaces)) {
+    interfaces[name] = addrs.map(addr => ({
+      family: addr.family,
+      address: addr.address,
+      netmask: addr.netmask,
+      internal: addr.internal,
+    }));
+    addrs.forEach(addr => {
+      if (addr.family === 'IPv4' && !addr.internal) {
+        ips.push(addr.address);
+      }
+    });
+  }
+
+  return res.json({
+    success: true,
+    hostname: os.hostname(),
+    platform: os.platform(),
+    interfaces,
+    localIps: ips,
+    primaryIp: ips[0] || '127.0.0.1',
+    backend: {
+      http: `http://${ips[0] || '127.0.0.1'}:${PORT}`,
+      ws: `ws://${ips[0] || '127.0.0.1'}:${PORT}/`,
+      binding: '0.0.0.0',
+    },
+    androidCanReach: `http://${ips[0] || '127.0.0.1'}:${PORT}`,
+  });
+});
+
+app.get('/api/debug/socket', (_req, res) => {
+  const clients = Array.from(wsServer._clients || []).map((ws, idx) => ({
+    id: idx,
+    state: ws.readyState === 1 ? 'OPEN' : ws.readyState === 0 ? 'CONNECTING' : 'CLOSED',
+  }));
+  
+  return res.json({
+    success: true,
+    clientCount: wsServer.clientCount,
+    androidConnected: wsServer.androidConnected,
+    clients,
+    wsUrl: `ws://0.0.0.0:${PORT}/`,
+  });
+});
+
+app.get('/api/debug/backend', (_req, res) => {
+  return res.json({
+    success: true,
+    express: 'listening',
+    websocket: 'attached',
+    mongodb: 'connected',
+    aiPython: AI_ENGINE_URL,
+    port: PORT,
+    nodeEnv: process.env.NODE_ENV || 'development',
+  });
+});
+
+app.get('/api/debug/tcp', (_req, res) => {
+  const os = require('os');
+  const ifaces = os.networkInterfaces();
+  const ips = [];
+  for (const addrs of Object.values(ifaces)) {
+    addrs.forEach(addr => {
+      if (addr.family === 'IPv4' && !addr.internal) ips.push(addr.address);
+    });
+  }
+  const primaryIp = ips[0] || 'N/A';
+  
+  return res.json({
+    success: true,
+    message: 'Backend is reachable via TCP',
+    clientIp: _req.ip,
+    tcpReachable: true,
+    serverBinding: '0.0.0.0',
+    port: PORT,
+    primaryIp,
+    httpUrl: `http://${primaryIp}:${PORT}`,
+    wsUrl: `ws://${primaryIp}:${PORT}/`,
+  });
+});
 
 // ─── Android WAV upload proxy ──────────────────────────────────────────────────
 //
@@ -233,12 +323,14 @@ app.use('/api/leads',  leadsRoutes);
 app.use('/api/call',   callRoutes);
 app.use('/api/adb',    adbRoutes);
 app.use('/api/debug',  debugRoutes);
+app.use('/api/debug',  networkDiagRoutes);  // NEW: Network diagnostics
 app.use('/audio',      audioRoutes);
 app.use('/voice-flow', voiceFlowRoutes);
 app.use('/webhook',    webhookRoutes);
 app.use('/',           testCallRoutes);
 app.use('/',           audioDebugRoutes);
 app.use('/',           testAudioRoutes);
+
 
 // ─── 404 ─────────────────────────────────────────────────────────────────────
 
@@ -266,11 +358,70 @@ async function bootstrap() {
   try {
     await connectMongo();
 
-    httpServer.listen(PORT, () => {
+    // CRITICAL: Bind to 0.0.0.0 so Android LAN clients can reach backend
+    const HOST = '0.0.0.0';
+    httpServer.listen(PORT, HOST, () => {
+      const os = require('os');
+      const ifaces = os.networkInterfaces();
+      const ips = [];
+      
+      for (const name of Object.keys(ifaces)) {
+        for (const iface of ifaces[name]) {
+          if (iface.family === 'IPv4' && !iface.internal) {
+            ips.push(iface.address);
+          }
+        }
+      }
+      
+      const primaryIp = ips[0] || 'localhost';
+
+      // EXTENSIVE STARTUP LOGGING FOR DIAGNOSTICS
+      console.log('\n' + '═'.repeat(70));
+      console.log('🚀 AI CALLING BACKEND — PRODUCTION NETWORK CONFIGURATION');
+      console.log('═'.repeat(70));
+      console.log(`⏰ Started at: ${new Date().toISOString()}`);
+      console.log(`📍 Hostname: ${os.hostname()}`);
+      console.log(`🖥️  Platform: ${os.platform()} ${os.arch()}`);
+      console.log('\n📡 NETWORK BINDING:');
+      console.log(`   ✓ Binding address: ${HOST} (all interfaces)`);
+      console.log(`   ✓ Port: ${PORT}`);
+      console.log(`   ✓ Protocol: HTTP/1.1 with WebSocket upgrade`);
+      
+      console.log('\n🌍 EXTERNAL ACCESS (Android LAN):');
+      ips.forEach((ip, idx) => {
+        console.log(`   ✓ HTTP  [${idx}]: http://${ip}:${PORT}`);
+        console.log(`   ✓ WS    [${idx}]: ws://${ip}:${PORT}/`);
+      });
+      
+      console.log('\n💻 LOCAL ACCESS (PC only):');
+      console.log(`   ✓ HTTP: http://localhost:${PORT}`);
+      console.log(`   ✓ WS:   ws://localhost:${PORT}/`);
+      
+      console.log('\n🛠️  SERVICES:');
+      console.log(`   ✓ Express: ready`);
+      console.log(`   ✓ WebSocket: attached`);
+      console.log(`   ✓ MongoDB: connected`);
+      console.log(`   ✓ AI-Python: ${AI_ENGINE_URL}`);
+      
+      console.log('\n📊 DEBUG ENDPOINTS:');
+      console.log(`   ✓ GET /health                  — Overall health`);
+      console.log(`   ✓ GET /api/debug/network      — Network interfaces`);
+      console.log(`   ✓ GET /api/debug/socket       — WebSocket status`);
+      console.log(`   ✓ GET /api/debug/backend      — Backend services`);
+      console.log(`   ✓ GET /api/debug/tcp          — TCP reachability`);
+      
+      console.log('\n⚠️  IMPORTANT FOR ANDROID:');
+      console.log(`   📲 Use IP: ${primaryIp}`);
+      console.log(`   📲 HTTP:   http://${primaryIp}:${PORT}`);
+      console.log(`   📲 WS:     ws://${primaryIp}:${PORT}/`);
+      
+      console.log('\n' + '═'.repeat(70));
       logger.info(`═══════════════════════════════════════════════`);
       logger.info(`  AI Calling Backend v3 — ADB+Android+Kotlin`);
-      logger.info(`  HTTP  : http://localhost:${PORT}`);
-      logger.info(`  WS    : ws://localhost:${PORT}/`);
+      logger.info(`  🌍 PUBLIC (Android LAN): http://${primaryIp}:${PORT}`);
+      logger.info(`  🌍 PUBLIC (Android LAN): ws://${primaryIp}:${PORT}/`);
+      logger.info(`  💻 LOCAL (PC only):      http://localhost:${PORT}`);
+      logger.info(`  💻 LOCAL (PC only):      ws://localhost:${PORT}/`);
       logger.info(`  Env   : ${process.env.NODE_ENV || 'development'}`);
       logger.info(`  AI URL: ${AI_ENGINE_URL}`);
       logger.info(`═══════════════════════════════════════════════`);

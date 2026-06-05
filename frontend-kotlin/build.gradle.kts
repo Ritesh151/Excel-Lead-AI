@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application") version "8.2.1"
     id("org.jetbrains.kotlin.android") version "2.1.0"
@@ -16,7 +18,7 @@ android {
         versionName = "1.0"
 
         val localPropertiesFile = rootProject.file("local.properties")
-        val localProperties = java.util.Properties()
+        val localProperties = Properties()
         if (localPropertiesFile.exists()) {
             localProperties.load(localPropertiesFile.inputStream())
         }
@@ -26,6 +28,8 @@ android {
 
         buildConfigField("String", "BACKEND_HOST", "\"$backendHost\"")
         buildConfigField("int", "BACKEND_PORT", backendPort)
+        buildConfigField("String", "BASE_URL", "\"http://$backendHost:$backendPort\"")
+        buildConfigField("String", "WS_URL", "\"ws://$backendHost:$backendPort/\"")
 
         vectorDrawables {
             useSupportLibrary = true
@@ -37,7 +41,7 @@ android {
         buildConfig = true
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes += setOf(
                 "META-INF/DEPENDENCIES",

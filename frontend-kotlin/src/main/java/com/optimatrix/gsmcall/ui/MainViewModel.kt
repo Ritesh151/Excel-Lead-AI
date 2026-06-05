@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.optimatrix.gsmcall.api.ApiClient
+import com.optimatrix.gsmcall.networking.NetworkingInitializer
+import com.optimatrix.gsmcall.networking.SocketManagerProduction
 import com.optimatrix.gsmcall.utils.LogStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -23,23 +25,122 @@ import org.json.JSONObject
  * Exposes [uiState] as a StateFlow so the Composable re-renders on any change.
  *
  * State is updated from three sources:
- *   1. LocalBroadcast from CallAutomationService → updateFromServiceBroadcast()
- *   2. WebSocket JSON events from backend-node  → handleWebSocketEvent()
+ *   1. WebSocket events from backend-node (NEW via NetworkingInitializer)
+ *   2. LocalBroadcast from CallAutomationService → updateFromServiceStatus()
  *   3. Periodic backend health poll             → startHealthPolling()
+ *
+ * Networking Stack Integration:
+ *   • NetworkingInitializer: Single integration point for all networking
+ *   • SocketManagerProduction: WebSocket with auto-reconnect
+ *   • NetworkDiagnosticsValidator: Pre-campaign network checks
+ *   • ApiClientProduction: HTTP client with retry logic
  */
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _uiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
+    // Legacy API client for backward compatibility
     private val apiClient = ApiClient(application)
+    
+    // New production networking stack
+    private val networking = NetworkingInitializer(application)
+
     private var healthPollJob: Job? = null
     private var campaignPollJob: Job? = null
     private var callTimerJob: Job? = null
 
     init {
+        initializeNetworking()
         startHealthPolling()
         startCampaignPolling()
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Networking Initialization (NEW)
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Initialize WebSocket connection with handlers
+     */
+    private fun initializeNetworking() {
+        LogStore.log("MainViewModel", "📡 Initializing networking stack...")
+
+        networking.initializeWebSocket(
+            // Handle connection state changes
+            onStateChange = { state ->
+                handleWebSocketStateChange(state)
+            },
+            // Handle incoming events
+            onMessage = { event, payload ->
+                handleWebSocketEventMap(event, payload)
+            },
+            // Handle errors
+            onError = { error ->
+                handleWebSocketError(error)
+            }
+        )
+    }
+
+    /**
+     * Map WebSocket state changes to UI state
+     */
+    private fun handleWebSocketStateChange(state: SocketManagerProduction.ConnectionState) {
+        LogStore.log("MainViewModel", "📊 WebSocket state: $state")
+
+        when (state) {
+            SocketManagerProduction.ConnectionState.CONNECTED -> {
+                _uiState.update { it.copy(
+                    websocketConnected = true,
+                    backendStatus = "online"
+                ) }
+                appendLog("✓ Backend connected (WebSocket)")
+            }
+            SocketManagerProduction.ConnectionState.CONNECTING -> {
+                _uiState.update { it.copy(backendStatus = "connecting") }
+                appendLog("📡 Connecting to backend…")
+            }
+            SocketManagerProduction.ConnectionState.RECONNECTING -> {
+                _uiState.update { it.copy(backendStatus = "reconnecting") }
+                appendLog("🔄 Reconnecting to backend…")
+            }
+            SocketManagerProduction.ConnectionState.DISCONNECTED -> {
+                _uiState.update { it.copy(
+                    websocketConnected = false,
+                    backendStatus = "offline"
+                ) }
+                appendLog("⚠ Backend disconnected")
+            }
+            SocketManagerProduction.ConnectionState.FAILED -> {
+                _uiState.update { it.copy(
+                    websocketConnected = false,
+                    backendStatus = "offline"
+                ) }
+                appendLog("❌ Cannot reach backend")
+            }
+        }
+    }
+
+    /**
+     * Handle incoming WebSocket events from backend (Map version for networking stack)
+     */
+    private fun handleWebSocketEventMap(event: String, payload: Map<String, Any?>) {
+        LogStore.log("MainViewModel", "← WebSocket: $event")
+
+        // Convert Map to JSONObject for compatibility with existing handler
+        val jsonPayload = JSONObject(payload)
+        val jsonString = jsonPayload.toString()
+
+        handleWebSocketEvent(jsonString)
+    }
+
+    /**
+     * Handle WebSocket errors
+     */
+    private fun handleWebSocketError(error: String) {
+        LogStore.log("MainViewModel", "❌ WebSocket error: $error")
+        appendLog("❌ WebSocket error: $error")
+        _uiState.update { it.copy(websocketConnected = false) }
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -218,17 +319,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // ─────────────────────────────────────────────────────────────────────────
 
     /**
-     * Start the local Android foreground service AND trigger the backend campaign.
+     * Start campaign — COMPLETE FLOW with LAN connectivity validation
      *
      * Sequence:
-     *   1. Update state to "starting"
-     *   2. POST /api/adb/start on IO thread
-     *   3. On success → update campaignRunning state
-     *   4. On failure → surface error in UI
-     *
-     * The caller is responsible for also calling
-     * `CallAutomationService.startService(context)` to start the local service
-     * so the Android app is ready to handle the incoming ADB-dialed calls.
+     *   1. Validate LAN connectivity (4-point check):
+     *      • WiFi connected
+     *      • TCP socket to backend
+     *      • HTTP /health endpoint
+     *      • WebSocket TCP reachable
+     *   2. If healthy, start campaign via NetworkingInitializer
+     *   3. Update UI with results or detailed error diagnostics
      */
     fun startCampaign(campaignName: String = "Android Campaign") {
         if (_uiState.value.campaignStarting || _uiState.value.campaignRunning) {
@@ -236,42 +336,97 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
 
-        appendLog("🚀 Starting campaign on backend: $campaignName")
-        LogStore.log("ViewModel", "startCampaign: $campaignName")
+        appendLog("🚀 Starting automation: $campaignName")
+        LogStore.log("MainViewModel", "startCampaign: $campaignName")
 
         _uiState.update { it.copy(campaignStarting = true, campaignStartError = "") }
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = try {
-                apiClient.startCampaign(campaignName)
-            } catch (ex: Exception) {
-                LogStore.log("ViewModel", "startCampaign exception: ${ex.message}")
-                null
-            }
+        viewModelScope.launch {
+            // ─ STEP 1: Validate LAN connectivity before campaign start
+            appendLog("")
+            appendLog("🔍 Validating LAN connectivity…")
+            
+            val validator = com.optimatrix.gsmcall.networking.LanConnectivityValidator(getApplication())
+            val result = validator.validate()
+            
+            // Show diagnostics regardless of outcome
+            appendLog(result.diagnosticsText)
+            
+            viewModelScope.launch(Dispatchers.Main) {
+                if (!result.isHealthy) {
+                    // Connectivity issues detected
+                    LogStore.log("MainViewModel", "❌ LAN validation failed")
+                    appendLog("")
+                    appendLog("❌ CONNECTIVITY ISSUES DETECTED:")
+                    result.issues.forEach { issue ->
+                        appendLog("  ❌ $issue")
+                    }
+                    appendLog("")
+                    appendLog("💡 HOW TO FIX:")
+                    result.recommendations.forEach { rec ->
+                        appendLog("  → $rec")
+                    }
+                    appendLog("")
+                    appendLog("🔧 After fixing, click 'Start Automation' again.")
 
-            withContext(Dispatchers.Main) {
-                if (result == null) {
-                    val msg = "Failed to reach backend — is it running at ${com.optimatrix.gsmcall.NetworkConfig.httpBaseUrl}?"
-                    _uiState.update { it.copy(campaignStarting = false, campaignStartError = msg) }
-                    appendLog("❌ $msg")
-                    return@withContext
-                }
-                if (result.success) {
                     _uiState.update { it.copy(
-                        campaignStarting  = false,
-                        campaignStartError = "",
-                        campaignRunning   = true,
-                        campaignId        = result.campaignId ?: "",
-                        campaignTotalLeads = result.totalLeads,
+                        campaignStarting = false,
+                        campaignStartError = result.issues.joinToString(", ")
                     ) }
-                    appendLog("✅ Campaign started: ${result.campaignId} — ${result.totalLeads} leads queued")
-                    LogStore.log("ViewModel", "Campaign started: id=${result.campaignId} leads=${result.totalLeads}")
-                } else {
-                    val msg = result.errorMessage ?: "Backend returned success=false"
-                    _uiState.update { it.copy(campaignStarting = false, campaignStartError = msg) }
-                    appendLog("❌ Campaign start failed: $msg")
-                    LogStore.log("ViewModel", "Campaign start failed: $msg")
+                    return@launch
                 }
+
+                // ─ STEP 2: LAN connectivity passed, start campaign
+                LogStore.log("MainViewModel", "✓ LAN validation passed")
+                appendLog("")
+                appendLog("✓ LAN: All connectivity checks passed")
+                appendLog("✓ Starting campaign on backend…")
+                appendLog("")
+
+                networking.startCampaign(
+                    name = campaignName,
+                    onSuccess = { campaignId, totalLeads ->
+                        _uiState.update { it.copy(
+                            campaignStarting = false,
+                            campaignStartError = "",
+                            campaignRunning = true,
+                            campaignId = campaignId,
+                            campaignTotalLeads = totalLeads,
+                            campaignProgress = 0,
+                        ) }
+                        appendLog("════════════════════════════════════════")
+                        appendLog("✅ CAMPAIGN STARTED SUCCESSFULLY")
+                        appendLog("════════════════════════════════════════")
+                        appendLog("Campaign ID: $campaignId")
+                        appendLog("Total Leads: $totalLeads")
+                        appendLog("Status: Running")
+                        appendLog("════════════════════════════════════════")
+                        LogStore.log("MainViewModel", "Campaign started: $campaignId ($totalLeads leads)")
+                    },
+                    onError = { error ->
+                        _uiState.update { it.copy(
+                            campaignStarting = false,
+                            campaignStartError = error
+                        ) }
+                        appendLog("")
+                        appendLog("❌ CAMPAIGN START FAILED (Backend)")
+                        appendLog("Error: $error")
+                        appendLog("")
+                        appendLog("⚠️  LAN connectivity was OK, but backend rejected the campaign.")
+                        appendLog("")
+                        appendLog("Possible causes:")
+                        appendLog("  • Backend crashed during validation")
+                        appendLog("  • MongoDB connection lost")
+                        appendLog("  • AI-Python service offline")
+                        appendLog("  • Invalid campaign data")
+                        appendLog("")
+                        appendLog("Try:")
+                        appendLog("  1. Restart backend: npm start")
+                        appendLog("  2. Check backend logs for errors")
+                        appendLog("  3. Click 'Start Automation' again")
+                        LogStore.log("MainViewModel", "Campaign start failed: $error")
+                    }
+                )
             }
         }
     }
@@ -404,8 +559,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     override fun onCleared() {
         super.onCleared()
+        LogStore.log("MainViewModel", "🛑 Cleaning up…")
         healthPollJob?.cancel()
         campaignPollJob?.cancel()
         callTimerJob?.cancel()
+        networking.shutdown()  // NEW: Shutdown networking stack (WebSocket + cleanup)
     }
 }

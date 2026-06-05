@@ -65,16 +65,19 @@
     <uses-permission android:name="com.optimatrix.gsmcall.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
-        android:allowBackup="false"
+        android:name="com.optimatrix.gsmcall.GSMCallApplication"
+        android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
         android:exported="true"
         android:extractNativeLibs="false"
         android:icon="@android:drawable/sym_call_incoming"
         android:label="GSM Call AI"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@android:drawable/sym_call_incoming"
-        android:supportsRtl="true" >
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true" >
 
         <!-- Main activity -->
         <activity
