@@ -98,7 +98,7 @@ class AdbCampaignService {
       ).trim();
 
       const rawPhone = String(
-        row['Mobile Number'] || row['Mobile'] || row['mobile_number'] ||
+        row['Mobile Number'] || row['mobile number'] || row['Mobile'] || row['mobile_number'] ||
         row['Phone'] || row['phone'] || row['Phone Number'] ||
         row['mobile'] || row['MOBILE'] || ''
       ).trim();
@@ -119,7 +119,14 @@ class AdbCampaignService {
       try {
         const exists = await Lead.findOne({ phone }).lean();
         if (exists) {
-          logger.debug(`[AdbCampaign] Duplicate skipped: ${phone}`);
+          // If existing lead is not pending (completed, failed, skipped), reset to pending
+          if (exists.status !== 'pending') {
+            await Lead.findOneAndUpdate({ phone }, { $set: { status: 'pending', campaignId: null } });
+            logger.debug(`[AdbCampaign] Lead reset to pending: ${phone} (was ${exists.status})`);
+            inserted++;
+            continue;
+          }
+          logger.debug(`[AdbCampaign] Duplicate skipped: ${phone} (already pending)`);
           skipped++;
           continue;
         }
