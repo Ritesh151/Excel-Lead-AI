@@ -484,3 +484,48 @@
 {"level":"info","message":"10.75.233.49 - - [05/Jun/2026:08:59:49 +0000] \"GET /api/adb/status HTTP/1.1\" 200 361 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:29:49.055"}
 {"level":"info","message":"10.75.233.49 - - [05/Jun/2026:08:59:54 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:29:54.993"}
 {"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:00:04 +0000] \"GET /api/adb/status HTTP/1.1\" 200 361 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:30:04.216"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:00:05 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:30:05.025"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:00:15 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:30:15.068"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:00:19 +0000] \"GET /api/adb/status HTTP/1.1\" 200 361 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:30:19.264"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:00:22 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"-\"","timestamp":"2026-06-05 14:30:22.160"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:00:22 +0000] \"POST /api/adb/start HTTP/1.1\" 200 286 \"-\" \"Android-GSMCall/3.0 (okhttp)\"","timestamp":"2026-06-05 14:30:22.312"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:09:00:22 +0000] \"POST /api/events/emit HTTP/1.1\" 200 51 \"-\" \"python-httpx/0.28.1\"","timestamp":"2026-06-05 14:30:22.320"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:00:25 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:30:25.096"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:00:34 +0000] \"GET /api/adb/status HTTP/1.1\" 200 347 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:30:34.316"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:00:35 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:30:35.131"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:00:45 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:30:45.174"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:00:49 +0000] \"GET /api/adb/status HTTP/1.1\" 200 347 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:30:49.364"}
+{"level":"info","message":"127.0.0.1 - - [05/Jun/2026:09:00:52 +0000] \"POST /api/events/emit HTTP/1.1\" 200 50 \"-\" \"python-httpx/0.28.1\"","timestamp":"2026-06-05 14:30:52.297"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:00:55 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:30:55.200"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:01:04 +0000] \"GET /api/adb/status HTTP/1.1\" 200 361 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:31:04.424"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:01:05 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:31:05.231"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:01:05 +0000] \"POST /api/calls/recording HTTP/1.1\" 200 56 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:31:05.654"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:01:15 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:31:15.280"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:01:19 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:31:19.460"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:01:25 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:31:25.304"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:01:34 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:31:34.501"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:01:35 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:31:35.336"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:01:45 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:31:45.384"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:01:49 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:31:49.581"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:01:55 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:31:55.600"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:02:04 +0000] \"POST /api/adb/stop HTTP/1.1\" 200 109 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:32:04.699"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:02:04 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:32:04.708"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:02:05 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:32:05.648"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:02:15 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:32:15.719"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:02:19 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:32:19.739"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:02:25 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:32:25.755"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:02:34 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:32:34.763"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:02:35 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:32:35.788"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:02:49 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:32:49.811"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:02:56 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:32:56.026"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:03:05 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:33:05.038"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:03:06 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:33:06.062"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:06:10 +0000] \"POST /api/adb/stop HTTP/1.1\" 200 109 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:36:10.371"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:06:13 +0000] \"GET /health HTTP/1.1\" 200 145 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:36:13.260"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:06:15 +0000] \"POST /api/adb/stop HTTP/1.1\" 200 109 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:36:15.126"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:06:18 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:36:18.337"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:06:23 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:36:23.352"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:06:33 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:36:33.370"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:06:33 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:36:33.382"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:06:43 +0000] \"GET /health HTTP/1.1\" 200 144 \"-\" \"Android-GSM-AI/3.0 (okhttp)\"","timestamp":"2026-06-05 14:36:43.459"}
+{"level":"info","message":"10.75.233.49 - - [05/Jun/2026:09:06:48 +0000] \"GET /api/adb/status HTTP/1.1\" 200 227 \"-\" \"okhttp/4.11.0\"","timestamp":"2026-06-05 14:36:48.435"}

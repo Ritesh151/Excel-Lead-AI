@@ -130,6 +130,7 @@ class AdbCampaignService {
           skipped++;
           continue;
         }
+
         await Lead.create({ name: name || 'Unknown', phone, status: 'pending' });
         logger.debug(`[AdbCampaign] Lead inserted: ${name} (${phone})`);
         inserted++;

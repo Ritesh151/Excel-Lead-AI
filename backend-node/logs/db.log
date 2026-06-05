@@ -60,3 +60,7 @@
 {"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-05 14:25:54.808"}
 {"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-05 14:27:37.344"}
 {"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-05 14:27:51.598"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-05 14:31:12.515"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-05 14:32:47.011"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-05 14:33:59.026"}
+{"level":"info","message":"MongoDB connected — host=localhost db=ai_calling pool=10","timestamp":"2026-06-05 14:37:52.443"}
