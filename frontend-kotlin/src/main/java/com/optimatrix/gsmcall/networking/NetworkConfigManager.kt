@@ -3,6 +3,7 @@ package com.optimatrix.gsmcall.networking
 import android.content.Context
 import android.content.SharedPreferences
 import com.optimatrix.gsmcall.BuildConfig
+import com.optimatrix.gsmcall.NetworkConfig
 import com.optimatrix.gsmcall.utils.LogStore
 
 /**
@@ -57,6 +58,7 @@ class NetworkConfigManager(context: Context) {
     
     /**
      * Get backend hostname/IP
+     * Priority: SharedPreferences > BuildConfig > NetworkConfig default (10.45.106.119)
      */
     fun getBackendHost(): String {
         val saved = prefs.getString(KEY_BACKEND_HOST, null)
@@ -66,13 +68,14 @@ class NetworkConfigManager(context: Context) {
         }
         
         val fromBuildConfig = DEFAULT_BACKEND_HOST
-        if (fromBuildConfig.isNotBlank() && fromBuildConfig != "192.168.1.100") {
+        if (fromBuildConfig.isNotBlank() && fromBuildConfig != "192.168.1.100" && fromBuildConfig != "10.0.2.2") {
             LogStore.log(TAG, "Using BuildConfig backend host: $fromBuildConfig")
             return fromBuildConfig
         }
         
-        LogStore.log(TAG, "Using hardcoded backend host: localhost")
-        return "localhost"
+        val defaultHost = "10.45.106.119"
+        LogStore.log(TAG, "Using default backend host: $defaultHost")
+        return defaultHost
     }
     
     /**
@@ -86,12 +89,12 @@ class NetworkConfigManager(context: Context) {
         }
         
         val fromBuildConfig = DEFAULT_BACKEND_PORT
-        if (fromBuildConfig > 0 && fromBuildConfig != 3000) {
+        if (fromBuildConfig > 0) {
             LogStore.log(TAG, "Using BuildConfig backend port: $fromBuildConfig")
             return fromBuildConfig
         }
         
-        LogStore.log(TAG, "Using hardcoded backend port: 3000")
+        LogStore.log(TAG, "Using default backend port: 3000")
         return 3000
     }
     

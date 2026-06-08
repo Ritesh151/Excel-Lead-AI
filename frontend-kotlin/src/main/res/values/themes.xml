@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.GSMCallAutomation" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">?android:colorBackground</item>
+        <item name="android:statusBarColor">@color/offwhite_background</item>
+        <item name="android:navigationBarColor">@color/offwhite_background</item>
+        <item name="colorPrimary">@color/offwhite_primary</item>
+        <item name="colorOnPrimary">@color/offwhite_on_primary</item>
+        <item name="colorPrimaryContainer">@color/offwhite_surface_variant</item>
+        <item name="colorSecondary">@color/offwhite_secondary</item>
+        <item name="colorSurface">@color/offwhite_surface</item>
+        <item name="colorOnSurface">@color/offwhite_on_surface</item>
+        <item name="android:colorBackground">@color/offwhite_background</item>
+        <item name="colorOnBackground">@color/offwhite_on_background</item>
+        <item name="colorError">@color/offwhite_error</item>
     </style>
 </resources>

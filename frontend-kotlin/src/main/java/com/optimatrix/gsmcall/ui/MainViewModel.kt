@@ -3,7 +3,13 @@ package com.optimatrix.gsmcall.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.optimatrix.gsmcall.NetworkConfig
 import com.optimatrix.gsmcall.api.ApiClient
+import com.optimatrix.gsmcall.network.ConnectionStatusEngine
+import com.optimatrix.gsmcall.network.NetworkConnectivityCallback
+import com.optimatrix.gsmcall.network.ReconnectEngine
+import com.optimatrix.gsmcall.network.TcpConnectionTester
+import com.optimatrix.gsmcall.networking.LanConnectivityValidator
 import com.optimatrix.gsmcall.networking.NetworkingInitializer
 import com.optimatrix.gsmcall.networking.SocketManagerProduction
 import com.optimatrix.gsmcall.utils.LogStore
@@ -19,135 +25,226 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
-/**
- * MainViewModel — Jetpack Compose state holder.
- *
- * Exposes [uiState] as a StateFlow so the Composable re-renders on any change.
- *
- * State is updated from three sources:
- *   1. WebSocket events from backend-node (NEW via NetworkingInitializer)
- *   2. LocalBroadcast from CallAutomationService → updateFromServiceStatus()
- *   3. Periodic backend health poll             → startHealthPolling()
- *
- * Networking Stack Integration:
- *   • NetworkingInitializer: Single integration point for all networking
- *   • SocketManagerProduction: WebSocket with auto-reconnect
- *   • NetworkDiagnosticsValidator: Pre-campaign network checks
- *   • ApiClientProduction: HTTP client with retry logic
- */
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _uiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
-    // Legacy API client for backward compatibility
     private val apiClient = ApiClient(application)
-    
-    // New production networking stack
     private val networking = NetworkingInitializer(application)
+
+    private val connectionStatusEngine = ConnectionStatusEngine(application)
+    private val networkCallback = NetworkConnectivityCallback(application)
+    private val reconnectEngine = ReconnectEngine()
+    private val tcpTester = TcpConnectionTester()
+    private var networkListener: NetworkConnectivityCallback.OnNetworkChangeListener? = null
 
     private var healthPollJob: Job? = null
     private var campaignPollJob: Job? = null
     private var callTimerJob: Job? = null
+    private var diagnosticsJob: Job? = null
 
     init {
+        initConnectionState()
+        registerNetworkCallback()
         initializeNetworking()
         startHealthPolling()
         startCampaignPolling()
+        runStartupDiagnostics()
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Networking Initialization (NEW)
-    // ─────────────────────────────────────────────────────────────────────────
+    private fun initConnectionState() {
+        _uiState.update { it.copy(
+            backendHost = NetworkConfig.host,
+            backendPort = NetworkConfig.port,
+            connectionStatusText = "Initializing..."
+        ) }
+        LogStore.log("MainViewModel", "Network config: ${NetworkConfig.httpBaseUrl}")
+        LogStore.log("MainViewModel", "WebSocket URL: ${NetworkConfig.wsUrl}")
+    }
 
-    /**
-     * Initialize WebSocket connection with handlers
-     */
+    private fun registerNetworkCallback() {
+        val listener = object : NetworkConnectivityCallback.OnNetworkChangeListener {
+            override fun onWifiConnected() {
+                LogStore.log("MainViewModel", "WiFi connected")
+                appendLog("WiFi connected")
+                _uiState.update { it.copy(wifiConnected = true, networkType = "WiFi") }
+                runDiagnostics()
+            }
+
+            override fun onWifiDisconnected() {
+                LogStore.log("MainViewModel", "WiFi disconnected")
+                appendLog("WiFi disconnected")
+                _uiState.update { it.copy(wifiConnected = false, backendStatus = "offline", websocketConnected = false) }
+            }
+
+            override fun onWifiChanged(newNetwork: String) {
+                LogStore.log("MainViewModel", "WiFi network changed")
+                appendLog("WiFi network changed")
+                runDiagnostics()
+            }
+
+            override fun onCellularConnected() {
+                LogStore.log("MainViewModel", "Cellular data connected")
+                appendLog("Cellular data active - ensure WiFi is also connected")
+                _uiState.update { it.copy(networkType = "Cellular") }
+            }
+
+            override fun onNetworkLost() {
+                LogStore.log("MainViewModel", "Network lost")
+                appendLog("Network connection lost")
+                _uiState.update { it.copy(wifiConnected = false, backendStatus = "offline") }
+            }
+
+            override fun onNetworkAvailable() {
+                LogStore.log("MainViewModel", "Network available")
+                runDiagnostics()
+            }
+
+            override fun onNetworkUnavailable() {
+                LogStore.log("MainViewModel", "Network unavailable")
+                _uiState.update { it.copy(wifiConnected = false) }
+            }
+
+            override fun onCaptivePortal() {
+                LogStore.log("MainViewModel", "Captive portal detected")
+                appendLog("Captive portal - may need to sign in")
+            }
+        }
+        networkListener = listener
+        networkCallback.addListener(listener)
+        networkCallback.register()
+        _uiState.update { it.copy(
+            wifiConnected = networkCallback.isWifiConnected(),
+            networkType = networkCallback.getActiveNetworkType()
+        ) }
+    }
+
+    private fun runStartupDiagnostics() {
+        diagnosticsJob = viewModelScope.launch(Dispatchers.IO) {
+            delay(1000)
+            LogStore.log("MainViewModel", "Running startup diagnostics...")
+            appendLog("Running network diagnostics...")
+            val result = connectionStatusEngine.runFullDiagnostics()
+            withContext(Dispatchers.Main) {
+                updateStateFromDiagnostics(result)
+            }
+        }
+    }
+
+    private fun runDiagnostics() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = connectionStatusEngine.runFullDiagnostics()
+            withContext(Dispatchers.Main) {
+                updateStateFromDiagnostics(result)
+            }
+        }
+    }
+
+    private fun updateStateFromDiagnostics(state: ConnectionStatusEngine.ConnectionState) {
+        val backendStatusStr = when (state.backendStatus) {
+            ConnectionStatusEngine.BackendStatus.ONLINE -> "online"
+            ConnectionStatusEngine.BackendStatus.OFFLINE -> "offline"
+            ConnectionStatusEngine.BackendStatus.CONNECTING -> "connecting"
+            ConnectionStatusEngine.BackendStatus.DEGRADED -> "degraded"
+            ConnectionStatusEngine.BackendStatus.RECONNECTING -> "reconnecting"
+        }
+        _uiState.update { it.copy(
+            backendStatus = backendStatusStr,
+            tcpReachable = state.tcpReachable,
+            healthReachable = state.healthResponse,
+            tcpLatencyMs = state.latencyMs,
+            lastError = state.lastError ?: "",
+            wifiConnected = it.wifiConnected || state.networkStatus.name.startsWith("WIFI"),
+            backendHost = state.backendHost,
+            backendPort = state.backendPort
+        ) }
+        if (state.tcpReachable) {
+            LogStore.log("MainViewModel", "TCP reachable (${state.latencyMs}ms)")
+        } else {
+            LogStore.log("MainViewModel", "TCP unreachable: ${state.lastError}")
+            appendLog("TCP unreachable: ${state.lastError ?: "unknown"}")
+        }
+    }
+
     private fun initializeNetworking() {
-        LogStore.log("MainViewModel", "📡 Initializing networking stack...")
+        LogStore.log("MainViewModel", "Initializing networking stack...")
 
         networking.initializeWebSocket(
-            // Handle connection state changes
             onStateChange = { state ->
                 handleWebSocketStateChange(state)
             },
-            // Handle incoming events
             onMessage = { event, payload ->
                 handleWebSocketEventMap(event, payload)
             },
-            // Handle errors
             onError = { error ->
                 handleWebSocketError(error)
             }
         )
     }
 
-    /**
-     * Map WebSocket state changes to UI state
-     */
     private fun handleWebSocketStateChange(state: SocketManagerProduction.ConnectionState) {
-        LogStore.log("MainViewModel", "📊 WebSocket state: $state")
+        LogStore.log("MainViewModel", "WebSocket state: $state")
 
         when (state) {
             SocketManagerProduction.ConnectionState.CONNECTED -> {
                 _uiState.update { it.copy(
                     websocketConnected = true,
-                    backendStatus = "online"
+                    backendStatus = "online",
+                    reconnectAttempt = 0
                 ) }
-                appendLog("✓ Backend connected (WebSocket)")
+                connectionStatusEngine.updateWebSocketStatus(ConnectionStatusEngine.WebSocketStatus.CONNECTED)
+                appendLog("Backend connected (WebSocket)")
             }
             SocketManagerProduction.ConnectionState.CONNECTING -> {
                 _uiState.update { it.copy(backendStatus = "connecting") }
-                appendLog("📡 Connecting to backend…")
+                connectionStatusEngine.updateWebSocketStatus(ConnectionStatusEngine.WebSocketStatus.CONNECTING)
+                appendLog("Connecting to backend...")
             }
             SocketManagerProduction.ConnectionState.RECONNECTING -> {
-                _uiState.update { it.copy(backendStatus = "reconnecting") }
-                appendLog("🔄 Reconnecting to backend…")
+                val attempt = _uiState.value.reconnectAttempt + 1
+                _uiState.update { it.copy(
+                    backendStatus = "reconnecting",
+                    reconnectAttempt = attempt
+                ) }
+                connectionStatusEngine.updateWebSocketStatus(ConnectionStatusEngine.WebSocketStatus.RECONNECTING)
+                connectionStatusEngine.recordReconnectAttempt(attempt)
+                appendLog("Reconnecting to backend (attempt $attempt)...")
             }
             SocketManagerProduction.ConnectionState.DISCONNECTED -> {
                 _uiState.update { it.copy(
                     websocketConnected = false,
                     backendStatus = "offline"
                 ) }
-                appendLog("⚠ Backend disconnected")
+                connectionStatusEngine.updateWebSocketStatus(ConnectionStatusEngine.WebSocketStatus.DISCONNECTED)
+                appendLog("Backend disconnected")
             }
             SocketManagerProduction.ConnectionState.FAILED -> {
                 _uiState.update { it.copy(
                     websocketConnected = false,
                     backendStatus = "offline"
                 ) }
-                appendLog("❌ Cannot reach backend")
+                connectionStatusEngine.updateWebSocketStatus(ConnectionStatusEngine.WebSocketStatus.FAILED)
+                appendLog("Cannot reach backend")
             }
         }
     }
 
-    /**
-     * Handle incoming WebSocket events from backend (Map version for networking stack)
-     */
     private fun handleWebSocketEventMap(event: String, payload: Map<String, Any?>) {
-        LogStore.log("MainViewModel", "← WebSocket: $event")
-
-        // Convert Map to JSONObject for compatibility with existing handler
+        LogStore.log("MainViewModel", "WebSocket event: $event")
         val jsonPayload = JSONObject(payload)
-        val jsonString = jsonPayload.toString()
-
-        handleWebSocketEvent(jsonString)
+        handleWebSocketEvent(jsonPayload.toString())
     }
 
-    /**
-     * Handle WebSocket errors
-     */
     private fun handleWebSocketError(error: String) {
-        LogStore.log("MainViewModel", "❌ WebSocket error: $error")
-        appendLog("❌ WebSocket error: $error")
-        _uiState.update { it.copy(websocketConnected = false) }
+        LogStore.log("MainViewModel", "WebSocket error: $error")
+        appendLog("WebSocket error: $error")
+        _uiState.update { it.copy(
+            websocketConnected = false,
+            lastError = error
+        ) }
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Service broadcast handlers (called by MainActivity's BroadcastReceiver)
-    // ─────────────────────────────────────────────────────────────────────────
-
-    /** Handles ACTION_STATUS_UPDATE from CallAutomationService */
     fun updateFromServiceStatus(status: String) {
         _uiState.update { s ->
             s.copy(
@@ -168,7 +265,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    /** Handles ACTION_LOG_UPDATE from CallAutomationService */
     fun appendLog(message: String) {
         _uiState.update { s ->
             val newLogs = (listOf(message) + s.logs).take(300)
@@ -176,14 +272,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // WebSocket JSON event handler (called by SocketManager callback in MainActivity)
-    // ─────────────────────────────────────────────────────────────────────────
-
-    /**
-     * Parse a raw WebSocket JSON string from backend-node and update state.
-     * All backend WebSocket events pass through here.
-     */
     fun handleWebSocketEvent(json: String) {
         val obj = try { JSONObject(json) } catch (_: Exception) { return }
         val event = obj.optString("event", "")
@@ -197,12 +285,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     detectedIntent   = "",
                     intentConfidence  = 0f,
                 ) }
-                appendLog("📞 Call started → ${obj.optString("phone")}")
+                appendLog("Call started -> ${obj.optString("phone")}")
             }
 
             "call_connected" -> {
                 _uiState.update { it.copy(callState = "connected") }
-                appendLog("✅ Call connected")
+                appendLog("Call connected")
                 startCallTimer()
             }
 
@@ -211,23 +299,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     playbackState    = "playing",
                     playbackStrategy = obj.optString("strategy"),
                 ) }
-                appendLog("🔊 Playing greeting (${obj.optString("strategy")})")
+                appendLog("Playing greeting (${obj.optString("strategy")})")
             }
 
             "greeting_played" -> {
                 val ok = obj.optBoolean("success", true)
                 _uiState.update { it.copy(playbackState = if (ok) "played" else "failed") }
-                appendLog(if (ok) "✅ Greeting played" else "⚠ Greeting playback had issues")
+                appendLog(if (ok) "Greeting played" else "Greeting playback had issues")
             }
 
             "recording_started" -> {
                 _uiState.update { it.copy(recordingState = "recording") }
-                appendLog("🎤 Recording customer response…")
+                appendLog("Recording customer response...")
             }
 
             "recording_saved" -> {
                 _uiState.update { it.copy(recordingState = "saved") }
-                appendLog("💾 Recording saved (${obj.optInt("duration")}s)")
+                appendLog("Recording saved (${obj.optInt("duration")}s)")
             }
 
             "transcription_done" -> {
@@ -239,14 +327,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     detectedIntent    = intent,
                     intentConfidence  = confidence,
                 ) }
-                appendLog("📝 Transcription: \"${text.take(100)}\"")
+                appendLog("Transcription: \"${text.take(100)}\"")
             }
 
             "intent_detected" -> {
                 val intent     = obj.optString("intent")
                 val confidence = obj.optDouble("confidence", 0.0).toFloat()
                 _uiState.update { it.copy(detectedIntent = intent, intentConfidence = confidence) }
-                appendLog("🎯 Intent: $intent (${(confidence * 100).toInt()}%)")
+                appendLog("Intent: $intent (${(confidence * 100).toInt()}%)")
             }
 
             "call_result", "call_completed" -> {
@@ -257,13 +345,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     transcriptionText = text,
                     callState         = "completed",
                 ) }
-                appendLog("✅ Call complete — Intent: $intent")
+                appendLog("Call complete - Intent: $intent")
                 stopCallTimer()
             }
 
             "call_failed" -> {
                 _uiState.update { it.copy(callState = "failed") }
-                appendLog("❌ Call failed: ${obj.optString("error")}")
+                appendLog("Call failed: ${obj.optString("error")}")
                 stopCallTimer()
             }
 
@@ -282,21 +370,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     campaignNoCount   = no,
                     campaignProgress  = pct,
                 ) }
-                appendLog("📊 Campaign: $processed/$total  YES=$yes  NO=$no")
+                appendLog("Campaign: $processed/$total  YES=$yes  NO=$no")
             }
 
             "campaign_done" -> {
                 _uiState.update { it.copy(campaignRunning = false, campaignProgress = 100) }
-                appendLog("🏁 Campaign complete")
+                appendLog("Campaign complete")
             }
 
             "device_status" -> {
-                appendLog("📱 Device: ${obj.optString("serial")} → ${obj.optString("status")}")
+                appendLog("Device: ${obj.optString("serial")} -> ${obj.optString("status")}")
             }
 
             "android_connected" -> {
                 _uiState.update { it.copy(websocketConnected = true, backendStatus = "online") }
-                appendLog("🔗 WebSocket connected to backend")
+                appendLog("WebSocket connected to backend")
             }
 
             "log" -> {
@@ -310,145 +398,122 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             "ws_connected"    -> _uiState.update { it.copy(websocketConnected = true,  backendStatus = "online")  }
             "ws_disconnected" -> _uiState.update { it.copy(websocketConnected = false, backendStatus = "offline") }
 
-            else -> { /* ignore unknown events */ }
+            else -> { }
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Campaign control — called by MainActivity "Start/Stop automation" buttons
-    // ─────────────────────────────────────────────────────────────────────────
-
-    /**
-     * Start campaign — COMPLETE FLOW with LAN connectivity validation
-     *
-     * Sequence:
-     *   1. Validate LAN connectivity (4-point check):
-     *      • WiFi connected
-     *      • TCP socket to backend
-     *      • HTTP /health endpoint
-     *      • WebSocket TCP reachable
-     *   2. If healthy, start campaign via NetworkingInitializer
-     *   3. Update UI with results or detailed error diagnostics
-     */
     fun startCampaign(campaignName: String = "Android Campaign") {
         if (_uiState.value.campaignStarting || _uiState.value.campaignRunning) {
-            appendLog("⚠ Campaign already starting or running — ignoring duplicate request")
+            appendLog("Campaign already starting or running")
             return
         }
 
-        appendLog("🚀 Starting automation: $campaignName")
+        appendLog("Starting automation: $campaignName")
         LogStore.log("MainViewModel", "startCampaign: $campaignName")
-
         _uiState.update { it.copy(campaignStarting = true, campaignStartError = "") }
 
         viewModelScope.launch {
-            // ─ STEP 1: Validate LAN connectivity before campaign start
             appendLog("")
-            appendLog("🔍 Validating LAN connectivity…")
-            
-            val validator = com.optimatrix.gsmcall.networking.LanConnectivityValidator(getApplication())
-            val result = validator.validate()
-            
-            // Show diagnostics regardless of outcome
-            appendLog(result.diagnosticsText)
-            
-            viewModelScope.launch(Dispatchers.Main) {
-                if (!result.isHealthy) {
-                    // Connectivity issues detected
-                    LogStore.log("MainViewModel", "❌ LAN validation failed")
-                    appendLog("")
-                    appendLog("❌ CONNECTIVITY ISSUES DETECTED:")
-                    result.issues.forEach { issue ->
-                        appendLog("  ❌ $issue")
-                    }
-                    appendLog("")
-                    appendLog("💡 HOW TO FIX:")
-                    result.recommendations.forEach { rec ->
-                        appendLog("  → $rec")
-                    }
-                    appendLog("")
-                    appendLog("🔧 After fixing, click 'Start Automation' again.")
+            appendLog("Validating LAN connectivity...")
 
+            val validator = LanConnectivityValidator(getApplication())
+            val result = validator.validate()
+            appendLog(result.diagnosticsText)
+
+            if (!result.isHealthy) {
+                LogStore.log("MainViewModel", "LAN validation failed")
+                appendLog("")
+                appendLog("CONNECTIVITY ISSUES DETECTED:")
+                result.issues.forEach { issue -> appendLog("  - $issue") }
+                appendLog("")
+                appendLog("HOW TO FIX:")
+                result.recommendations.forEach { rec -> appendLog("  -> $rec") }
+                appendLog("")
+                appendLog("After fixing, click 'Start Automation' again.")
+
+                _uiState.update { it.copy(
+                    campaignStarting = false,
+                    campaignStartError = result.issues.joinToString(", ")
+                ) }
+                return@launch
+            }
+
+            runTcpDiagnostics()
+
+            LogStore.log("MainViewModel", "LAN validation passed")
+            appendLog("")
+            appendLog("LAN: All connectivity checks passed")
+            appendLog("Starting campaign on backend...")
+            appendLog("")
+
+            networking.startCampaign(
+                name = campaignName,
+                onSuccess = { campaignId, totalLeads ->
                     _uiState.update { it.copy(
                         campaignStarting = false,
-                        campaignStartError = result.issues.joinToString(", ")
+                        campaignStartError = "",
+                        campaignRunning = true,
+                        campaignId = campaignId,
+                        campaignTotalLeads = totalLeads,
+                        campaignProgress = 0,
                     ) }
-                    return@launch
+                    appendLog("CAMPAIGN STARTED SUCCESSFULLY")
+                    appendLog("Campaign ID: $campaignId")
+                    appendLog("Total Leads: $totalLeads")
+                    LogStore.log("MainViewModel", "Campaign started: $campaignId ($totalLeads leads)")
+                },
+                onError = { error ->
+                    _uiState.update { it.copy(
+                        campaignStarting = false,
+                        campaignStartError = error
+                    ) }
+                    appendLog("")
+                    appendLog("CAMPAIGN START FAILED")
+                    appendLog("Error: $error")
+                    appendLog("")
+                    appendLog("LAN connectivity was OK, but backend rejected the campaign.")
+                    LogStore.log("MainViewModel", "Campaign start failed: $error")
                 }
+            )
+        }
+    }
 
-                // ─ STEP 2: LAN connectivity passed, start campaign
-                LogStore.log("MainViewModel", "✓ LAN validation passed")
-                appendLog("")
-                appendLog("✓ LAN: All connectivity checks passed")
-                appendLog("✓ Starting campaign on backend…")
-                appendLog("")
-
-                networking.startCampaign(
-                    name = campaignName,
-                    onSuccess = { campaignId, totalLeads ->
-                        _uiState.update { it.copy(
-                            campaignStarting = false,
-                            campaignStartError = "",
-                            campaignRunning = true,
-                            campaignId = campaignId,
-                            campaignTotalLeads = totalLeads,
-                            campaignProgress = 0,
-                        ) }
-                        appendLog("════════════════════════════════════════")
-                        appendLog("✅ CAMPAIGN STARTED SUCCESSFULLY")
-                        appendLog("════════════════════════════════════════")
-                        appendLog("Campaign ID: $campaignId")
-                        appendLog("Total Leads: $totalLeads")
-                        appendLog("Status: Running")
-                        appendLog("════════════════════════════════════════")
-                        LogStore.log("MainViewModel", "Campaign started: $campaignId ($totalLeads leads)")
-                    },
-                    onError = { error ->
-                        _uiState.update { it.copy(
-                            campaignStarting = false,
-                            campaignStartError = error
-                        ) }
-                        appendLog("")
-                        appendLog("❌ CAMPAIGN START FAILED (Backend)")
-                        appendLog("Error: $error")
-                        appendLog("")
-                        appendLog("⚠️  LAN connectivity was OK, but backend rejected the campaign.")
-                        appendLog("")
-                        appendLog("Possible causes:")
-                        appendLog("  • Backend crashed during validation")
-                        appendLog("  • MongoDB connection lost")
-                        appendLog("  • AI-Python service offline")
-                        appendLog("  • Invalid campaign data")
-                        appendLog("")
-                        appendLog("Try:")
-                        appendLog("  1. Restart backend: npm start")
-                        appendLog("  2. Check backend logs for errors")
-                        appendLog("  3. Click 'Start Automation' again")
-                        LogStore.log("MainViewModel", "Campaign start failed: $error")
-                    }
-                )
+    private suspend fun runTcpDiagnostics() {
+        appendLog("TCP diagnostics...")
+        val tcpResult = withContext(Dispatchers.IO) {
+            tcpTester.testConnection()
+        }
+        _uiState.update { it.copy(
+            tcpReachable = tcpResult.success,
+            tcpLatencyMs = tcpResult.latencyMs,
+            lastError = if (!tcpResult.success) tcpResult.failureReason ?: "" else ""
+        ) }
+        if (tcpResult.success) {
+            appendLog("TCP: ${tcpResult.host}:${tcpResult.port} reachable (${tcpResult.latencyMs}ms)")
+        } else {
+            appendLog("TCP: ${tcpResult.host}:${tcpResult.port} NOT reachable - ${tcpResult.failureReason}")
+            appendLog("  Category: ${tcpResult.failureCategory}")
+            when (tcpResult.failureCategory) {
+                TcpConnectionTester.FailureCategory.TIMEOUT -> appendLog("  Fix: Check firewall or backend process")
+                TcpConnectionTester.FailureCategory.CONNECTION_REFUSED -> appendLog("  Fix: Backend not listening on port ${tcpResult.port}")
+                TcpConnectionTester.FailureCategory.DNS_FAILURE -> appendLog("  Fix: Wrong IP address")
+                TcpConnectionTester.FailureCategory.NO_ROUTE -> appendLog("  Fix: Different subnet or AP isolation")
+                else -> appendLog("  Fix: Check network configuration")
             }
         }
     }
 
-    /**
-     * Stop the running campaign and the local Android service.
-     */
     fun stopCampaign() {
-        appendLog("🛑 Stopping campaign…")
+        appendLog("Stopping campaign...")
         LogStore.log("ViewModel", "stopCampaign requested")
         viewModelScope.launch(Dispatchers.IO) {
             val ok = try { apiClient.stopCampaign() } catch (_: Exception) { false }
             withContext(Dispatchers.Main) {
                 _uiState.update { it.copy(campaignRunning = false, campaignStarting = false) }
-                appendLog(if (ok) "✅ Campaign stop requested" else "⚠ Stop request sent (may not have reached backend)")
+                appendLog(if (ok) "Campaign stop requested" else "Stop request sent")
             }
         }
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Permissions + service control
-    // ─────────────────────────────────────────────────────────────────────────
 
     fun updatePermissionsGranted(granted: Boolean) {
         _uiState.update { it.copy(permissionsGranted = granted) }
@@ -460,12 +525,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun clearLogs() {
         _uiState.update { it.copy(logs = emptyList()) }
-        LogStore.snapshot().let { /* LogStore itself keeps its buffer */ }
+        LogStore.snapshot()
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Backend health polling (every 10 s)
-    // ─────────────────────────────────────────────────────────────────────────
 
     private fun startHealthPolling() {
         healthPollJob?.cancel()
@@ -473,9 +534,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             while (isActive) {
                 val health = try { apiClient.checkHealth() } catch (_: Exception) { ApiClient.HealthResult(false) }
                 _uiState.update { it.copy(
-                    backendStatus = if (health.online) "online" else "offline",
+                    backendStatus = if (health.online) "online" else if (it.backendStatus != "offline") "offline" else it.backendStatus,
+                    healthReachable = health.online
                 ) }
-                delay(10_000)
+                delay(15_000)
             }
         }
     }
@@ -501,10 +563,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Call timer
-    // ─────────────────────────────────────────────────────────────────────────
-
     private fun startCallTimer() {
         callTimerJob?.cancel()
         _uiState.update { it.copy(callTimerSeconds = 0) }
@@ -520,10 +578,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         callTimerJob?.cancel()
         callTimerJob = null
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // State derivation helpers
-    // ─────────────────────────────────────────────────────────────────────────
 
     private fun deriveCallState(status: String) = when {
         status.contains("connected")  -> "connected"
@@ -559,10 +613,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     override fun onCleared() {
         super.onCleared()
-        LogStore.log("MainViewModel", "🛑 Cleaning up…")
+        LogStore.log("MainViewModel", "Cleaning up...")
         healthPollJob?.cancel()
         campaignPollJob?.cancel()
         callTimerJob?.cancel()
-        networking.shutdown()  // NEW: Shutdown networking stack (WebSocket + cleanup)
+        diagnosticsJob?.cancel()
+        networkCallback.unregister()
+        networkListener?.let { networkCallback.removeListener(it) }
+        connectionStatusEngine.destroy()
+        reconnectEngine.disconnect()
+        networking.shutdown()
     }
 }

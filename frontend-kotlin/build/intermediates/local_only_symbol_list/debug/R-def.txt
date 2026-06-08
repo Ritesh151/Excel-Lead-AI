@@ -1,5 +1,22 @@
 R_DEF: Internal format may change without notice
 local
+color offwhite_background
+color offwhite_disabled
+color offwhite_error
+color offwhite_log_background
+color offwhite_log_text
+color offwhite_neutral
+color offwhite_on_background
+color offwhite_on_primary
+color offwhite_on_surface
+color offwhite_outline
+color offwhite_primary
+color offwhite_secondary
+color offwhite_success
+color offwhite_surface
+color offwhite_surface_variant
+color offwhite_tertiary
+color offwhite_warning
 string accessibility_service_description
 string app_name
 string service_description

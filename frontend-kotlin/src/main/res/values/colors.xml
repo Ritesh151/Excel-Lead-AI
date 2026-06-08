@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Off-White Professional Palette -->
+    <color name="offwhite_background">#F5F0EB</color>
+    <color name="offwhite_surface">#FFFFFF</color>
+    <color name="offwhite_surface_variant">#FAF7F4</color>
+    <color name="offwhite_primary">#2C3E50</color>
+    <color name="offwhite_on_primary">#FFFFFF</color>
+    <color name="offwhite_secondary">#6B7B8D</color>
+    <color name="offwhite_tertiary">#95A5A6</color>
+    <color name="offwhite_outline">#E0D6C8</color>
+    <color name="offwhite_on_background">#4A4A4A</color>
+    <color name="offwhite_on_surface">#2C3E50</color>
+    <color name="offwhite_success">#27AE60</color>
+    <color name="offwhite_error">#C0392B</color>
+    <color name="offwhite_warning">#D4A017</color>
+    <color name="offwhite_neutral">#95A5A6</color>
+    <color name="offwhite_log_background">#F8F6F3</color>
+    <color name="offwhite_log_text">#2C3E50</color>
+    <color name="offwhite_disabled">#BDC3C7</color>
+</resources>

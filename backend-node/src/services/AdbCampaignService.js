@@ -506,9 +506,3 @@ module.exports = new AdbCampaignService();
 
 
 
-// see according to this README.md file this is my project:
-// how can i integrate the GSM Voice Calling AI Agent like :
-// n8n, real time conversation with  normal GSM sim call recording.
-// real time conversation with client or customer.
-// mtlb iss existing project me hi mujhe AI Agent ko integrate krna hai toh kese kya kru smjao...
-// 
